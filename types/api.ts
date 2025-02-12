@@ -8,6 +8,13 @@ export interface CourseProps {
 	id: string
 	avgRating: number | null
 	reviewCount: number | null
+	categories_id: string
+	categories: CategoryProps
+}
+export interface CategoryProps {
+	name: string
+	id: string
+	created_at: string
 }
 export interface ReviewProps {
 	rating: number
