@@ -2,7 +2,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Loader from './loader'
 import { CourseProps } from '@/types/api'
-const CaourseCard = ({ thumbnail, title, price, description }: CourseProps) => {
+import StarRating from './starRating'
+const CaourseCard = ({ thumbnail, title, price, description, avgRating, reviewCount }: CourseProps) => {
 	return (
 		<Link href={''} prefetch={false} className='group hover:no-underline flex'>
 			<div className='bg-card rounded-xl overflow-hidden shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] border border-border flex flex-col flex-1'>
@@ -29,6 +30,10 @@ const CaourseCard = ({ thumbnail, title, price, description }: CourseProps) => {
 				<div className='p-6 flex flex-col flex-1'>
 					<h3 className='text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300'>{title}</h3>
 					<p className='text-muted-foreground mb-4 line-clamp-2 flex-1'>{description}</p>
+					<div className='flex justify-between items-center'>
+						<StarRating avgRating={avgRating} reviewCount={reviewCount} />
+						<p className='text-lg font-semibold'>{price} zł</p>
+					</div>
 					<div className='space-y-4 mt-auto'></div>
 				</div>
 			</div>
