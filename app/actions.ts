@@ -8,6 +8,7 @@ import { redirect } from 'next/navigation'
 export const signUpAction = async (formData: FormData) => {
 	const email = formData.get('email')?.toString()
 	const password = formData.get('password')?.toString()
+	const username = formData.get('username')?.toString()
 	const supabase = await createClient()
 	const origin = (await headers()).get('origin')
 
@@ -15,7 +16,7 @@ export const signUpAction = async (formData: FormData) => {
 		return encodedRedirect('error', '/sign-up', 'Email and password are required')
 	}
 
-	const { error } = await supabase.auth.signUp({
+	const { data, error: signUpError } = await supabase.auth.signUp({
 		email,
 		password,
 		options: {
@@ -23,16 +24,39 @@ export const signUpAction = async (formData: FormData) => {
 		},
 	})
 
-	if (error) {
-		console.error(error.code + ' ' + error.message)
-		return encodedRedirect('error', '/sign-up', error.message)
-	} else {
-		return encodedRedirect(
-			'success',
-			'/sign-up',
-			'Thanks for signing up! Please check your email for a verification link.'
-		)
+	if (signUpError) {
+		console.error(signUpError.code + ' ' + signUpError.message)
+		return encodedRedirect('error', '/sign-up', signUpError.message)
 	}
+
+	const user = data?.user
+
+	if (!user) {
+		return encodedRedirect('error', '/sign-up', 'User creation failed')
+	}
+
+	const avatar_url =
+		'https://wltlbfcgbnhlxamxxnve.supabase.co/storage/v1/object/sign/usersAvatar/defaultAvatar.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ1c2Vyc0F2YXRhci9kZWZhdWx0QXZhdGFyLndlYnAiLCJpYXQiOjE3Mzk0NTMwNTIsImV4cCI6MTc3MDk4OTA1Mn0.skjLCnw3EsKSkGAFWRI1krLu5dCkx91sp2s4O2UMBQA'
+
+	const { error: profileError } = await supabase.from('profiles').insert([
+		{
+			id: user.id,
+			created_at: new Date().toISOString(),
+			username: username,
+			avatar_url: avatar_url,
+		},
+	])
+
+	if (profileError) {
+		console.error(profileError.code + ' ' + profileError.message)
+		return encodedRedirect('error', '/sign-up', 'Error creating profile: ' + profileError.message)
+	}
+
+	return encodedRedirect(
+		'success',
+		'/sign-up',
+		'Thanks for signing up! Please check your email for a verification link.'
+	)
 }
 
 export const signInAction = async (formData: FormData) => {
@@ -49,7 +73,7 @@ export const signInAction = async (formData: FormData) => {
 		return encodedRedirect('error', '/sign-in', error.message)
 	}
 
-	return redirect('/')
+	return redirect('/protected')
 }
 
 export const forgotPasswordAction = async (formData: FormData) => {
