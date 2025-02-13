@@ -15,6 +15,7 @@ export interface CategoryProps {
 	name: string
 	id: string
 	created_at: string
+	slug: string
 }
 export interface ReviewProps {
 	rating: number
