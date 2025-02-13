@@ -11,7 +11,8 @@ export default async function Home() {
 	const { data: courses, error: coursesError } = await supabase.from('course').select(`
     *,
     reviews(*),
-    categories(*)
+    categories(*),
+	profiles(*)
   `)
 
 	if (coursesError) {
