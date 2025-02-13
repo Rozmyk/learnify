@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import HeaderAuth from '@/components/header-auth'
+
 const Navbar = () => {
 	return (
 		<nav className='w-full flex justify-center border-b border-b-foreground/10 h-16'>
