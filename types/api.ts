@@ -23,3 +23,9 @@ export interface ReviewProps {
 	content: string
 	created_at: string
 }
+export interface ProfileDataProps {
+	id: string
+	username: string
+	created_at: string
+	avatar_url: string
+}
