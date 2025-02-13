@@ -10,6 +10,7 @@ export interface CourseProps {
 	reviewCount: number | null
 	categories_id: string
 	categories: CategoryProps
+	profiles: ProfileDataProps
 }
 export interface CategoryProps {
 	name: string
