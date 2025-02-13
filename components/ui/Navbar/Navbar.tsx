@@ -1,7 +1,13 @@
 import Link from 'next/link'
-import HeaderAuth from '@/components/header-auth'
+import { createClient } from '@/utils/supabase/server'
+import UserNavbar from './UserNavbar/UserNavbar'
+import PublicNavbar from './PublicNavbar/PublicNavbar'
 
-const Navbar = () => {
+export default async function Navbar() {
+	const supabase = await createClient()
+	const {
+		data: { user },
+	} = await supabase.auth.getUser()
 	return (
 		<nav className='w-full flex justify-center border-b border-b-foreground/10 h-16'>
 			<div className='w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm'>
@@ -11,10 +17,8 @@ const Navbar = () => {
 					</Link>
 					<div className='flex items-center gap-2'></div>
 				</div>
-				<HeaderAuth />
+				{user ? <UserNavbar userId={user.id} /> : <PublicNavbar />}
 			</div>
 		</nav>
 	)
 }
-
-export default Navbar
