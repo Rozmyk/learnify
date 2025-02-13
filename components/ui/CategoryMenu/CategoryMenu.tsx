@@ -21,15 +21,17 @@ const CategoryMenu = () => {
 		getCategory()
 	}, [])
 	return (
-		<div className='h-12  w-full flex justify-center  border-b border-b-foreground/10'>
-			<div className='w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm'>
-				{categoriesData?.map(category => {
-					return (
-						<Link href={`courses/${category.slug}`} key={category.id}>
-							{category.name}
-						</Link>
-					)
-				})}
+		<div className='w-full hidden lg:block'>
+			<div className='h-12  w-full flex justify-center  border-b border-b-foreground/10 '>
+				<div className='w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm'>
+					{categoriesData?.map(category => {
+						return (
+							<Link className='hover:text-white' href={`courses/${category.slug}`} key={category.id}>
+								{category.name}
+							</Link>
+						)
+					})}
+				</div>
 			</div>
 		</div>
 	)
