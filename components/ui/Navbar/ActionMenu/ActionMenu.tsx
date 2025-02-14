@@ -20,30 +20,40 @@ const ActionMenu = ({ avatarUrl }: { avatarUrl: string }) => {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-content' align='start'>
 				<DropdownMenuItem>
-					<div className='flex justify-between items-center gap-4 p-2'>
-						<Image className='rounded-full' alt='User avatar' height={50} width={50} src={avatarUrl} />
-						<div>
-							<p className='text-lg font-medium'>Rozmyk</p>
-							<p className='text-sm'>kymzor@gmail.com</p>
+					<Link href={'/user/edit-profile'}>
+						<div className='flex justify-between items-center gap-4 p-2'>
+							<Image className='rounded-full' alt='User avatar' height={50} width={50} src={avatarUrl} />
+							<div>
+								<p className='text-lg font-medium'>Rozmyk</p>
+								<p className='text-sm'>kymzor@gmail.com</p>
+							</div>
 						</div>
-					</div>
+					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem>
-					<Link href={'/my-courses'}>My courses</Link>
+					<Link className='w-full' href={'/my-courses'}>
+						My courses
+					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem>
-					<Link href='/cart'>My cart</Link>
+					<Link className='w-full' href='/cart'>
+						My cart
+					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem>
-					<Link href='/wishlist'>Wish list</Link>
+					<Link className='w-full' href='/wishlist'>
+						Wish list
+					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>
-					<Link href='/settings'>Account settings</Link>
+					<Link className='w-full' href='/settings'>
+						Account settings
+					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>
-					<span className='cursor-pointer' onClick={signOutAction}>
+					<span className='cursor-pointer w-full' onClick={signOutAction}>
 						Logout
 					</span>
 				</DropdownMenuItem>
