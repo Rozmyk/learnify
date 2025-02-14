@@ -1,13 +1,13 @@
 'use client'
 import Drawer from './Drawer/Drawer'
 import { useState } from 'react'
-import Link from 'next/link'
 import HamburgerBtn from './HamburgerBtn/HamburgerBtn'
 import Overlay from './Overlay/Overlay'
 import CloseButton from './CloseButton/CloseButton'
 import { Search, ShoppingBasket } from 'lucide-react'
 import { Button } from '../../button'
 import { ProfileDataProps } from '@/types/api'
+import HomeButton from '../HomeButton/HomeButton'
 interface NavbarMobileProps {
 	user: ProfileDataProps | null
 }
@@ -25,11 +25,7 @@ const NavbarMobile = ({ user }: NavbarMobileProps) => {
 		<>
 			<div className='flex justify-between items-center w-ful '>
 				<HamburgerBtn isOpen={isOpen} handleOpen={handleOpen} />
-				<div className='flex gap-5 items-center font-semibold '>
-					<Link className='text-xl' href={'/'}>
-						Learnify
-					</Link>
-				</div>
+				<HomeButton />
 				<div className='flex   '>
 					<Button size='icon' variant='ghost'>
 						<Search size={ICON_SIZE} />
