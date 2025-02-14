@@ -5,7 +5,17 @@ import Loader from './loader'
 import { CourseProps } from '@/types/api'
 import StarRating from './starRating'
 
-const CourseCard = ({ thumbnail, title, price, slug, avgRating, reviewCount, categories, profiles }: CourseProps) => {
+const CourseCard = ({
+	thumbnail,
+	title,
+	price,
+	slug,
+	avgRating,
+	reviewCount,
+	categories,
+	profiles,
+	discount,
+}: CourseProps) => {
 	return (
 		<Link href={`/course/${slug}`} className='group hover:no-underline flex'>
 			<div className='bg-card rounded-xl overflow-hidden shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] border border-border flex flex-col flex-1'>
@@ -34,7 +44,15 @@ const CourseCard = ({ thumbnail, title, price, slug, avgRating, reviewCount, cat
 					<p className='text-muted-foreground text-sm mb-4 line-clamp-2 flex-1'>Author: {profiles.username}</p>
 					<div className='flex justify-between items-center'>
 						<StarRating avgRating={avgRating} reviewCount={reviewCount} />
-						<p className='text-lg font-semibold'>{price} zł</p>
+						<div className='flex justify-center items-center gap-2'>
+							{discount && discount > 0 && (
+								<p className='text-lg font-semibold '>{(price * (1 - discount / 100)).toFixed(2)} zł</p>
+							)}
+
+							<p className={`${discount && discount > 0 ? 'line-through text-gray-500' : 'text-lg font-semibold'}`}>
+								{price} zł
+							</p>
+						</div>
 					</div>
 					<div className='space-y-4 mt-auto'></div>
 				</div>
