@@ -3,9 +3,10 @@ import { createClient } from '@/utils/supabase/client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { CategoryProps } from '@/types/api'
-
+import { usePathname } from 'next/navigation'
 const CategoryMenu = () => {
 	const [categoriesData, setCategoriesData] = useState<null | CategoryProps[]>(null)
+	const pathname = usePathname()
 
 	useEffect(() => {
 		const getCategory = async () => {
@@ -20,6 +21,9 @@ const CategoryMenu = () => {
 
 		getCategory()
 	}, [])
+	if (pathname !== '/') {
+		return null
+	}
 	return (
 		<div className='w-full hidden lg:block'>
 			<div className='h-12  w-full flex justify-center  border-b border-b-foreground/10 '>
