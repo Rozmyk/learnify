@@ -1,7 +1,7 @@
 export interface CourseProps {
 	title: string
 	description: string
-	price: string
+	price: number
 	thumbnail: string
 	created_at: string
 	author_id: string
@@ -12,6 +12,7 @@ export interface CourseProps {
 	categories: CategoryProps
 	profiles: ProfileDataProps
 	slug: string
+	discount: number | null
 }
 export interface CategoryProps {
 	name: string
