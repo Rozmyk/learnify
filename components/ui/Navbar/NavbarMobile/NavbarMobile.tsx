@@ -8,26 +8,28 @@ import { Search, ShoppingBasket } from 'lucide-react'
 import { Button } from '../../button'
 import { ProfileDataProps } from '@/types/api'
 import HomeButton from '../HomeButton/HomeButton'
+import SearchOverlay from './SearchOverlay/SearchOverlay'
 interface NavbarMobileProps {
 	user: ProfileDataProps | null
 }
 const NavbarMobile = ({ user }: NavbarMobileProps) => {
-	const [isOpen, setIsOpen] = useState(false)
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+	const [isSearchOpen, setIsSearchOpen] = useState(false)
+
 	const ICON_SIZE = 14
-	const handleOpen = () => {
-		setIsOpen(true)
-	}
-	const handleClose = () => {
-		setIsOpen(false)
-	}
+	const handleOpenDrawer = () => setIsDrawerOpen(true)
+	const handleCloseDrawer = () => setIsDrawerOpen(false)
+
+	const handleOpenSearch = () => setIsSearchOpen(true)
+	const handleCloseSearch = () => setIsSearchOpen(false)
 
 	return (
 		<>
 			<div className='flex justify-between items-center w-ful '>
-				<HamburgerBtn isOpen={isOpen} handleOpen={handleOpen} />
+				<HamburgerBtn isOpen={isDrawerOpen} handleOpen={handleOpenDrawer} />
 				<HomeButton />
 				<div className='flex   '>
-					<Button size='icon' variant='ghost'>
+					<Button size='icon' onClick={handleOpenSearch} variant='ghost'>
 						<Search size={ICON_SIZE} />
 					</Button>
 					<Button size='icon' variant='ghost'>
@@ -35,10 +37,10 @@ const NavbarMobile = ({ user }: NavbarMobileProps) => {
 					</Button>
 				</div>
 			</div>
-
-			<Overlay isOpen={isOpen} handleClose={handleClose} />
-			<Drawer user={user} isOpen={isOpen} />
-			<CloseButton isOpen={isOpen} handleClose={handleClose} />
+			{isSearchOpen && <SearchOverlay handleClose={handleCloseSearch} />}
+			<Overlay isOpen={isDrawerOpen} handleClose={handleCloseDrawer} />
+			<Drawer user={user} isOpen={isDrawerOpen} />
+			<CloseButton isOpen={isDrawerOpen} handleClose={handleCloseDrawer} />
 		</>
 	)
 }
