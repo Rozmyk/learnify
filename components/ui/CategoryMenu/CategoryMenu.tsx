@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { CategoryProps } from '@/types/api'
 import { usePathname } from 'next/navigation'
+import { Button } from '../button'
 const CategoryMenu = () => {
 	const [categoriesData, setCategoriesData] = useState<null | CategoryProps[]>(null)
 	const pathname = usePathname()
@@ -30,9 +31,11 @@ const CategoryMenu = () => {
 				<div className='w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm'>
 					{categoriesData?.map(category => {
 						return (
-							<Link className='hover:text-white' href={`courses/${category.slug}`} key={category.id}>
-								{category.name}
-							</Link>
+							<Button variant='ghost'>
+								<Link className='hover:text-white' href={`courses/${category.slug}`} key={category.id}>
+									{category.name}
+								</Link>
+							</Button>
 						)
 					})}
 				</div>
