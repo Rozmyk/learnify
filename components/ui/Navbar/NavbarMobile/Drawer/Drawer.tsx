@@ -14,7 +14,7 @@ const Drawer = ({ isOpen, user }: { isOpen: boolean; user: ProfileDataProps | nu
 			{user ? (
 				<>
 					<Link href='/user/edit-profile'>
-						<div className='flex justify-center items-center gap-4 mb-4'>
+						<div className='flex justify-center items-center gap-4 mb-4 border-b border-b-foreground/10 py-2'>
 							<Image className='rounded-full' src={user.avatar_url} width={60} height={60} alt='User avatar' />
 							<div>
 								<p className='font-semibold'>Hello, {user.username}</p>
