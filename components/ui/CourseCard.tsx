@@ -1,11 +1,13 @@
+'use client'
 import Link from 'next/link'
 import Image from 'next/image'
 import Loader from './loader'
 import { CourseProps } from '@/types/api'
 import StarRating from './starRating'
-const CaourseCard = ({ thumbnail, title, price, description, avgRating, reviewCount, categories }: CourseProps) => {
+
+const CourseCard = ({ thumbnail, title, price, slug, avgRating, reviewCount, categories, profiles }: CourseProps) => {
 	return (
-		<Link href={''} prefetch={false} className='group hover:no-underline flex'>
+		<Link href={`/course/${slug}`} className='group hover:no-underline flex'>
 			<div className='bg-card rounded-xl overflow-hidden shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] border border-border flex flex-col flex-1'>
 				<div className='relative h-52 w-full overflow-hidden'>
 					{thumbnail ? (
@@ -29,7 +31,7 @@ const CaourseCard = ({ thumbnail, title, price, description, avgRating, reviewCo
 				</div>
 				<div className='p-6 flex flex-col flex-1'>
 					<h3 className='text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300'>{title}</h3>
-					<p className='text-muted-foreground mb-4 line-clamp-2 flex-1'>{description}</p>
+					<p className='text-muted-foreground text-sm mb-4 line-clamp-2 flex-1'>Author: {profiles.username}</p>
 					<div className='flex justify-between items-center'>
 						<StarRating avgRating={avgRating} reviewCount={reviewCount} />
 						<p className='text-lg font-semibold'>{price} zł</p>
@@ -41,4 +43,4 @@ const CaourseCard = ({ thumbnail, title, price, description, avgRating, reviewCo
 	)
 }
 
-export default CaourseCard
+export default CourseCard
