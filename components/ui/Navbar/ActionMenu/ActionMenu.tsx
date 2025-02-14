@@ -43,7 +43,9 @@ const ActionMenu = ({ avatarUrl }: { avatarUrl: string }) => {
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>
-					<Button formAction={signOutAction}>Logout</Button>
+					<span className='cursor-pointer' onClick={signOutAction}>
+						Logout
+					</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
