@@ -4,8 +4,11 @@ import { CategoryProps } from '@/types/api'
 import MostPopular from './MostPopular/MostPopular'
 import Explore from './Explore/Explore'
 import OtherServices from './OtherServices/OtherServices'
+import Loader from '@/components/ui/loader'
+
 const DrawerContent = () => {
 	const [categoriesData, setCategoriesData] = useState<null | CategoryProps[]>(null)
+	const [loading, setLoading] = useState(true)
 	useEffect(() => {
 		const getCategories = async () => {
 			try {
@@ -17,6 +20,7 @@ const DrawerContent = () => {
 
 				const data = await response.json()
 				setCategoriesData(data)
+				setLoading(false)
 			} catch (error) {
 				console.error('Error during category download:', error)
 			}
@@ -26,9 +30,17 @@ const DrawerContent = () => {
 	}, [])
 	return (
 		<div>
-			<Explore />
-			<MostPopular categoriesData={categoriesData} />
-			<OtherServices />
+			{loading ? (
+				<div className='flex justify-center items-center w-full pt-4'>
+					<Loader />
+				</div>
+			) : (
+				<>
+					<Explore />
+					<MostPopular categoriesData={categoriesData} />
+					<OtherServices />
+				</>
+			)}
 		</div>
 	)
 }
