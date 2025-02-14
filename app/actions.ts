@@ -54,6 +54,7 @@ export const signUpAction = async (formData: FormData) => {
 			created_at: new Date().toISOString(),
 			username: username,
 			avatar_url: avatar_url,
+			email,
 		},
 	])
 

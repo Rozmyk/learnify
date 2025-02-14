@@ -1,6 +1,5 @@
 import { Button } from '../../button'
 import { ThemeSwitcher } from '@/components/theme-switcher'
-import Image from 'next/image'
 import { createClient } from '@/utils/supabase/server'
 import ActionMenu from '../ActionMenu/ActionMenu'
 export default async function UserNavbar({ userId }: { userId: string }) {
@@ -14,7 +13,7 @@ export default async function UserNavbar({ userId }: { userId: string }) {
 		<div className='flex items-center gap-4'>
 			<Button variant={'ghost'}>My training</Button>
 			<ThemeSwitcher />
-			<ActionMenu avatarUrl={profile.avatar_url} />
+			<ActionMenu avatarUrl={profile.avatar_url} username={profile.username} email={profile.email} />
 		</div>
 	)
 }

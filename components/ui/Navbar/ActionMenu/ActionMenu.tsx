@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { signOutAction } from '@/app/actions'
 
-const ActionMenu = ({ avatarUrl }: { avatarUrl: string }) => {
+const ActionMenu = ({ avatarUrl, username, email }: { avatarUrl: string; username: string; email: string }) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -24,8 +24,8 @@ const ActionMenu = ({ avatarUrl }: { avatarUrl: string }) => {
 						<div className='flex justify-between items-center gap-4 p-2'>
 							<Image className='rounded-full' alt='User avatar' height={50} width={50} src={avatarUrl} />
 							<div>
-								<p className='text-lg font-medium'>Rozmyk</p>
-								<p className='text-sm'>kymzor@gmail.com</p>
+								<p className='text-lg font-medium'>{username}</p>
+								<p className='text-sm'>{email}</p>
 							</div>
 						</div>
 					</Link>

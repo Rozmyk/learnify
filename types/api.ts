@@ -31,4 +31,5 @@ export interface ProfileDataProps {
 	username: string
 	created_at: string
 	avatar_url: string
+	email: string
 }
