@@ -9,6 +9,7 @@ import { Button } from '../../button'
 import { ProfileDataProps } from '@/types/api'
 import HomeButton from '../HomeButton/HomeButton'
 import SearchOverlay from './SearchOverlay/SearchOverlay'
+import Link from 'next/link'
 interface NavbarMobileProps {
 	user: ProfileDataProps | null
 }
@@ -33,7 +34,9 @@ const NavbarMobile = ({ user }: NavbarMobileProps) => {
 						<Search size={ICON_SIZE} />
 					</Button>
 					<Button size='icon' variant='ghost'>
-						<ShoppingBasket size={ICON_SIZE} />
+						<Link href='/cart'>
+							<ShoppingBasket size={ICON_SIZE} />
+						</Link>
 					</Button>
 				</div>
 			</div>
