@@ -2,6 +2,7 @@ import { ProfileDataProps } from '@/types/api'
 import { ChevronRight } from 'lucide-react'
 import DrawerContent from './DrawerContent/DrawerContent'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Drawer = ({ isOpen, user }: { isOpen: boolean; user: ProfileDataProps | null }) => {
 	return (
@@ -12,14 +13,16 @@ const Drawer = ({ isOpen, user }: { isOpen: boolean; user: ProfileDataProps | nu
 			aria-labelledby='drawer-navigation-label'>
 			{user ? (
 				<>
-					<div className='flex justify-center items-center gap-4 mb-4'>
-						<Image className='rounded-full' src={user.avatar_url} width={60} height={60} alt='User avatar' />
-						<div>
-							<p className='font-semibold'>Hello, {user.username}</p>
-							<p>Welcome back!</p>
+					<Link href='/user/edit-profile'>
+						<div className='flex justify-center items-center gap-4 mb-4'>
+							<Image className='rounded-full' src={user.avatar_url} width={60} height={60} alt='User avatar' />
+							<div>
+								<p className='font-semibold'>Hello, {user.username}</p>
+								<p>Welcome back!</p>
+							</div>
+							<ChevronRight size={18} />
 						</div>
-						<ChevronRight size={18} />
-					</div>
+					</Link>
 					<DrawerContent />
 				</>
 			) : (
