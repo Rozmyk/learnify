@@ -3,6 +3,7 @@ import { ChevronRight } from 'lucide-react'
 import DrawerContent from './DrawerContent/DrawerContent'
 import Image from 'next/image'
 import Link from 'next/link'
+import NormalHeader from './NormalHeader/NormalHeader'
 
 const Drawer = ({ isOpen, user }: { isOpen: boolean; user: ProfileDataProps | null }) => {
 	return (
@@ -26,7 +27,10 @@ const Drawer = ({ isOpen, user }: { isOpen: boolean; user: ProfileDataProps | nu
 					<DrawerContent />
 				</>
 			) : (
-				<p>register</p>
+				<>
+					<NormalHeader />
+					<DrawerContent />
+				</>
 			)}
 		</div>
 	)
