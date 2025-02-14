@@ -11,6 +11,7 @@ export interface CourseProps {
 	categories_id: string
 	categories: CategoryProps
 	profiles: ProfileDataProps
+	slug: string
 }
 export interface CategoryProps {
 	name: string
