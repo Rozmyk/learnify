@@ -35,6 +35,16 @@ export const signUpAction = async (formData: FormData) => {
 		return encodedRedirect('error', '/sign-up', 'User creation failed')
 	}
 
+	const { data: existingUser, error: usernameCheckError } = await supabase
+		.from('profiles')
+		.select('username')
+		.eq('username', username)
+		.single()
+
+	if (usernameCheckError === null && existingUser) {
+		return encodedRedirect('error', '/sign-up', 'Username is already taken')
+	}
+
 	const avatar_url =
 		'https://wltlbfcgbnhlxamxxnve.supabase.co/storage/v1/object/sign/usersAvatar/defaultAvatar.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ1c2Vyc0F2YXRhci9kZWZhdWx0QXZhdGFyLndlYnAiLCJpYXQiOjE3Mzk0NTMwNTIsImV4cCI6MTc3MDk4OTA1Mn0.skjLCnw3EsKSkGAFWRI1krLu5dCkx91sp2s4O2UMBQA'
 
