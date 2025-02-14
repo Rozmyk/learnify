@@ -4,6 +4,7 @@ import RecommendedCourses from '@/components/ProtectedHeader/RecommendedCourses/
 import PromotedCourse from '@/components/ProtectedHeader/PromotedCourse/PromotedCourse'
 import ProtectedHeader from '@/components/ProtectedHeader/ProtecetedHeader'
 import { ReviewProps, ProfileDataProps } from '@/types/api'
+import PersonalizedCourse from '@/components/ProtectedHeader/PersonalizedCourse/PersonalizedCourse'
 
 export default async function Home() {
 	const supabase = await createClient()
@@ -62,6 +63,7 @@ export default async function Home() {
 				{profileData && <ProtectedHeader profileData={profileData} />}
 				{coursesWithAvgRating && <RecommendedCourses courses={coursesWithAvgRating} />}
 				{promoted && <PromotedCourse course={promoted[0]?.course} />}
+				<PersonalizedCourse />
 			</main>
 		</>
 	)
