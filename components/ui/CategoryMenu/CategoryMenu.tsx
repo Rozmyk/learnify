@@ -31,8 +31,8 @@ const CategoryMenu = () => {
 				<div className='w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm'>
 					{categoriesData?.map(category => {
 						return (
-							<Button variant='ghost'>
-								<Link className='hover:text-white' href={`courses/${category.slug}`} key={category.id}>
+							<Button variant='ghost' key={category.id}>
+								<Link className='hover:text-white' href={`courses/${category.slug}`}>
 									{category.name}
 								</Link>
 							</Button>
