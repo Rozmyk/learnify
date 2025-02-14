@@ -5,17 +5,31 @@ import NavbarMobile from './NavbarMobile/NavbarMobile'
 
 export default async function Navbar() {
 	const supabase = await createClient()
+	let userData
 	const {
 		data: { user },
 	} = await supabase.auth.getUser()
+	if (user) {
+		const { data: fetchedUserData, error: fetchedUserDataError } = await supabase
+			.from('profiles')
+			.select('*')
+			.eq('id', user.id)
+			.single()
+		userData = fetchedUserData
+		if (fetchedUserDataError) {
+			console.log(fetchedUserDataError)
+		}
+	}
 
 	return (
 		<nav className='w-full flex justify-center border-b border-b-foreground/10 h-16'>
 			<div className='w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm'>
-				<div className='hidden lg:flex gap-5'>{user ? <UserNavbar userId={user.id} /> : <PublicNavbar />}</div>
+				<div className='hidden lg:flex gap-5'>
+					{user ? <UserNavbar user={userData} userId={user.id} /> : <PublicNavbar />}
+				</div>
 
 				<div className='lg:hidden w-full'>
-					<NavbarMobile />
+					<NavbarMobile user={userData} />
 				</div>
 			</div>
 		</nav>

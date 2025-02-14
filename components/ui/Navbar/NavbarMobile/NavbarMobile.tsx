@@ -7,7 +7,11 @@ import Overlay from './Overlay/Overlay'
 import CloseButton from './CloseButton/CloseButton'
 import { Search, ShoppingBasket } from 'lucide-react'
 import { Button } from '../../button'
-const NavbarMobile = () => {
+import { ProfileDataProps } from '@/types/api'
+interface NavbarMobileProps {
+	user: ProfileDataProps | null
+}
+const NavbarMobile = ({ user }: NavbarMobileProps) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const ICON_SIZE = 14
 	const handleOpen = () => {
@@ -37,7 +41,7 @@ const NavbarMobile = () => {
 			</div>
 
 			<Overlay isOpen={isOpen} handleClose={handleClose} />
-			<Drawer isOpen={isOpen} />
+			<Drawer user={user} isOpen={isOpen} />
 			<CloseButton isOpen={isOpen} handleClose={handleClose} />
 		</>
 	)
