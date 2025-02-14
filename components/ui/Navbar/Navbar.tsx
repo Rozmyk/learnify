@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server'
 import UserNavbar from './UserNavbar/UserNavbar'
 import PublicNavbar from './PublicNavbar/PublicNavbar'
