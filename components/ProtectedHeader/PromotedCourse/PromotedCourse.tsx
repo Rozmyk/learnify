@@ -6,9 +6,14 @@ const PromotedCourse = ({ course }: { course: CourseProps }) => {
 	return (
 		<div>
 			<p className='mb-10 text-2xl'>Our best recommendation for you</p>
-			<div className='w-full flex md:flex-row flex-col  justify-between items-start bg-card rounded-xl overflow-hidden shadow-lg border border-border p-2 md:p-4 gap-4'>
+			<div className='w-full flex md:flex-row flex-col  justify-between items-start bg-card rounded-xl overflow-hidden  border border-border p-2 md:p-4 gap-4 shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] cursor-pointer'>
 				<div className='md:w-1/3 w-full  h-52 md:h-80  relative rounded-xl overflow-hidden '>
-					<Image fill src={course.thumbnail} alt={`${course.title} course`} />
+					<Image
+						className='object-cover transition-transform duration-300 group-hover:scale-110'
+						fill
+						src={course.thumbnail}
+						alt={`${course.title} course`}
+					/>
 				</div>
 				<div className=' w-full md:w-2/3 flex flex-col justify-between items-between h-80  	 '>
 					<div>
