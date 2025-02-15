@@ -28,9 +28,12 @@ export default async function Home() {
 	})
 
 	const { data: promoted, error: promotedError } = await supabase.from('promoted').select(`
-    *,
-    course(*)
-  `)
+	  *,
+	  course(
+		*,
+		profiles:author_id(*)
+	  )
+	`)
 
 	if (promotedError) {
 		console.error('Błąd podczas pobierania promowanych kursów:', promotedError)
