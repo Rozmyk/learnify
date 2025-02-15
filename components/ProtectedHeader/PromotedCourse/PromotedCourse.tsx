@@ -2,7 +2,6 @@ import { CourseProps } from '@/types/api'
 import Image from 'next/image'
 import StarRating from '@/components/ui/starRating'
 const PromotedCourse = ({ course }: { course: CourseProps }) => {
-	console.log(course)
 	return (
 		<div>
 			<p className='mb-10 text-2xl'>Our best recommendation for you</p>
