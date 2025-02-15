@@ -1,5 +1,8 @@
-const page = () => {
-	return <div></div>
+interface CoursePageProps {
+	params: {
+		id: string
+	}
 }
-
-export default page
+export default async function CoursePage({ params }: CoursePageProps) {
+	return <div>{params.id}</div>
+}
