@@ -17,8 +17,8 @@ export default async function Signup(props: { searchParams: Promise<Message> }) 
 	}
 
 	return (
-		<div className='min-h-[calc(100vh-4rem)] flex items-center justify-center'>
-			<div className='border border-border w-[30rem] p-4 rounded-xl flex flex-col gap-4'>
+		<div className='min-h-[calc(100vh-4rem)] w-full flex items-center justify-center p-2'>
+			<div className='border border-border w-full sm:w-[30rem] p-4 rounded-xl flex flex-col gap-4'>
 				<form className='flex flex-col w-full '>
 					<h1 className='text-2xl font-medium'>Sign up</h1>
 					<p className='text-sm text-foreground'>

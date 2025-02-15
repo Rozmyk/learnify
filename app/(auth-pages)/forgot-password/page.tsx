@@ -8,8 +8,8 @@ import Link from 'next/link'
 export default async function ForgotPassword(props: { searchParams: Promise<Message> }) {
 	const searchParams = await props.searchParams
 	return (
-		<div className='min-h-[calc(100vh-4rem)] flex items-center justify-center'>
-			<div className='border border-border w-[30rem] p-4 rounded-xl flex flex-col gap-4'>
+		<div className='min-h-[calc(100vh-4rem)] w-full flex items-center justify-center p-2'>
+			<div className='border border-border w-full sm:w-[30rem] p-4 rounded-xl flex flex-col gap-4'>
 				<form className='flex-1 flex flex-col w-full gap-2 text-foreground [&>input]:mb-6 min-w-64 max-w-64 mx-auto'>
 					<div>
 						<h1 className='text-2xl font-medium'>Reset Password</h1>
