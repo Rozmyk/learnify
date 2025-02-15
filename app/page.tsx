@@ -47,6 +47,9 @@ export default async function Home() {
 	if (!user) {
 		redirect('/sign-in')
 	}
+	if (userError) {
+		console.log(userError)
+	}
 
 	let profileData: ProfileDataProps | null = null
 	let profileError: Error | null = null
