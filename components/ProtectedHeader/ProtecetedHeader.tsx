@@ -5,10 +5,10 @@ const ProtectedHeader = ({ profileData }: { profileData: ProfileDataProps }) => 
 	return (
 		<div>
 			<WelcomeMessage username={profileData.username} userPhoto={profileData.avatar_url} />
-			<div className='flex justify-between items-center w-full'>
+			{/* <div className='flex justify-between items-center w-full'>
 				<p>Start learning</p>
 				<Link href={'/courses'}>Your courses:</Link>
-			</div>
+			</div> */}
 		</div>
 	)
 }
