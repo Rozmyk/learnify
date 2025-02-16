@@ -6,6 +6,7 @@ export interface CourseProps {
 	created_at: string
 	author_id: string
 	id: string
+	reviews: ReviewProps[]
 	avgRating: number | null
 	reviewCount: number | null
 	categories_id: string
