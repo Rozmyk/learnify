@@ -9,6 +9,7 @@ export const signUpAction = async (formData: FormData) => {
 	const email = formData.get('email')?.toString()
 	const password = formData.get('password')?.toString()
 	const username = formData.get('username')?.toString()
+	const isTeacher = formData.get('isTeacher')
 	const supabase = await createClient()
 	const origin = (await headers()).get('origin')
 
@@ -55,6 +56,7 @@ export const signUpAction = async (formData: FormData) => {
 			username: username,
 			avatar_url: avatar_url,
 			email,
+			is_teacher: isTeacher,
 		},
 	])
 
