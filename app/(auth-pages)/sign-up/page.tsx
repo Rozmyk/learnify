@@ -19,7 +19,7 @@ export default async function Signup(props: { searchParams: Promise<Message> }) 
 	return (
 		<div className='min-h-[calc(100vh-4rem)] w-full flex items-center justify-center p-2'>
 			<div className='border border-border w-full sm:w-[30rem] p-4 rounded-xl flex flex-col gap-4'>
-				<form className='flex flex-col w-full '>
+				<form className='flex flex-col w-full'>
 					<h1 className='text-2xl font-medium'>Sign up</h1>
 					<p className='text-sm text-foreground'>
 						Already have an account?{' '}
@@ -27,15 +27,27 @@ export default async function Signup(props: { searchParams: Promise<Message> }) 
 							Sign in
 						</Link>
 					</p>
-					<div className='flex flex-col gap-2 [&>input]:mb-3 mt-8'>
+
+					<div className='mb-4 mt-8 flex items-center gap-2'>
+						<Label htmlFor='isTeacher'>You are a teacher?</Label>
+						<input
+							type='checkbox'
+							className='w-4 h-4 border border-border rounded bg-background checked:bg-black accent-white'
+							name='isTeacher'
+							id='isTeacher'
+						/>
+					</div>
+
+					<div className='flex flex-col gap-2 [&>input]:mb-3 mt-4'>
 						<Label htmlFor='email'>Email</Label>
 						<Input name='email' placeholder='you@example.com' required />
 
 						<Label htmlFor='username'>Username</Label>
-						<Input name='username' placeholder='Riqal' required />
+						<Input name='username' placeholder='Your username' required />
 
 						<Label htmlFor='password'>Password</Label>
 						<Input type='password' name='password' placeholder='Your password' minLength={6} required />
+
 						<SubmitButton formAction={signUpAction} pendingText='Signing up...'>
 							Sign up
 						</SubmitButton>
