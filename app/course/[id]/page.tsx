@@ -1,8 +1,4 @@
-interface CoursePageProps {
-	params: {
-		id: string
-	}
-}
-export default async function CoursePage({ params }: CoursePageProps) {
-	return <div>{params.id}</div>
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+	const id = (await params).id
+	return <div>My Post: {id}</div>
 }
