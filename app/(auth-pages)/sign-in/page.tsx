@@ -1,12 +1,26 @@
 import { signInAction } from '@/app/actions'
+import { createClient } from '@/utils/supabase/server'
 import { FormMessage, Message } from '@/components/form-message'
 import { SubmitButton } from '@/components/submit-button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 export default async function Login(props: { searchParams: Promise<Message> }) {
 	const searchParams = await props.searchParams
+	const supabase = await createClient()
+
+	const {
+		data: { user },
+		error: userError,
+	} = await supabase.auth.getUser()
+	if (user) {
+		redirect('/')
+	}
+	if (userError) {
+		console.log(userError)
+	}
 	return (
 		<div className='w-full flex md:flex-row flex-col justify-center items-center gap-10 h-[calc(100vh-4rem)] p-2'>
 			<div className='border border-border  w-full sm:w-[30rem] p-4 rounded-xl flex flex-col gap-4'>
