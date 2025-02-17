@@ -35,12 +35,12 @@ const CategorySelect = ({
 		<>
 			<Label>Category</Label>
 			<Select.Root value={selectedCategory ?? undefined} onValueChange={setSelectedCategory}>
-				<Select.Trigger className='inline-flex items-center justify-between bg-background border border-input  rounded-md px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'>
+				<Select.Trigger className='inline-flex items-center justify-between bg-background border border-input  rounded-md px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 text-muted-foreground '>
 					<Select.Value placeholder='Choose category' />
 				</Select.Trigger>
 
 				<Select.Portal>
-					<Select.Content className='bg-background border border-input rounded shadow-lg'>
+					<Select.Content className='bg-background border border-input rounded shadow-lg '>
 						<Select.ScrollUpButton />
 						<Select.Viewport className='p-2'>
 							{categoriesData?.map(value => (
