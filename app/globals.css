@@ -73,6 +73,25 @@
 	--slide-spacing: 1rem;
 	--slide-size: 33%;
 }
+
+@media (min-width: 1200px) {
+	.embla {
+		--slide-size: 33%;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 1199px) {
+	.embla {
+		--slide-size: 50%;
+	}
+}
+
+@media (max-width: 799px) {
+	.embla {
+		--slide-size: 100%;
+	}
+}
+
 .embla__viewport {
 	overflow: hidden;
 }
