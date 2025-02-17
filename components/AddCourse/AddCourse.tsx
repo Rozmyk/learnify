@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { useState, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Button } from '../ui/button'
 import { createClient } from '@/utils/supabase/client'
 
 const AddCourse = () => {
@@ -79,40 +80,42 @@ const AddCourse = () => {
 	}, [title, description, price, thumbnail])
 
 	return (
-		<div>
-			<Label>Title</Label>
-			<Input onChange={e => setTitle(e.target.value)} value={title} placeholder='Next.js for beginners' required />
+		<div className='w-full flex md:flex-row flex-col justify-center items-center gap-10 h-[calc(100vh-4rem)] p-2'>
+			<div className='border border-border  w-full sm:w-[30rem] p-4 rounded-xl flex flex-col gap-4'>
+				<Label>Title</Label>
+				<Input onChange={e => setTitle(e.target.value)} value={title} placeholder='Next.js for beginners' required />
 
-			<Label>Description</Label>
-			<Input
-				onChange={e => setDescription(e.target.value)}
-				value={description}
-				placeholder='Next.js course description'
-				required
-			/>
-
-			<Label>Price</Label>
-			<Input onChange={e => setPrice(e.target.value)} value={price} placeholder='100' type='number' required />
-
-			<div>
-				<label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Upload file</label>
-				<input
-					onChange={e => setThumbnail(e.target.files?.[0] || null)}
-					className='block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
-					aria-describedby='file_input_help'
-					type='file'
-					accept='image/*'
+				<Label>Description</Label>
+				<Input
+					onChange={e => setDescription(e.target.value)}
+					value={description}
+					placeholder='Next.js course description'
+					required
 				/>
-				<p className='mt-1 text-sm text-gray-500 dark:text-gray-300' id='file_input_help'>
-					SVG, PNG, JPG or GIF (MAX. 800x400px).
-				</p>
+
+				<Label>Price</Label>
+				<Input onChange={e => setPrice(e.target.value)} value={price} placeholder='100' type='number' required />
+
+				<div>
+					<label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Upload file</label>
+					<input
+						onChange={e => setThumbnail(e.target.files?.[0] || null)}
+						className='block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
+						aria-describedby='file_input_help'
+						type='file'
+						accept='image/*'
+					/>
+					<p className='mt-1 text-sm text-gray-500 dark:text-gray-300' id='file_input_help'>
+						SVG, PNG, JPG or GIF (MAX. 800x400px).
+					</p>
+				</div>
+
+				{error && <p className='text-red-500'>{error}</p>}
+
+				<Button onClick={addCourse} disabled={loading}>
+					{loading ? 'Adding Course...' : 'Add Course'}
+				</Button>
 			</div>
-
-			{error && <p className='text-red-500'>{error}</p>}
-
-			<button onClick={addCourse} className='mt-4 bg-blue-500 text-white p-2 rounded' disabled={loading}>
-				{loading ? 'Adding Course...' : 'Add Course'}
-			</button>
 		</div>
 	)
 }
