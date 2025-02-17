@@ -34,5 +34,6 @@ export interface ProfileDataProps {
 	created_at: string
 	avatar_url: string
 	email: string
+	isTeacher: boolean
 	lastViewedCourseId: string | null
 }

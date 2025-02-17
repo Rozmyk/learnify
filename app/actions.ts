@@ -56,7 +56,7 @@ export const signUpAction = async (formData: FormData) => {
 			username: username,
 			avatar_url: avatar_url,
 			email,
-			is_teacher: isTeacher,
+			isTeacher: isTeacher,
 		},
 	])
 

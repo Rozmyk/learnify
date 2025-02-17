@@ -8,6 +8,7 @@ export default async function UserNavbar({ user }: { user: ProfileDataProps }) {
 		<div className='flex justify-between items-center  gap-4 w-full'>
 			<HomeButton />
 			<div className='flex items-center'>
+				{user.isTeacher && <Button>Add course</Button>}
 				<Button variant={'ghost'}>My courses</Button>
 				<ThemeSwitcher />
 				<ActionMenu avatarUrl={user.avatar_url} username={user.username} email={user.email} />
