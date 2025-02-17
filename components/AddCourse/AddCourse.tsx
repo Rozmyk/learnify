@@ -1,80 +1,46 @@
 'use client'
-import { v4 as uuidv4 } from 'uuid'
 import { useState, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '../ui/button'
-import { createClient } from '@/utils/supabase/client'
-
+import CategorySelect from './CategorySelect/CategorySelect'
 const AddCourse = () => {
 	const [title, setTitle] = useState('')
 	const [description, setDescription] = useState('')
 	const [price, setPrice] = useState('')
 	const [thumbnail, setThumbnail] = useState<File | null>(null)
+	const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
-
-	const addCourse = async () => {
-		if (!title || !description || !price || !thumbnail) {
-			setError('All fields are required.')
-			return
-		}
-
+	const handleSubmit = async (e: React.FormEvent) => {
 		setLoading(true)
-		const supabase = await createClient()
-
-		const {
-			data: { user },
-		} = await supabase.auth.getUser()
-
-		if (!user) {
-			setLoading(false)
-			setError('User not authenticated.')
-			return
+		e.preventDefault()
+		const formData = new FormData()
+		formData.append('title', title)
+		formData.append('description', description)
+		formData.append('price', price)
+		if (selectedCategory) {
+			formData.append('categories_id', selectedCategory)
+		}
+		if (thumbnail) {
+			formData.append('thumbnail', thumbnail)
 		}
 
-		const fileExt = thumbnail.name.split('.').pop()
-		const fileName = `${uuidv4()}.${fileExt}`
-		const filePath = `courses/${fileName}`
+		const response = await fetch('/api/add-course', {
+			method: 'POST',
+			body: formData,
+		})
 
-		const { data: uploadData, error: uploadError } = await supabase.storage
-			.from('course-thumbnails')
-			.upload(filePath, thumbnail)
-
-		if (uploadError) {
-			setLoading(false)
-			setError('Error uploading file: ' + uploadError.message)
-			return
-		}
-
-		const { data: publicUrlData } = supabase.storage.from('course-thumbnails').getPublicUrl(filePath)
-		const thumbnailUrl = publicUrlData.publicUrl
-
-		const { error: insertError } = await supabase.from('course').insert([
-			{
-				title,
-				id: uuidv4(),
-				description,
-				price,
-				thumbnail: thumbnailUrl,
-				author_id: user.id,
-				created_at: new Date().toISOString(),
-			},
-		])
-
+		const data = await response.json()
 		setLoading(false)
-
-		if (insertError) {
-			setError(insertError.message)
+		if (!response.ok) {
+			setError(data.error)
+			setLoading(false)
 		} else {
-			console.log('Course added successfully!')
-			setTitle('')
-			setDescription('')
-			setPrice('')
-			setThumbnail(null)
-			setError('')
+			console.log(data.message)
 		}
 	}
+
 	useEffect(() => {
 		setError('')
 	}, [title, description, price, thumbnail])
@@ -84,6 +50,7 @@ const AddCourse = () => {
 			<div className='border border-border  w-full sm:w-[30rem] p-4 rounded-xl flex flex-col gap-4'>
 				<Label>Title</Label>
 				<Input onChange={e => setTitle(e.target.value)} value={title} placeholder='Next.js for beginners' required />
+				<CategorySelect selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
 
 				<Label>Description</Label>
 				<Input
@@ -112,7 +79,7 @@ const AddCourse = () => {
 
 				{error && <p className='text-red-500'>{error}</p>}
 
-				<Button onClick={addCourse} disabled={loading}>
+				<Button onClick={handleSubmit} disabled={loading}>
 					{loading ? 'Adding Course...' : 'Add Course'}
 				</Button>
 			</div>
