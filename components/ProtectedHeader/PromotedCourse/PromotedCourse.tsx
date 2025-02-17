@@ -4,7 +4,7 @@ import StarRating from '@/components/ui/starRating'
 const PromotedCourse = ({ course }: { course: CourseProps }) => {
 	return (
 		<div>
-			<p className='mb-10 text-2xl'>Our best recommendation for you</p>
+			<p className='my-4 text-2xl font-semibold'>Our best recommendation for you</p>
 			<div className='w-full flex md:flex-row flex-col  justify-between items-start bg-card rounded-xl overflow-hidden  border border-border p-2 md:p-4 gap-4 shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] cursor-pointer'>
 				<div className='md:w-1/3 w-full  h-52 md:h-80  relative rounded-xl overflow-hidden '>
 					<Image
