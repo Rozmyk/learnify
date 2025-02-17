@@ -23,6 +23,7 @@ export default async function PersonalizedCourse({ lastViewedCourseId }: Persona
 
 	return (
 		similarCourses &&
+		similarCourses.length > 0 &&
 		lastCourseData && (
 			<div>
 				<p className='mb-10 text-2xl'>
