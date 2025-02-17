@@ -8,7 +8,7 @@ export default async function UserNavbar({ user }: { user: ProfileDataProps }) {
 		<div className='flex justify-between items-center  gap-4 w-full'>
 			<HomeButton />
 			<div className='flex items-center'>
-				<Button variant={'ghost'}>My training</Button>
+				<Button variant={'ghost'}>My courses</Button>
 				<ThemeSwitcher />
 				<ActionMenu avatarUrl={user.avatar_url} username={user.username} email={user.email} />
 			</div>
