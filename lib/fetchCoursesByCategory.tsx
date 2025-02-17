@@ -2,7 +2,6 @@ import { createClient } from '@/utils/supabase/server'
 import { addRatingsToCourses } from './calcRatings'
 export async function fetchCoursesByCategory(categoryId: string) {
 	const supabase = await createClient()
-
 	const { data: courses, error } = await supabase
 		.from('course')
 		.select(
