@@ -1,4 +1,5 @@
 'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import Loader from './loader'
@@ -15,9 +16,23 @@ const CourseCard = ({
 	categories,
 	profiles,
 	discount,
+	id,
 }: CourseProps) => {
+	const updateLastViewedCourse = async () => {
+		console.log('funkcja jest wykonuje')
+		try {
+			await fetch('/api/updateLastViewed', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ courseId: id }),
+			})
+		} catch (error) {
+			console.error('Error updating last viewed course:', error)
+		}
+	}
+
 	return (
-		<Link href={`/course/${slug}`} className='group hover:no-underline flex'>
+		<Link href={`/course/${slug}`} onClick={updateLastViewedCourse} className='group hover:no-underline flex'>
 			<div className='bg-card rounded-xl overflow-hidden shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] border border-border flex flex-col flex-1'>
 				<div className='relative h-52 w-full overflow-hidden'>
 					{thumbnail ? (
