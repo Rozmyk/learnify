@@ -19,13 +19,12 @@ const CoursesCarousel: React.FC<PropType> = props => {
 
 	return (
 		<section className='embla'>
-			<div className='flex justify-between items-center '>
+			<div className='flex justify-between items-center mb-2 '>
 				<p className=' text-2xl font-semibold '>{text}</p>
-				<div className='embla__controls  '>
-					<div className='embla__buttons '>
-						<PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-						<NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-					</div>
+
+				<div className='flex justify-center items-center '>
+					<PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+					<NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
 				</div>
 			</div>
 			<div className='embla__viewport' ref={emblaRef}>
