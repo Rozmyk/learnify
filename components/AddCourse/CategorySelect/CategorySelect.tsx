@@ -2,7 +2,7 @@ import { CategoryProps } from '@/types/api'
 import * as Select from '@radix-ui/react-select'
 import { useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { Label } from '@/components/ui/label'
-
+import { Check, ChevronDown } from 'lucide-react'
 const CategorySelect = ({
 	selectedCategory,
 	setSelectedCategory,
@@ -37,6 +37,9 @@ const CategorySelect = ({
 			<Select.Root value={selectedCategory ?? undefined} onValueChange={setSelectedCategory}>
 				<Select.Trigger className='inline-flex items-center justify-between bg-background border border-input  rounded-md px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 text-muted-foreground '>
 					<Select.Value placeholder='Choose category' />
+					<Select.Icon>
+						<ChevronDown />
+					</Select.Icon>
 				</Select.Trigger>
 
 				<Select.Portal>
@@ -50,7 +53,9 @@ const CategorySelect = ({
 									className='cursor-pointer select-none px-4 py-2 rounded hover:bg-accent focus:bg-accent
                                 flex items-center justify-between'>
 									<Select.ItemText>{value.name}</Select.ItemText>
-									<Select.ItemIndicator></Select.ItemIndicator>
+									<Select.ItemIndicator>
+										<Check />
+									</Select.ItemIndicator>
 								</Select.Item>
 							))}
 						</Select.Viewport>
