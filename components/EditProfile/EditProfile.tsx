@@ -3,12 +3,13 @@ import { useState } from 'react'
 import { ProfileDataProps } from '@/types/api'
 import ProfileSidebar from './ProfileSidebar/ProfileSidebar'
 import EditProfileHeader from './EditProfileHeader/EditProfileHeader'
+import ProfileContent from './Content/ProfileContent/ProfileContent'
 const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 	const [currentType, setCurrentType] = useState('setProfile')
 	const { title, text, content } = (() => {
 		switch (currentType) {
 			case 'setProfile':
-				return { title: 'Profile', text: 'Add information about yourself', content: <p>profile</p> }
+				return { title: 'Profile', text: 'Add information about yourself', content: <ProfileContent /> }
 			case 'setPhoto':
 				return { title: 'Photo', text: 'Add a relevant photo to your profile.', content: <p>photo</p> }
 			case 'deleteAccount':
