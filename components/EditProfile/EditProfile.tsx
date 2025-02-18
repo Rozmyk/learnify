@@ -4,6 +4,7 @@ import { ProfileDataProps } from '@/types/api'
 import ProfileSidebar from './ProfileSidebar/ProfileSidebar'
 import EditProfileHeader from './EditProfileHeader/EditProfileHeader'
 import ProfileContent from './Content/ProfileContent/ProfileContent'
+import PhotoContent from './Content/PhotoContent/PhotoContent'
 const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 	const [currentType, setCurrentType] = useState('setProfile')
 	const { title, text, content } = (() => {
@@ -11,7 +12,11 @@ const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 			case 'setProfile':
 				return { title: 'Profile', text: 'Add information about yourself', content: <ProfileContent /> }
 			case 'setPhoto':
-				return { title: 'Photo', text: 'Add a relevant photo to your profile.', content: <p>photo</p> }
+				return {
+					title: 'Photo',
+					text: 'Add a relevant photo to your profile.',
+					content: <PhotoContent profileData={profileData} />,
+				}
 			case 'deleteAccount':
 				return { title: 'Close account', text: 'Close your account permanently.', content: <p>delete account</p> }
 			default:
@@ -32,7 +37,7 @@ const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 				</div>
 				<div className='w-4/5 flex flex-col justify-between items-center h-full  '>
 					<EditProfileHeader title={title} text={text} />
-					<div className='p-4'>{content}</div>
+					<div className='py-4 px-24  w-full'>{content}</div>
 				</div>
 			</div>
 		</div>
