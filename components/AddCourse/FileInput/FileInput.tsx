@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 const FileInput = ({ setThumbnail }: { setThumbnail: Dispatch<SetStateAction<File | null>> }) => {
 	return (
 		<div>
-			<Label>Upload file</Label>
+			<Label>Upload thumbnail</Label>
 			<Input onChange={e => setThumbnail(e.target.files?.[0] || null)} accept='image/*' type='file' />
 
 			<p className='mt-1 text-sm text-muted-foreground' id='file_input_help'>
