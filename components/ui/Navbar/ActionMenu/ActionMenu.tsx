@@ -47,7 +47,7 @@ const ActionMenu = ({ avatarUrl, username, email }: { avatarUrl: string; usernam
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>
-					<Link className='w-full' href='/settings'>
+					<Link className='w-full' href='/edit-profile'>
 						Account settings
 					</Link>
 				</DropdownMenuItem>
