@@ -5,16 +5,16 @@ import ProfileSidebar from './ProfileSidebar/ProfileSidebar'
 import EditProfileHeader from './EditProfileHeader/EditProfileHeader'
 const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 	const [currentType, setCurrentType] = useState('setProfile')
-	const dataToRender = (() => {
+	const { title, text, content } = (() => {
 		switch (currentType) {
 			case 'setProfile':
-				return <p>profile</p>
+				return { title: 'Profile', text: 'Add information about yourself', content: <p>profile</p> }
 			case 'setPhoto':
-				return <p>photo</p>
+				return { title: 'Photo', text: 'Add a relevant photo to your profile.', content: <p>photo</p> }
 			case 'deleteAccount':
-				return <p>delete aacount</p>
+				return { title: 'Close account', text: 'Close your account permanently.', content: <p>delete account</p> }
 			default:
-				return <p>other data</p>
+				return { title: '', text: '', content: <p>other data</p> }
 		}
 	})()
 
@@ -30,8 +30,8 @@ const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 					/>
 				</div>
 				<div className='w-4/5 flex flex-col justify-between items-center h-full  '>
-					<EditProfileHeader />
-					{dataToRender}
+					<EditProfileHeader title={title} text={text} />
+					<div className='p-4'>{content}</div>
 				</div>
 			</div>
 		</div>
