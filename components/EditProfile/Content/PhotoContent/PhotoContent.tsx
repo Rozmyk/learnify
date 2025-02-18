@@ -36,7 +36,7 @@ const PhotoContent = ({ profileData }: { profileData: ProfileDataProps }) => {
 				})
 
 				const data = await res.json()
-			} catch (err) {
+			} catch (err: any) {
 				setError(err.message)
 			} finally {
 				setLoading(false)
