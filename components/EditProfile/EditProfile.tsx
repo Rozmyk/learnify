@@ -32,9 +32,9 @@ const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 	})()
 
 	return (
-		<div className='w-full flex md:flex-row flex-col justify-center items-center gap-10 h-[calc(100vh-4rem)] p-2'>
+		<div className='w-full flex md:flex-row flex-col justify-center items-center gap-10 min-h-[calc(100vh-4rem)] p-2'>
 			<div className='border border-border w-full rounded-xl flex md:flex-row flex-col justify-between items-stretch'>
-				<div className='w-1/5 flex flex-col justify-start items-center p-4   h-full'>
+				<div className='w-full md:w-1/5 flex flex-col justify-start items-center p-4   h-full'>
 					<ProfileSidebar
 						setCurrentType={setCurrentType}
 						currentType={currentType}
@@ -42,9 +42,9 @@ const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 						username={profileData.username}
 					/>
 				</div>
-				<div className='w-4/5 flex flex-col justify-between items-center h-full border-l border-border'>
+				<div className='w-full md:w-4/5 flex flex-col justify-between items-center h-full border-l border-border'>
 					<EditProfileHeader title={title} text={text} />
-					<div className='py-4 px-24 w-full min-h-[450px]'>{content}</div>
+					<div className='py-4 px-4 md:px-24 w-full min-h-[450px]'>{content}</div>
 				</div>
 			</div>
 		</div>
