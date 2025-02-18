@@ -27,7 +27,7 @@ export default async function ProtectedHomePage({ profileData }: { profileData: 
         *,
         course(
           *,
-          profiles:author_id(*)
+          profiles:author_id(*), categories(*)
         )
       `)
 
