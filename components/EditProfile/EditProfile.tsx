@@ -6,8 +6,10 @@ import EditProfileHeader from './EditProfileHeader/EditProfileHeader'
 import ProfileContent from './Content/ProfileContent/ProfileContent'
 import PhotoContent from './Content/PhotoContent/PhotoContent'
 import DeleteContent from './Content/DeleteContent/DeleteContent'
+type CurrentType = 'setProfile' | 'setPhoto' | 'deleteAccount'
+
 const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
-	const [currentType, setCurrentType] = useState('setProfile')
+	const [currentType, setCurrentType] = useState<CurrentType>('setProfile')
 	const { title, text, content } = (() => {
 		switch (currentType) {
 			case 'setProfile':
@@ -31,8 +33,8 @@ const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 
 	return (
 		<div className='w-full flex md:flex-row flex-col justify-center items-center gap-10 h-[calc(100vh-4rem)] p-2'>
-			<div className='border border-border  w-full  rounded-xl flex justify-between items-start'>
-				<div className='w-1/5 flex flex-col justify-start items-center p-4 border-r border-border '>
+			<div className='border border-border  w-full  rounded-xl flex justify-between items-start '>
+				<div className='w-1/5 flex flex-col justify-start items-center p-4 border-r border-border h-full  '>
 					<ProfileSidebar
 						setCurrentType={setCurrentType}
 						currentType={currentType}
@@ -42,7 +44,7 @@ const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 				</div>
 				<div className='w-4/5 flex flex-col justify-between items-center h-full  '>
 					<EditProfileHeader title={title} text={text} />
-					<div className='py-4 px-24  w-full'>{content}</div>
+					<div className='py-4 px-24  w-full min-h-[450px]'>{content}</div>
 				</div>
 			</div>
 		</div>
