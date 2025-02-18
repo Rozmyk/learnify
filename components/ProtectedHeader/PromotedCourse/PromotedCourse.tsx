@@ -1,11 +1,27 @@
+'use client'
 import { CourseProps } from '@/types/api'
 import Image from 'next/image'
 import StarRating from '@/components/ui/starRating'
+import Link from 'next/link'
 const PromotedCourse = ({ course }: { course: CourseProps }) => {
+	const updateLastViewedCourse = async () => {
+		try {
+			await fetch('/api/updateLastViewed', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ courseId: course.id }),
+			})
+		} catch (error) {
+			console.error('Error updating last viewed course:', error)
+		}
+	}
 	return (
-		<div>
+		<>
 			<p className='my-4 text-2xl font-semibold'>Our best recommendation for you</p>
-			<div className=' relative w-full flex md:flex-row flex-col  justify-between items-start bg-card rounded-xl overflow-hidden  border border-border p-2 md:p-4 gap-4 shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] cursor-pointer'>
+			<Link
+				href={`/course/${course.slug}`}
+				onClick={updateLastViewedCourse}
+				className=' relative w-full flex md:flex-row flex-col  justify-between items-start bg-card rounded-xl overflow-hidden  border border-border p-2 md:p-4 gap-4 shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] cursor-pointer'>
 				<div className='md:w-1/3 w-full  h-52 md:h-80  relative rounded-xl overflow-hidden '>
 					<Image
 						className='object-cover transition-transform duration-300 group-hover:scale-110'
@@ -46,8 +62,8 @@ const PromotedCourse = ({ course }: { course: CourseProps }) => {
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			</Link>
+		</>
 	)
 }
 
