@@ -22,7 +22,7 @@ const PromotedCourse = ({ course }: { course: CourseProps }) => {
 				href={`/course/${course.slug}`}
 				onClick={updateLastViewedCourse}
 				className=' relative w-full flex md:flex-row flex-col  justify-between items-start bg-card rounded-xl overflow-hidden  border border-border p-2 md:p-4 gap-4 shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] cursor-pointer'>
-				<div className='md:w-1/3 w-full  h-52 md:h-80  relative rounded-xl overflow-hidden '>
+				<div className='md:w-2/5 w-full  h-52 md:h-80  relative rounded-xl overflow-hidden '>
 					<Image
 						className='object-cover transition-transform duration-300 group-hover:scale-110'
 						fill
@@ -37,7 +37,7 @@ const PromotedCourse = ({ course }: { course: CourseProps }) => {
 						{course.categories.name}
 					</span>
 				</div>
-				<div className=' w-full md:w-2/3 flex flex-col justify-between items-between h-80  	 '>
+				<div className=' w-full md:w-3/5 flex flex-col justify-between items-between h-80  	 '>
 					<div className='flex flex-col justify-between items-start h-full'>
 						<div>
 							<h3 className='text-3xl font-bold mb-2 group-hover:text-primary transition-colors duration-300'>
