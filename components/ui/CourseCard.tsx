@@ -19,7 +19,6 @@ const CourseCard = ({
 	id,
 }: CourseProps) => {
 	const updateLastViewedCourse = async () => {
-		console.log('funkcja jest wykonuje')
 		try {
 			await fetch('/api/updateLastViewed', {
 				method: 'POST',
