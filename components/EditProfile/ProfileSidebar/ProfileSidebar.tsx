@@ -33,7 +33,7 @@ const ProfileSidebar = ({ avatarUrl, username, currentType, setCurrentType }: Pr
 					<Button
 						key={btn.value}
 						onClick={() => setCurrentType(btn.value)}
-						variant={currentType === btn.value ? 'default' : 'outline'}>
+						variant={currentType === btn.value ? 'default' : 'ghost'}>
 						{btn.label}
 					</Button>
 				))}
