@@ -4,21 +4,31 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '../ui/button'
 import CategorySelect from './CategorySelect/CategorySelect'
+import FileInput from './FileInput/FileInput'
 const AddCourse = () => {
 	const [title, setTitle] = useState('')
 	const [description, setDescription] = useState('')
-	const [price, setPrice] = useState('')
+	const [price, setPrice] = useState<number | ''>('')
 	const [thumbnail, setThumbnail] = useState<File | null>(null)
 	const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
+
 	const handleSubmit = async (e: React.FormEvent) => {
-		setLoading(true)
 		e.preventDefault()
+		setLoading(true)
+
+		if (price === '' || price < 0) {
+			setError('The price must be a positive number')
+			setLoading(false)
+			return
+		}
+
 		const formData = new FormData()
 		formData.append('title', title)
 		formData.append('description', description)
-		formData.append('price', price)
+		formData.append('price', price.toString())
+
 		if (selectedCategory) {
 			formData.append('categories_id', selectedCategory)
 		}
@@ -35,7 +45,6 @@ const AddCourse = () => {
 		setLoading(false)
 		if (!response.ok) {
 			setError(data.error)
-			setLoading(false)
 		} else {
 			console.log(data.message)
 		}
@@ -43,13 +52,16 @@ const AddCourse = () => {
 
 	useEffect(() => {
 		setError('')
-	}, [title, description, price, thumbnail])
+	}, [title, description, price, thumbnail, selectedCategory])
 
 	return (
 		<div className='w-full flex md:flex-row flex-col justify-center items-center gap-10 h-[calc(100vh-4rem)] p-2'>
-			<div className='border border-border  w-full sm:w-[30rem] p-4 rounded-xl flex flex-col gap-4'>
+			<form
+				className='border border-border w-full sm:w-[30rem] p-4 rounded-xl flex flex-col gap-4'
+				onSubmit={handleSubmit}>
 				<Label>Title</Label>
 				<Input onChange={e => setTitle(e.target.value)} value={title} placeholder='Next.js for beginners' required />
+
 				<CategorySelect selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
 
 				<Label>Description</Label>
@@ -61,28 +73,23 @@ const AddCourse = () => {
 				/>
 
 				<Label>Price</Label>
-				<Input onChange={e => setPrice(e.target.value)} value={price} placeholder='100' type='number' required />
+				<Input
+					type='number'
+					value={price}
+					onChange={e => setPrice(e.target.value === '' ? '' : Number(e.target.value))}
+					placeholder='100'
+					min='0'
+					required
+				/>
 
-				<div>
-					<Label>Upload file</Label>
-					<input
-						onChange={e => setThumbnail(e.target.files?.[0] || null)}
-						className='mt-2 block w-full text-sm text-muted-foreground  rounded-lg cursor-pointer bg-background  focus:outline-none '
-						aria-describedby='file_input_help'
-						type='file'
-						accept='image/*'
-					/>
-					<p className='mt-1 text-sm text-muted-foreground ' id='file_input_help'>
-						SVG, PNG, JPG or GIF (MAX. 800x400px).
-					</p>
-				</div>
+				<FileInput setThumbnail={setThumbnail} />
 
 				{error && <p className='text-red-500'>{error}</p>}
 
-				<Button onClick={handleSubmit} disabled={loading}>
+				<Button type='submit' disabled={loading}>
 					{loading ? 'Adding Course...' : 'Add Course'}
 				</Button>
-			</div>
+			</form>
 		</div>
 	)
 }
