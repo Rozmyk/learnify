@@ -9,7 +9,8 @@ import { Button } from '@/components/ui/button'
 const PhotoContent = ({ profileData }: { profileData: ProfileDataProps }) => {
 	const [newImageFile, setNewImageFile] = useState<null | File>(null)
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null)
-
+	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState('')
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0] || null
 		setNewImageFile(file)
@@ -19,6 +20,27 @@ const PhotoContent = ({ profileData }: { profileData: ProfileDataProps }) => {
 			setPreviewUrl(objectUrl)
 		} else {
 			setPreviewUrl(null)
+		}
+	}
+	const handleSubmit = async () => {
+		if (newImageFile) {
+			setLoading(true)
+
+			const formData = new FormData()
+			formData.append('avatar', newImageFile)
+
+			try {
+				const res = await fetch('/api/update_avatar', {
+					method: 'POST',
+					body: formData,
+				})
+
+				const data = await res.json()
+			} catch (err) {
+				setError(err.message)
+			} finally {
+				setLoading(false)
+			}
 		}
 	}
 
@@ -33,7 +55,10 @@ const PhotoContent = ({ profileData }: { profileData: ProfileDataProps }) => {
 			</div>
 			<Label className='mb-4 '>Add/change image</Label>
 			<Input className='mb-8' onChange={handleImageChange} accept='image/*' type='file' />
-			<Button>Save</Button>
+			{error && <p>{error}</p>}
+			<Button disabled={!newImageFile} onClick={handleSubmit}>
+				{loading ? 'Loading' : 'Save'}
+			</Button>
 		</div>
 	)
 }
