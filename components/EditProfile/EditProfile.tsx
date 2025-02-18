@@ -2,9 +2,9 @@
 import { useState } from 'react'
 import { ProfileDataProps } from '@/types/api'
 import ProfileSidebar from './ProfileSidebar/ProfileSidebar'
-
+import EditProfileHeader from './EditProfileHeader/EditProfileHeader'
 const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
-	const [currentType, setCurrentType] = useState('profile')
+	const [currentType, setCurrentType] = useState('setProfile')
 	const dataToRender = (() => {
 		switch (currentType) {
 			case 'setProfile':
@@ -30,10 +30,7 @@ const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 					/>
 				</div>
 				<div className='w-4/5 flex flex-col justify-between items-center h-full  '>
-					<div className='flex flex-col justify-center items-center border-b border-border  w-full p-4'>
-						<h2 className='text-2xl font-semibold'>Profile</h2>
-						<p className='text-muted-foreground '>Add information about yourself</p>
-					</div>
+					<EditProfileHeader />
 					{dataToRender}
 				</div>
 			</div>
