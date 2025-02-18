@@ -5,12 +5,17 @@ import ProfileSidebar from './ProfileSidebar/ProfileSidebar'
 import EditProfileHeader from './EditProfileHeader/EditProfileHeader'
 import ProfileContent from './Content/ProfileContent/ProfileContent'
 import PhotoContent from './Content/PhotoContent/PhotoContent'
+import DeleteContent from './Content/DeleteContent/DeleteContent'
 const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 	const [currentType, setCurrentType] = useState('setProfile')
 	const { title, text, content } = (() => {
 		switch (currentType) {
 			case 'setProfile':
-				return { title: 'Profile', text: 'Add information about yourself', content: <ProfileContent /> }
+				return {
+					title: 'Profile',
+					text: 'Add information about yourself',
+					content: <ProfileContent profileData={profileData} />,
+				}
 			case 'setPhoto':
 				return {
 					title: 'Photo',
@@ -18,7 +23,7 @@ const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 					content: <PhotoContent profileData={profileData} />,
 				}
 			case 'deleteAccount':
-				return { title: 'Close account', text: 'Close your account permanently.', content: <p>delete account</p> }
+				return { title: 'Close account', text: 'Close your account permanently.', content: <DeleteContent /> }
 			default:
 				return { title: '', text: '', content: <p>other data</p> }
 		}
