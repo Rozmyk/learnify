@@ -23,7 +23,10 @@ const ProfileSidebar = ({ avatarUrl, username, currentType, setCurrentType }: Pr
 
 	return (
 		<>
-			<Image height={120} width={120} className='rounded-full mb-2' src={avatarUrl} alt='user Avatar' />
+			<div className='w-32 h-32 relative overflow-hidden rounded-full'>
+				<Image className=' mb-2' fill src={avatarUrl} alt='user Avatar' />
+			</div>
+
 			<p className='text-lg font-semibold'>{username}</p>
 			<div className='flex flex-col gap-2 w-full mt-4'>
 				<Link className='w-full' href={`/profile/${username}`}>
