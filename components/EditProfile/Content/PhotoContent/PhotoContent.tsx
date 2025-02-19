@@ -11,6 +11,7 @@ const PhotoContent = ({ profileData }: { profileData: ProfileDataProps }) => {
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState('')
+	const [succes, setSucces] = useState(false)
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0] || null
 		setNewImageFile(file)
@@ -36,6 +37,9 @@ const PhotoContent = ({ profileData }: { profileData: ProfileDataProps }) => {
 				})
 
 				const data = await res.json()
+				if (data) {
+					setSucces(true)
+				}
 			} catch (err: any) {
 				setError(err.message)
 			} finally {
@@ -56,6 +60,7 @@ const PhotoContent = ({ profileData }: { profileData: ProfileDataProps }) => {
 			<Label className='mb-4 '>Add/change image</Label>
 			<Input className='mb-8' onChange={handleImageChange} accept='image/*' type='file' />
 			{error && <p>{error}</p>}
+			{succes && <p className='mb-4'>Successfully changed photo</p>}
 			<Button disabled={!newImageFile} onClick={handleSubmit}>
 				{loading ? 'Loading' : 'Save'}
 			</Button>
