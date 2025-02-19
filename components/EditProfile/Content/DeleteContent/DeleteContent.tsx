@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import ConfirmModal from './ConfirmModal/ConfirmModal'
 const DeleteContent = () => {
 	return (
 		<div className='flex flex-col justify-start items-start w-full '>
@@ -7,7 +8,10 @@ const DeleteContent = () => {
 				from all courses you attend and you will forever lose access to your account and associated data, even if you
 				create a new account using the same email address in the future.
 			</p>
-			<Button>Delete account</Button>
+
+			<ConfirmModal>
+				<Button>Delete account</Button>
+			</ConfirmModal>
 		</div>
 	)
 }
