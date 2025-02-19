@@ -1,10 +1,31 @@
 'use client'
 import { useState } from 'react'
+import { createClient } from '@/utils/supabase/client'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 const ConfirmModal = ({ children }: { children: ReactNode }) => {
 	const [isOpen, setIsOpen] = useState(false)
+	const deleteUser = async () => {
+		const supabase = await createClient()
+		const {
+			data: { user },
+			error: authError,
+		} = await supabase.auth.getUser()
+		if (user) {
+			const id = user.id
+			const response = await fetch('/api/delete-user', {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ id }),
+			})
+			const data = await response.json()
+			console.log(data)
+		}
+	}
+
 	return (
 		<Dialog.Root open={isOpen}>
 			<Dialog.Trigger
@@ -33,7 +54,7 @@ const ConfirmModal = ({ children }: { children: ReactNode }) => {
 							</Button>
 						</Dialog.Close>
 						<Dialog.Close asChild>
-							<Button>Confirm</Button>
+							<Button onClick={deleteUser}>Confirm</Button>
 						</Dialog.Close>
 					</div>
 				</Dialog.Content>
