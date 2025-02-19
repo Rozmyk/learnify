@@ -39,6 +39,7 @@ const PhotoContent = ({ profileData }: { profileData: ProfileDataProps }) => {
 				const data = await res.json()
 				if (data) {
 					setSucces(true)
+					setNewImageFile(null)
 				}
 			} catch (err: any) {
 				setError(err.message)
