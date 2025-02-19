@@ -1,10 +1,19 @@
+'use client'
+import { useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 const ConfirmModal = ({ children }: { children: ReactNode }) => {
+	const [isOpen, setIsOpen] = useState(false)
 	return (
-		<Dialog.Root>
-			<Dialog.Trigger asChild>{children}</Dialog.Trigger>
+		<Dialog.Root open={isOpen}>
+			<Dialog.Trigger
+				onClick={() => {
+					setIsOpen(true)
+				}}
+				asChild>
+				{children}
+			</Dialog.Trigger>
 
 			<Dialog.Portal>
 				<Dialog.Overlay className='bg-black/50 fixed inset-0' />
@@ -16,7 +25,12 @@ const ConfirmModal = ({ children }: { children: ReactNode }) => {
 
 					<div className='mt-4 flex justify-end gap-2'>
 						<Dialog.Close asChild>
-							<Button>Close</Button>
+							<Button
+								onClick={() => {
+									setIsOpen(false)
+								}}>
+								Close
+							</Button>
 						</Dialog.Close>
 						<Dialog.Close asChild>
 							<Button>Confirm</Button>
