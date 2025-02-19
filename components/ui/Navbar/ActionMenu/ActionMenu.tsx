@@ -15,14 +15,18 @@ const ActionMenu = ({ avatarUrl, username, email }: { avatarUrl: string; usernam
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button variant={'ghost'}>
-					<Image height={30} width={30} src={avatarUrl} alt='User avatar' className='rounded-full' />
+					<div className='w-[30px] h-[30px] relative rounded-full overflow-hidden'>
+						<Image src={avatarUrl} alt='User avatar' fill />
+					</div>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-content' align='start'>
 				<DropdownMenuItem>
 					<Link href={'/user/edit-profile'}>
 						<div className='flex justify-between items-center gap-4 p-2'>
-							<Image className='rounded-full' alt='User avatar' height={50} width={50} src={avatarUrl} />
+							<div className='w-12 h-12 relative rounded-full overflow-hidden'>
+								<Image fill alt='User avatar' src={avatarUrl} />
+							</div>
 							<div>
 								<p className='text-lg font-medium'>{username}</p>
 								<p className='text-sm'>{email}</p>
