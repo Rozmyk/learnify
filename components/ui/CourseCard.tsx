@@ -100,7 +100,7 @@ const CourseCard = ({
 					<div className='flex justify-between items-center gap-4'>
 						<Button className='w-full'>Add to cart</Button>
 						<div className='w-10'>
-							<FavButton />
+							<FavButton courseId={id} />
 						</div>
 					</div>
 				</PopoverContent>
