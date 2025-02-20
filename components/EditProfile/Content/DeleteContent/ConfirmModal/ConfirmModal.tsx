@@ -22,7 +22,6 @@ const ConfirmModal = ({ children }: { children: ReactNode }) => {
 				body: JSON.stringify({ id }),
 			})
 			const data = await response.json()
-			console.log(data)
 		}
 	}
 
