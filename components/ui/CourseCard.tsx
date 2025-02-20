@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger, Portal } from '@radix-ui/react
 import { CourseProps } from '@/types/api'
 import StarRating from './starRating'
 import { Button } from './button'
-import { Heart } from 'lucide-react'
+import FavButton from '../FavButton/FavButton'
 
 const CourseCard = ({
 	thumbnail,
@@ -40,6 +40,7 @@ const CourseCard = ({
 		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger asChild>
 				<Link
+					onClick={updateLastViewedCourse}
 					href={`/course/${slug}`}
 					className='group hover:no-underline flex cursor-pointer'
 					onMouseEnter={() => setOpen(true)}
@@ -99,10 +100,7 @@ const CourseCard = ({
 					<div className='flex justify-between items-center gap-4'>
 						<Button className='w-full'>Add to cart</Button>
 						<div className='w-10'>
-							{' '}
-							<Button className='rounded-full' size='icon' variant='outline'>
-								<Heart />
-							</Button>
+							<FavButton />
 						</div>
 					</div>
 				</PopoverContent>
