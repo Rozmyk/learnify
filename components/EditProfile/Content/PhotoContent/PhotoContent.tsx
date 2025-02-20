@@ -50,18 +50,20 @@ const PhotoContent = ({ profileData }: { profileData: ProfileDataProps }) => {
 	}
 
 	return (
-		<div className='flex flex-col justify-start items-start w-full '>
-			<Label className='mb-4 '>Image preview</Label>
+		<div className='flex flex-col justify-between items-start w-full h-full  '>
+			<div className='flex-1 h-full'>
+				<Label className='mb-4 '>Image preview</Label>
 
-			<div className='w-full flex justify-center items-center'>
-				<div className='w-40 h-40 relative rounded-full overflow-hidden mb-8'>
-					<Image fill src={previewUrl || profileData.avatar_url} alt='user profile photo' />
+				<div className='w-full flex justify-center items-center'>
+					<div className='w-40 h-40 relative rounded-full overflow-hidden mb-8'>
+						<Image fill src={previewUrl || profileData.avatar_url} alt='user profile photo' />
+					</div>
 				</div>
+				<Label className='mb-4 '>Add/change image</Label>
+				<Input className='mb-8' onChange={handleImageChange} accept='image/*' type='file' />
+				{error && <p>{error}</p>}
+				{succes && <p className='mb-4'>Successfully changed photo</p>}
 			</div>
-			<Label className='mb-4 '>Add/change image</Label>
-			<Input className='mb-8' onChange={handleImageChange} accept='image/*' type='file' />
-			{error && <p>{error}</p>}
-			{succes && <p className='mb-4'>Successfully changed photo</p>}
 			<Button disabled={!newImageFile} onClick={handleSubmit}>
 				{loading ? 'Loading' : 'Save'}
 			</Button>
