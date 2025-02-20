@@ -44,7 +44,7 @@ const EditProfile = ({ profileData }: { profileData: ProfileDataProps }) => {
 				</div>
 				<div className='w-full md:w-4/5 flex flex-col justify-between items-center h-full border-l border-border'>
 					<EditProfileHeader title={title} text={text} />
-					<div className='py-4 px-4 md:px-24 w-full min-h-[450px]'>{content}</div>
+					<div className='py-4 px-4 md:px-24 w-full min-h-[450px] '>{content}</div>
 				</div>
 			</div>
 		</div>
