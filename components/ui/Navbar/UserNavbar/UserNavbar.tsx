@@ -3,6 +3,7 @@ import { ThemeSwitcher } from '@/components/theme-switcher'
 import ActionMenu from '../ActionMenu/ActionMenu'
 import { ProfileDataProps } from '@/types/api'
 import HomeButton from '../HomeButton/HomeButton'
+import FavCoursesButton from '../FavCoursesButton/FavCoursesButton'
 import Link from 'next/link'
 export default async function UserNavbar({ user }: { user: ProfileDataProps }) {
 	return (
@@ -18,6 +19,7 @@ export default async function UserNavbar({ user }: { user: ProfileDataProps }) {
 					<Button variant={'ghost'}>My courses</Button>
 				</Link>
 				<ThemeSwitcher />
+				<FavCoursesButton userId={user.id} />
 				<ActionMenu avatarUrl={user.avatar_url} username={user.username} email={user.email} />
 			</div>
 		</div>
