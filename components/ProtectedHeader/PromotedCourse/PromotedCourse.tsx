@@ -30,13 +30,13 @@ const PromotedCourse = ({ course }: { course: CourseProps }) => {
 						alt={`${course.title} course`}
 					/>
 					<div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300' />
+					<div className='absolute bottom-4 left-4 right-4 flex items-center justify-between'>
+						<span className='text-sm font-medium px-3 py-1 bg-black/50 text-white rounded-full backdrop-blur-sm'>
+							{course.categories.name}
+						</span>
+					</div>
 				</div>
 
-				<div className='absolute bottom-6 left-6 right-4 flex items-center justify-between'>
-					<span className='text-sm font-medium px-3 py-1 bg-black/50 text-white rounded-full backdrop-blur-sm'>
-						{course.categories.name}
-					</span>
-				</div>
 				<div className=' w-full md:w-3/5 flex flex-col justify-between items-between h-80  	 '>
 					<div className='flex flex-col justify-between items-start h-full'>
 						<div>
