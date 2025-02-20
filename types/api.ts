@@ -30,6 +30,8 @@ export interface ReviewProps {
 }
 export interface ProfileDataProps {
 	id: string
+	website: string | null
+	description: string | null
 	username: string
 	created_at: string
 	avatar_url: string
