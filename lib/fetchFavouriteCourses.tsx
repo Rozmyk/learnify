@@ -16,7 +16,17 @@ export const fetchFavoriteCourses = async (userId: string) => {
 	if (favCourses) {
 		const courseIds = favCourses.map((fav: { course_id: string }) => fav.course_id)
 
-		const { data: coursesData, error: coursesError } = await supabase.from('course').select('*').in('id', courseIds)
+		const { data: coursesData, error: coursesError } = await supabase
+			.from('course')
+			.select(
+				`
+            *,
+            reviews(*),
+            categories(*),
+            profiles(*)
+          `
+			)
+			.in('id', courseIds)
 
 		if (coursesError) {
 			console.error('Error fetching course details:', coursesError)
