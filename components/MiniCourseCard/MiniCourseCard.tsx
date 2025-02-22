@@ -4,8 +4,18 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 interface MiniCourseCardProps extends CourseProps {
 	withoutButton?: boolean
+	onClick?: () => void
 }
-const MiniCourseCard = ({ title, profiles, thumbnail, price, discount, slug, withoutButton }: MiniCourseCardProps) => {
+const MiniCourseCard = ({
+	title,
+	profiles,
+	thumbnail,
+	price,
+	discount,
+	slug,
+	withoutButton,
+	onClick,
+}: MiniCourseCardProps) => {
 	return (
 		<div className='flex flex-col justify-start items-start'>
 			<Link href={`/course/${slug}`} className='flex justify-start items-center gap-4'>
