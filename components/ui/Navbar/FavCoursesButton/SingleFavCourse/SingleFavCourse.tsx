@@ -1,6 +1,7 @@
 import { CourseProps } from '@/types/api'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+
 const SingleFavCourse = ({ title, profiles, thumbnail, price, discount }: CourseProps) => {
 	return (
 		<div className='flex flex-col justify-start items-start'>
