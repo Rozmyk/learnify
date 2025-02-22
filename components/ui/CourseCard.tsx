@@ -108,11 +108,7 @@ const CourseCard = ({
 							<Button
 								className='w-full'
 								onClick={() => {
-									const productToAdd = {
-										product_id: id,
-										quantity: 1,
-									}
-									addToCart(productToAdd)
+									addToCart(id)
 								}}>
 								Add to cart
 							</Button>
