@@ -11,7 +11,7 @@ interface CartState {
 	hasFetchedCartItems: boolean
 	fetchCart: (userId: string) => Promise<void>
 	addToCart: (item: CartItemProps) => Promise<void>
-	toggleCartItem: (userId: string, productId: string) => Promise<void>
+	removeFromCart: (userId: string, productId: string) => Promise<void>
 	calculateTotalPrice: () => void
 }
 
@@ -27,7 +27,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 			const price = item.course?.price || 0
 			const discount = item.course?.discount || 0
 			const finalPrice = price * (1 - discount / 100)
-			return sum + finalPrice * item.quantity
+			return sum + finalPrice
 		}, 0)
 
 		set({ totalPrice: parseFloat(total.toFixed(2)) })
@@ -36,13 +36,11 @@ export const useCartStore = create<CartState>((set, get) => ({
 	addToCart: async (newItem: CartItemProps) => {
 		set({ loading: true })
 		const { cartItems, calculateTotalPrice } = get()
-		const existingProductIndex = cartItems.findIndex(item => item.product_id === newItem.product_id)
 
-		if (existingProductIndex > -1) {
-			const updatedItems = [...cartItems]
-			updatedItems[existingProductIndex].quantity += 1
-			set({ cartItems: updatedItems, loading: false })
-			calculateTotalPrice()
+		const alreadyInCart = cartItems.some(item => item.product_id === newItem.product_id)
+
+		if (alreadyInCart) {
+			set({ loading: false })
 			return
 		}
 
@@ -64,6 +62,24 @@ export const useCartStore = create<CartState>((set, get) => ({
 		}
 	},
 
+	removeFromCart: async (userId: string, productId: string) => {
+		set({ loading: true })
+		const { cartItems, calculateTotalPrice } = get()
+
+		const updatedItems = cartItems.filter(item => item.product_id !== productId)
+
+		const supabase = createClient()
+		const { error } = await supabase.from('cart').delete().eq('user_id', userId).eq('product_id', productId)
+
+		if (error) {
+			set({ loading: false })
+			return
+		}
+
+		set({ cartItems: updatedItems, loading: false })
+		calculateTotalPrice()
+	},
+
 	fetchCart: async (userId: string) => {
 		set({ loading: true })
 
@@ -77,20 +93,5 @@ export const useCartStore = create<CartState>((set, get) => ({
 
 		set({ cartItems: data, hasFetchedCartItems: true, loading: false })
 		get().calculateTotalPrice()
-	},
-
-	toggleCartItem: async (userId: string, productId: string) => {
-		const { cartItems, calculateTotalPrice } = get()
-		const updatedItems = cartItems.filter(item => item.product_id !== productId)
-
-		const supabase = createClient()
-		const { error } = await supabase.from('cart').delete().eq('user_id', userId).eq('product_id', productId)
-
-		if (error) {
-			return
-		}
-
-		set({ cartItems: updatedItems })
-		calculateTotalPrice()
 	},
 }))
