@@ -66,6 +66,15 @@ export const useCartStore = create<CartState>((set, get) => ({
 				cartItems: [...state.cartItems, updatedItem],
 				loading: false,
 			}))
+			const { error: uploadError } = await supabase.from('cart').insert([
+				{
+					user_id: user.id,
+					product_id: newItem.product_id,
+				},
+			])
+			if (uploadError) {
+				console.log(uploadError)
+			}
 			calculateTotalPrice()
 		}
 	},
@@ -98,24 +107,28 @@ export const useCartStore = create<CartState>((set, get) => ({
 
 	fetchCart: async () => {
 		set({ loading: true })
+		const { hasFetchedCartItems } = get()
 
-		const supabase = await createClient()
-		const {
-			data: { user },
-		} = await supabase.auth.getUser()
+		if (!hasFetchedCartItems) {
+			const supabase = await createClient()
+			const {
+				data: { user },
+			} = await supabase.auth.getUser()
 
-		if (!user?.id) {
-			set({ loading: false })
-			return
+			if (!user?.id) {
+				set({ loading: false })
+				return
+			}
+			const { data, error } = await supabase.from('cart').select('*, course(*, profiles(*))').eq('user_id', user.id)
+			console.log(data)
+
+			if (error) {
+				set({ loading: false })
+				return
+			}
+
+			set({ cartItems: data, hasFetchedCartItems: true, loading: false })
+			get().calculateTotalPrice()
 		}
-		const { data, error } = await supabase.from('cart').select('*').eq('user_id', user.id)
-
-		if (error) {
-			set({ loading: false })
-			return
-		}
-
-		set({ cartItems: data, hasFetchedCartItems: true, loading: false })
-		get().calculateTotalPrice()
 	},
 }))
