@@ -39,7 +39,7 @@ const MiniCourseCard = ({
 				</div>
 			</Link>
 			{!withoutButton && (
-				<Button variant='outline' size='sm' className='w-full mt-2'>
+				<Button variant='outline' size='sm' className='w-full mt-2' onClick={onClick}>
 					Add to cart
 				</Button>
 			)}
