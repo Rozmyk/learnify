@@ -26,7 +26,7 @@ const CartButton = () => {
 							<ScrollArea.Thumb />
 						</ScrollArea.Scrollbar>
 						<div className='p-4 flex flex-col justify-start items-start max-w-80 gap-4'>
-							{cartItems.length > 0 ? <p>cart item</p> : <p>Your cart is empty</p>}
+							{cartItems.length > 0 ? cartItems.map(item => <div key={item}>{item}</div>) : <p>Your cart is empty</p>}
 						</div>
 					</ScrollArea.Viewport>
 				</ScrollArea.Root>
