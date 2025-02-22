@@ -10,9 +10,11 @@ const CartButton = () => {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button size='icon' variant='ghost' className='relative'>
-					<div className='h-4 w-4 bg-red-500 rounded-full flex justify-center items-center absolute top-0 right-0'>
-						<p className='text-xs'>{temporaryShoppingCart.length}</p>
-					</div>
+					{temporaryShoppingCart.length > 0 && (
+						<div className='h-4 w-4 bg-red-500 rounded-full flex justify-center items-center absolute top-0 right-0'>
+							<p className='text-xs'>{temporaryShoppingCart.length}</p>
+						</div>
+					)}
 					<ShoppingBasket className={'text-muted-foreground'} size={16} />
 				</Button>
 			</DropdownMenuTrigger>
