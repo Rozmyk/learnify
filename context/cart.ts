@@ -10,7 +10,7 @@ interface CartState {
 	loading: boolean
 	hasFetchedCartItems: boolean
 	fetchCart: () => Promise<void>
-	addToCart: (item: CartItemProps) => Promise<void>
+	addToCart: (item: string) => Promise<void>
 	removeFromCart: (productId: string) => Promise<void>
 	calculateTotalPrice: () => void
 }
@@ -33,7 +33,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 		set({ totalPrice: parseFloat(total.toFixed(2)) })
 	},
 
-	addToCart: async (newItem: CartItemProps) => {
+	addToCart: async (newItem: string) => {
 		set({ loading: true })
 		const { cartItems, calculateTotalPrice } = get()
 		const supabase = await createClient()
@@ -46,14 +46,14 @@ export const useCartStore = create<CartState>((set, get) => ({
 			return
 		}
 
-		const alreadyInCart = cartItems.some(item => item.product_id === newItem.product_id)
+		const alreadyInCart = cartItems.some(item => item.product_id === newItem)
 
 		if (alreadyInCart) {
 			set({ loading: false })
 			return
 		}
 
-		const { data, error } = await supabase.from('course').select('*, profiles(*)').eq('id', newItem.product_id).single()
+		const { data, error } = await supabase.from('course').select('*, profiles(*)').eq('id', newItem).single()
 
 		if (error) {
 			set({ loading: false })
@@ -61,7 +61,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 		}
 
 		if (data && user) {
-			const updatedItem = { ...newItem, course: data, user_id: user.id }
+			const updatedItem = { product_id: newItem, course: data, user_id: user.id }
 			set(state => ({
 				cartItems: [...state.cartItems, updatedItem],
 				loading: false,
@@ -69,7 +69,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 			const { error: uploadError } = await supabase.from('cart').insert([
 				{
 					user_id: user.id,
-					product_id: newItem.product_id,
+					product_id: newItem,
 				},
 			])
 			if (uploadError) {
