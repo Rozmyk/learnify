@@ -48,7 +48,7 @@ export interface SingleFavCourseProps {
 export interface CartItemProps {
 	id?: string
 	created_at?: string
-	user_id: string
+	user_id?: string
 	product_id: string
 	updated_at?: string
 	quantity: number
