@@ -39,3 +39,9 @@ export interface ProfileDataProps {
 	isTeacher: boolean
 	lastViewedCourseId: string | null
 }
+export interface SingleFavCourseProps {
+	id: string
+	created_at: string
+	user_id: string
+	course_id: string
+}
