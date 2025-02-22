@@ -5,7 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/compon
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useCartStore } from '@/context/cart'
 const CartButton = () => {
-	const { cartItems } = useCartStore()
+	const { cartItems, totalPrice } = useCartStore()
 
 	return (
 		<DropdownMenu>
@@ -26,14 +26,23 @@ const CartButton = () => {
 							<ScrollArea.Thumb />
 						</ScrollArea.Scrollbar>
 						<div className='p-4 flex flex-col justify-start items-start max-w-80 gap-4'>
-							{cartItems.length > 0 ? cartItems.map(item => <div key={item}>{item}</div>) : <p>Your cart is empty</p>}
+							{cartItems.length > 0 ? (
+								cartItems.map(item => (
+									<div key={item.product_id}>
+										{item?.course?.title}
+										ilość: {item.quantity}
+									</div>
+								))
+							) : (
+								<p>Your cart is empty</p>
+							)}
 						</div>
 					</ScrollArea.Viewport>
 				</ScrollArea.Root>
 				<div className='w-full border-t border-border my-2'></div>
 
 				<div className='w-full p-2 flex flex-col justify-center items-start gap-2'>
-					{cartItems.length > 0 && <h4 className='text-lg font-semibold'>Total: 204 zł</h4>}
+					{cartItems.length > 0 && <h4 className='text-lg font-semibold'>Total: {totalPrice} zł</h4>}
 					{cartItems.length > 0 ? (
 						<Button className='w-full'>Go to cart</Button>
 					) : (
