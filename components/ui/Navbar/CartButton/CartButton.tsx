@@ -1,14 +1,17 @@
 'use client'
 import { ShoppingBasket } from 'lucide-react'
 import { Button } from '../../button'
+import { useEffect } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useCartStore } from '@/context/cart'
 import MiniCourseCard from '@/components/MiniCourseCard/MiniCourseCard'
 import Link from 'next/link'
 const CartButton = () => {
-	const { cartItems, totalPrice } = useCartStore()
-
+	const { cartItems, totalPrice, fetchCart } = useCartStore()
+	useEffect(() => {
+		fetchCart()
+	}, [])
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
