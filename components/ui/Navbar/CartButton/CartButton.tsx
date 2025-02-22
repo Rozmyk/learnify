@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/compon
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useCartStore } from '@/context/cart'
 import MiniCourseCard from '@/components/MiniCourseCard/MiniCourseCard'
+import Link from 'next/link'
 const CartButton = () => {
 	const { cartItems, totalPrice } = useCartStore()
 
@@ -42,9 +43,13 @@ const CartButton = () => {
 				<div className='w-full p-2 flex flex-col justify-center items-start gap-2'>
 					{cartItems.length > 0 && <h4 className='text-lg font-semibold'>Total: {totalPrice} zł</h4>}
 					{cartItems.length > 0 ? (
-						<Button className='w-full'>Go to cart</Button>
+						<Link className='w-full' href='/cart'>
+							<Button className='w-full'>Go to cart</Button>
+						</Link>
 					) : (
-						<Button className='w-full'>Continue shopping</Button>
+						<Link className='w-full' href={'/'}>
+							<Button className='w-full'>Continue shopping</Button>
+						</Link>
 					)}
 				</div>
 			</DropdownMenuContent>
