@@ -12,7 +12,7 @@ import { useEffect } from 'react'
 
 const FavCoursesButton = ({ userId }: { userId: string }) => {
 	const { favorites, loading, fetchFavorites } = useWishlistStore()
-	const { addToCart } = useCartStore()
+	const { addToCart, cartItems } = useCartStore()
 
 	useEffect(() => {
 		if (!favorites || favorites.length === 0) {
@@ -42,6 +42,7 @@ const FavCoursesButton = ({ userId }: { userId: string }) => {
 								favorites.map(course => {
 									return (
 										<MiniCourseCard
+											withoutButton={cartItems.some(item => item.product_id == course.id)}
 											key={course.id}
 											onClick={() => {
 												addToCart(course.id)
