@@ -60,7 +60,9 @@ const FavCoursesButton = ({ userId }: { userId: string }) => {
 				<div className='w-full border-t border-border my-2'></div>
 				<div className='w-full p-2'>
 					{favorites && favorites.length > 0 ? (
-						<Button className='w-full'>Go to wishlist</Button>
+						<Link href='/wishlist'>
+							<Button className='w-full'>Go to wishlist</Button>
+						</Link>
 					) : (
 						<Link href={'/'}>
 							<Button className='w-full'>Discover courses</Button>
