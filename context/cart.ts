@@ -9,9 +9,9 @@ interface CartState {
 	totalPrice: number
 	loading: boolean
 	hasFetchedCartItems: boolean
-	fetchCart: (userId: string) => Promise<void>
+	fetchCart: () => Promise<void>
 	addToCart: (item: CartItemProps) => Promise<void>
-	removeFromCart: (userId: string, productId: string) => Promise<void>
+	removeFromCart: (productId: string) => Promise<void>
 	calculateTotalPrice: () => void
 }
 
@@ -36,6 +36,15 @@ export const useCartStore = create<CartState>((set, get) => ({
 	addToCart: async (newItem: CartItemProps) => {
 		set({ loading: true })
 		const { cartItems, calculateTotalPrice } = get()
+		const supabase = await createClient()
+		const {
+			data: { user },
+		} = await supabase.auth.getUser()
+
+		if (!user?.id) {
+			set({ loading: false })
+			return
+		}
 
 		const alreadyInCart = cartItems.some(item => item.product_id === newItem.product_id)
 
@@ -44,7 +53,6 @@ export const useCartStore = create<CartState>((set, get) => ({
 			return
 		}
 
-		const supabase = createClient()
 		const { data, error } = await supabase.from('course').select('*, profiles(*)').eq('id', newItem.product_id).single()
 
 		if (error) {
@@ -52,8 +60,8 @@ export const useCartStore = create<CartState>((set, get) => ({
 			return
 		}
 
-		if (data) {
-			const updatedItem = { ...newItem, course: data }
+		if (data && user) {
+			const updatedItem = { ...newItem, course: data, user_id: user.id }
 			set(state => ({
 				cartItems: [...state.cartItems, updatedItem],
 				loading: false,
@@ -62,14 +70,22 @@ export const useCartStore = create<CartState>((set, get) => ({
 		}
 	},
 
-	removeFromCart: async (userId: string, productId: string) => {
+	removeFromCart: async (productId: string) => {
 		set({ loading: true })
 		const { cartItems, calculateTotalPrice } = get()
+		const supabase = await createClient()
+		const {
+			data: { user },
+		} = await supabase.auth.getUser()
+
+		if (!user?.id) {
+			set({ loading: false })
+			return
+		}
 
 		const updatedItems = cartItems.filter(item => item.product_id !== productId)
 
-		const supabase = createClient()
-		const { error } = await supabase.from('cart').delete().eq('user_id', userId).eq('product_id', productId)
+		const { error } = await supabase.from('cart').delete().eq('user_id', user.id).eq('product_id', productId)
 
 		if (error) {
 			set({ loading: false })
@@ -80,11 +96,19 @@ export const useCartStore = create<CartState>((set, get) => ({
 		calculateTotalPrice()
 	},
 
-	fetchCart: async (userId: string) => {
+	fetchCart: async () => {
 		set({ loading: true })
 
-		const supabase = createClient()
-		const { data, error } = await supabase.from('cart').select('*').eq('user_id', userId)
+		const supabase = await createClient()
+		const {
+			data: { user },
+		} = await supabase.auth.getUser()
+
+		if (!user?.id) {
+			set({ loading: false })
+			return
+		}
+		const { data, error } = await supabase.from('cart').select('*').eq('user_id', user.id)
 
 		if (error) {
 			set({ loading: false })
