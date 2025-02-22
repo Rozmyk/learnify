@@ -17,7 +17,7 @@ const MiniCourseCard = ({
 	onClick,
 }: MiniCourseCardProps) => {
 	return (
-		<div className='flex flex-col justify-start items-start'>
+		<div className='flex flex-col justify-start items-start w-full'>
 			<Link href={`/course/${slug}`} className='flex justify-start items-center gap-4'>
 				<div className='relative w-16 min-w-16 min-h-16 h-16 aspect-w-1 aspect-h-1 rounded-md overflow-hidden'>
 					<Image src={thumbnail} fill alt='course photo' className='object-cover' />
