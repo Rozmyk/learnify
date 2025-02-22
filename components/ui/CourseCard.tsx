@@ -24,7 +24,8 @@ const CourseCard = ({
 	id,
 }: CourseProps) => {
 	const [open, setOpen] = useState(false)
-	const { addToCart } = useCartStore()
+	const { addToCart, cartItems } = useCartStore()
+	const isAlreadtInCart = cartItems.some(item => item.product_id == id)
 	const updateLastViewedCourse = async () => {
 		try {
 			await fetch('/api/updateLastViewed', {
@@ -99,13 +100,24 @@ const CourseCard = ({
 					<h4 className='text-lg font-semibold'>{title}</h4>
 					<p className='text-sm text-muted-foreground mt-2 mb-4'>{description}</p>
 					<div className='flex justify-between items-center gap-4'>
-						<Button
-							className='w-full'
-							onClick={() => {
-								addToCart(id)
-							}}>
-							Add to cart
-						</Button>
+						{isAlreadtInCart ? (
+							<Link className='w-full' href='/'>
+								<Button className='w-full'>Go to cart</Button>
+							</Link>
+						) : (
+							<Button
+								className='w-full'
+								onClick={() => {
+									const productToAdd = {
+										product_id: id,
+										quantity: 1,
+									}
+									addToCart(productToAdd)
+								}}>
+								Add to cart
+							</Button>
+						)}
+
 						<div className='w-10'>
 							<FavButton courseId={id} />
 						</div>
