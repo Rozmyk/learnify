@@ -8,6 +8,7 @@ import { CourseProps } from '@/types/api'
 import StarRating from './starRating'
 import { Button } from './button'
 import FavButton from '../FavButton/FavButton'
+import { useCartStore } from '@/context/cart'
 
 const CourseCard = ({
 	thumbnail,
@@ -23,7 +24,7 @@ const CourseCard = ({
 	id,
 }: CourseProps) => {
 	const [open, setOpen] = useState(false)
-
+	const { addToCart } = useCartStore()
 	const updateLastViewedCourse = async () => {
 		try {
 			await fetch('/api/updateLastViewed', {
@@ -98,7 +99,13 @@ const CourseCard = ({
 					<h4 className='text-lg font-semibold'>{title}</h4>
 					<p className='text-sm text-muted-foreground mt-2 mb-4'>{description}</p>
 					<div className='flex justify-between items-center gap-4'>
-						<Button className='w-full'>Add to cart</Button>
+						<Button
+							className='w-full'
+							onClick={() => {
+								addToCart(id)
+							}}>
+							Add to cart
+						</Button>
 						<div className='w-10'>
 							<FavButton courseId={id} />
 						</div>
