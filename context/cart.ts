@@ -47,7 +47,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 		}
 
 		const supabase = createClient()
-		const { data, error } = await supabase.from('course').select('*').eq('id', newItem.product_id).single()
+		const { data, error } = await supabase.from('course').select('*, profiles(*)').eq('id', newItem.product_id).single()
 
 		if (error) {
 			set({ loading: false })
