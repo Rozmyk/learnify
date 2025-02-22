@@ -4,6 +4,7 @@ import { Button } from '../../button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useCartStore } from '@/context/cart'
+import MiniCourseCard from '@/components/MiniCourseCard/MiniCourseCard'
 const CartButton = () => {
 	const { cartItems, totalPrice } = useCartStore()
 
@@ -27,12 +28,9 @@ const CartButton = () => {
 						</ScrollArea.Scrollbar>
 						<div className='p-4 flex flex-col justify-start items-start max-w-80 gap-4'>
 							{cartItems.length > 0 ? (
-								cartItems.map(item => (
-									<div key={item.product_id}>
-										{item?.course?.title}
-										ilość: {item.quantity}
-									</div>
-								))
+								cartItems.map(
+									item => item.course && <MiniCourseCard withoutButton={true} key={item.course.id} {...item.course} />
+								)
 							) : (
 								<p>Your cart is empty</p>
 							)}

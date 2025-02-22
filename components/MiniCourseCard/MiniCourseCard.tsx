@@ -2,8 +2,10 @@ import { CourseProps } from '@/types/api'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-
-const SingleFavCourse = ({ title, profiles, thumbnail, price, discount, slug }: CourseProps) => {
+interface MiniCourseCardProps extends CourseProps {
+	withoutButton?: boolean
+}
+const MiniCourseCard = ({ title, profiles, thumbnail, price, discount, slug, withoutButton }: MiniCourseCardProps) => {
 	return (
 		<div className='flex flex-col justify-start items-start'>
 			<Link href={`/course/${slug}`} className='flex justify-start items-center gap-4'>
@@ -26,11 +28,13 @@ const SingleFavCourse = ({ title, profiles, thumbnail, price, discount, slug }: 
 					</div>
 				</div>
 			</Link>
-			<Button variant='outline' size='sm' className='w-full mt-2'>
-				Add to cart
-			</Button>
+			{!withoutButton && (
+				<Button variant='outline' size='sm' className='w-full mt-2'>
+					Add to cart
+				</Button>
+			)}
 		</div>
 	)
 }
 
-export default SingleFavCourse
+export default MiniCourseCard

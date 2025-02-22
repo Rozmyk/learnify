@@ -2,7 +2,8 @@
 import { Heart } from 'lucide-react'
 import { Button } from '../../button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import SingleFavCourse from './SingleFavCourse/SingleFavCourse'
+
+import MiniCourseCard from '@/components/MiniCourseCard/MiniCourseCard'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import Link from 'next/link'
 import { useWishlistStore } from '@/context/wishlist'
@@ -38,7 +39,7 @@ const FavCoursesButton = ({ userId }: { userId: string }) => {
 								</div>
 							) : favorites && favorites.length > 0 ? (
 								favorites.map(course => {
-									return <SingleFavCourse key={course.id} {...course} />
+									return <MiniCourseCard key={course.id} {...course} />
 								})
 							) : (
 								<p>Your wish list is empty.</p>
