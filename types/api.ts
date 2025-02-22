@@ -51,6 +51,5 @@ export interface CartItemProps {
 	user_id?: string
 	product_id: string
 	updated_at?: string
-	quantity: number
 	course?: CourseProps
 }
