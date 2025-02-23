@@ -53,3 +53,9 @@ export interface CartItemProps {
 	updated_at?: string
 	course?: CourseProps
 }
+export interface PromocodeProps {
+	value: string
+	discount: number
+	created_at: string
+	id: string
+}
