@@ -101,7 +101,7 @@ const CourseCard = ({
 					<p className='text-sm text-muted-foreground mt-2 mb-4'>{description}</p>
 					<div className='flex justify-between items-center gap-4'>
 						{isAlreadtInCart ? (
-							<Link className='w-full' href='/'>
+							<Link className='w-full' href='/cart'>
 								<Button className='w-full'>Go to cart</Button>
 							</Link>
 						) : (
