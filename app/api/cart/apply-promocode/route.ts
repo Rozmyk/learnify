@@ -7,10 +7,12 @@ export async function POST(req: Request) {
 		data: { user },
 		error: authError,
 	} = await supabase.auth.getUser()
+	if (authError) {
+		console.log(authError)
+	}
 
 	try {
 		const { promoCode } = await req.json()
-		console.log(promoCode)
 
 		if (!user?.id || !promoCode) {
 			return NextResponse.json(
@@ -25,7 +27,7 @@ export async function POST(req: Request) {
 			.eq('value', promoCode)
 			.eq('active', true)
 			.single()
-		console.log(promo)
+
 		if (!promo || promoError) {
 			return NextResponse.json(
 				{ error: 'Invalid or inactive promo code' },
@@ -38,20 +40,36 @@ export async function POST(req: Request) {
 		const { error: insertError } = await supabase.from('cart_promocodes').insert([
 			{
 				user_id: user.id,
-				promo_code: promoCode,
+				value: promoCode,
 			},
 		])
 
 		if (insertError) {
-			console.log(insertError)
 			return NextResponse.json(
 				{ error: 'Failed to apply promo code' },
 				{ status: 500, headers: { 'Access-Control-Allow-Origin': '*' } }
 			)
 		}
 
+		const { data: appliedPromo, error: fetchError } = await supabase
+			.from('cart_promocodes')
+			.select('*')
+			.eq('user_id', user.id)
+			.single()
+
+		if (fetchError) {
+			return NextResponse.json(
+				{ error: 'Failed to retrieve applied promo code' },
+				{ status: 500, headers: { 'Access-Control-Allow-Origin': '*' } }
+			)
+		}
+
 		return NextResponse.json(
-			{ success: true, message: 'Promo code applied' },
+			{
+				success: true,
+				message: 'Promo code applied',
+				appliedPromoCode: appliedPromo,
+			},
 			{ headers: { 'Access-Control-Allow-Origin': '*' } }
 		)
 	} catch (error) {
