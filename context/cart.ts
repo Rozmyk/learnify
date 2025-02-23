@@ -119,7 +119,10 @@ export const useCartStore = create<CartState>((set, get) => ({
 				set({ loading: false })
 				return
 			}
-			const { data, error } = await supabase.from('cart').select('*, course(*, profiles(*))').eq('user_id', user.id)
+			const { data, error } = await supabase
+				.from('cart')
+				.select('*, course(*, profiles(*), reviews(*))')
+				.eq('user_id', user.id)
 			console.log(data)
 
 			if (error) {
