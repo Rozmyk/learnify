@@ -21,6 +21,7 @@ const Promotions = () => {
 			}
 
 			const data = await response.json()
+			setInputValue('')
 			setPromocodeData(data)
 		} catch (error) {
 			setPromocodeData(null)
@@ -36,7 +37,7 @@ const Promotions = () => {
 
 	return (
 		<div>
-			<p className='font-semibold '>Promotions</p>
+			<p className='font-semibold mb-2 '>Promotions</p>
 			{promocodeData && (
 				<div className='p-2 border border-dashed border-border my-4 flex justify-between items-center'>
 					<p className='text-muted-foreground text-sm'>
@@ -63,6 +64,7 @@ const Promotions = () => {
 				/>
 
 				<Button
+					disabled={inputValue.trim() == ''}
 					onClick={() => {
 						checkPromocode(inputValue)
 					}}>
