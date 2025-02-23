@@ -2,15 +2,16 @@
 import { useCartStore } from '@/context/cart'
 import { Button } from '../ui/button'
 import Image from 'next/image'
-import { CourseProps, CartItemProps } from '@/types/api'
+import { CartItemProps } from '@/types/api'
 import Loader from '../ui/loader'
 import StarRating from '../ui/starRating'
 import EmptyCart from './EmptyCart/EmptyCart'
+import Promotions from './Promotions/Promotions'
 
 const CartPage = () => {
 	const { cartItems, totalPrice, loading, removeFromCart } = useCartStore()
 	const SingleCartItem = ({ course, product_id }: CartItemProps) => {
-		console.log(course)
+		if (!course) return null
 		return (
 			<div className='w-full  flex justify-between items-start gap-4 mb-4 p-2 ' key={product_id}>
 				<div className='flex justify-start items-start gap-4'>
@@ -58,6 +59,8 @@ const CartPage = () => {
 							<p className='text-3xl font-semibold mb-2'>{totalPrice} zł</p>
 							<Button className='w-full mb-2'>Go to checkout</Button>
 							<p className='text-muted-foreground text-sm'>You won't pay anything yet</p>
+							<div className='border-b border-border my-4'></div>
+							<Promotions />
 						</div>
 					</>
 				) : (
