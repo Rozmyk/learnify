@@ -13,19 +13,24 @@ const Promotions = () => {
 			setLoading(true)
 			setError('')
 
-			const response = await fetch(`/api/check-promocode?code=${code}`)
-
-			if (!response.ok) {
-				const errorData = await response.json()
-				throw new Error(errorData.error || `Błąd ${response.status}`)
-			}
+			const response = await fetch('/api/cart/apply-promocode', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ promoCode: code }),
+			})
 
 			const data = await response.json()
+
+			if (!response.ok) {
+				throw new Error(data.error || `Error ${response.status}`)
+			}
+
 			setInputValue('')
-			setPromocodeData(data)
+			console.log(data)
+			setPromocodeData(data.appliedPromoCode)
 		} catch (error) {
 			setPromocodeData(null)
-			setError(error instanceof Error ? error.message : 'Wystąpił nieoczekiwany błąd')
+			setError(error instanceof Error ? error.message : 'Unexpected error occurred')
 		} finally {
 			setLoading(false)
 		}
