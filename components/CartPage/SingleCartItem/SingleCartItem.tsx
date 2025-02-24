@@ -27,7 +27,9 @@ const SingleCartItem = ({ course, onDeleteClick, moveToCart, moveToWishlist }: S
 				</div>
 				<div className='flex flex-col justify-center items-center'>
 					<p className='font-semibold text-nowrap'>{discountPrice.toFixed(2)} zł</p>{' '}
-					<p className='font-normal text-sm line-through text-muted-foreground text-nowrap'>{course.price} zł</p>
+					{discountPrice !== course.price && (
+						<p className='font-normal text-sm line-through text-muted-foreground text-nowrap'>{course.price} zł</p>
+					)}
 				</div>
 			</div>
 			{[onDeleteClick, moveToCart, moveToWishlist].some(Boolean) && (
