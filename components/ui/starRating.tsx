@@ -8,7 +8,7 @@ const StarRating = ({ avgRating, reviewCount }: { avgRating?: number | null; rev
 
 	return (
 		<div className='flex items-center gap-1'>
-			<span className='font-medium'>{rating.toFixed(1)}</span>
+			<span className='font-medium text-sm'>{rating.toFixed(1)}</span>
 			<div className='flex'>
 				{'★'
 					.repeat(fullStars)
