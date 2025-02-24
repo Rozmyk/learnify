@@ -8,7 +8,7 @@ import { useCartStore } from '@/context/cart'
 import MiniCourseCard from '@/components/MiniCourseCard/MiniCourseCard'
 import Link from 'next/link'
 const CartButton = () => {
-	const { cartItems, totalPrice, fetchCart } = useCartStore()
+	const { cartItems, totalPrice, originalTotal, fetchCart } = useCartStore()
 	useEffect(() => {
 		fetchCart()
 	}, [])
@@ -44,7 +44,14 @@ const CartButton = () => {
 				<div className='w-full border-t border-border my-2'></div>
 
 				<div className='w-full p-2 flex flex-col justify-center items-start gap-2'>
-					{cartItems.length > 0 && <h4 className='text-lg font-semibold'>Total: {totalPrice} zł</h4>}
+					{cartItems.length > 0 && (
+						<h4 className='text-lg font-semibold'>
+							Total: {totalPrice} zł{' '}
+							<span className=' ml-2 text-muted-foreground line-through text-nowrap font-normal'>
+								{originalTotal} zł
+							</span>
+						</h4>
+					)}
 					{cartItems.length > 0 ? (
 						<Link className='w-full' href='/cart'>
 							<Button className='w-full'>Go to cart</Button>
