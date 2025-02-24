@@ -7,6 +7,7 @@ import { CartItemProps } from '@/types/api'
 interface CartState {
 	cartItems: CartItemProps[]
 	totalPrice: number
+	originalTotal: number
 	loading: boolean
 	promocodeLoading: boolean
 	hasFetchedCartItems: boolean
@@ -23,6 +24,7 @@ interface CartState {
 export const useCartStore = create<CartState>((set, get) => ({
 	cartItems: [],
 	totalPrice: 0,
+	originalTotal: 0,
 	loading: false,
 	promocodeLoading: false,
 	hasFetchedCartItems: false,
@@ -31,13 +33,16 @@ export const useCartStore = create<CartState>((set, get) => ({
 
 	calculateTotalPrice: () => {
 		const { cartItems, discount } = get()
+		const originalTotal = cartItems.reduce((sum, item) => {
+			return sum + (item.course?.price || 0)
+		}, 0)
 		const total = cartItems.reduce((sum, item) => {
 			const price = item.course?.price || 0
 			const finalPrice = price * (1 - discount / 100)
 			return sum + finalPrice
 		}, 0)
 
-		set({ totalPrice: parseFloat(total.toFixed(2)) })
+		set({ totalPrice: parseFloat(total.toFixed(2)), originalTotal: parseFloat(originalTotal.toFixed(2)) })
 	},
 
 	applyPromoCode: async (code: string) => {
