@@ -6,6 +6,7 @@ import SingleCartItem from './SingleCartItem/SingleCartItem'
 import Summary from './Summary/Summary'
 import LastWishlistItem from './LastWishlistItem/LastWishlistItem'
 import { useWishlistStore } from '@/context/wishlist'
+import YouMayAlsoLike from '../YouMayAlsoLike/YouMayAlsoLike'
 const CartPage = () => {
 	const { cartItems, totalPrice, loading, removeFromCart } = useCartStore()
 	const { toggleFavorite } = useWishlistStore()
@@ -18,7 +19,7 @@ const CartPage = () => {
 		<div className='p-4'>
 			<h1 className='text-3xl font-semibold mb-4'>Cart</h1>
 			<div className='flex w-full flex-col md:flex-row justify-between items-start gap-8'>
-				{cartItems && cartItems.length > 0 ? (
+				{cartItems?.length > 0 ? (
 					<>
 						<div className='w-full md:w-2/3'>
 							<div className='border-b border-border w-full mb-4'>
@@ -46,6 +47,7 @@ const CartPage = () => {
 					<EmptyCart />
 				)}
 			</div>
+			<YouMayAlsoLike />
 		</div>
 	)
 }
