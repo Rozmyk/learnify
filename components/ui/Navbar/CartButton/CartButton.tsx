@@ -1,7 +1,7 @@
 'use client'
 import { ShoppingBasket } from 'lucide-react'
 import { Button } from '../../button'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useCartStore } from '@/context/cart'
@@ -9,12 +9,19 @@ import MiniCourseCard from '@/components/MiniCourseCard/MiniCourseCard'
 import Link from 'next/link'
 const CartButton = () => {
 	const { cartItems, totalPrice, originalTotal, fetchCart } = useCartStore()
+	const [isOpen, setIsOpen] = useState(false)
+	const handleOpen = () => {
+		setIsOpen(true)
+	}
+	const handleClose = () => {
+		setIsOpen(false)
+	}
 	useEffect(() => {
 		fetchCart()
 	}, [])
 	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
+		<DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+			<DropdownMenuTrigger asChild onClick={handleOpen}>
 				<Button size='icon' variant='ghost' className='relative'>
 					{cartItems.length > 0 && (
 						<div className='h-4 w-4 bg-red-500 rounded-full flex justify-center items-center absolute top-0 right-0'>
@@ -33,7 +40,12 @@ const CartButton = () => {
 						<div className='p-4 flex flex-col justify-start items-start max-w-80 gap-4'>
 							{cartItems.length > 0 ? (
 								cartItems.map(
-									item => item.course && <MiniCourseCard withoutButton={true} key={item.course.id} {...item.course} />
+									item =>
+										item.course && (
+											<span onClick={handleClose} key={item.course.id}>
+												<MiniCourseCard withoutButton={true} {...item.course} />
+											</span>
+										)
 								)
 							) : (
 								<p>Your cart is empty</p>
@@ -53,11 +65,11 @@ const CartButton = () => {
 						</h4>
 					)}
 					{cartItems.length > 0 ? (
-						<Link className='w-full' href='/cart'>
+						<Link onClick={handleClose} className='w-full' href='/cart'>
 							<Button className='w-full'>Go to cart</Button>
 						</Link>
 					) : (
-						<Link className='w-full' href={'/'}>
+						<Link onClick={handleClose} className='w-full' href={'/'}>
 							<Button className='w-full'>Continue shopping</Button>
 						</Link>
 					)}
