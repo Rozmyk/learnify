@@ -8,12 +8,18 @@ import * as ScrollArea from '@radix-ui/react-scroll-area'
 import Link from 'next/link'
 import { useWishlistStore } from '@/context/wishlist'
 import Loader from '../../loader'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const FavCoursesButton = ({ userId }: { userId: string }) => {
 	const { favorites, loading, fetchFavorites } = useWishlistStore()
 	const { addToCart, cartItems } = useCartStore()
-
+	const [isOpen, setIsOpen] = useState(false)
+	const handleClose = () => {
+		setIsOpen(false)
+	}
+	const handleOpen = () => {
+		setIsOpen(true)
+	}
 	useEffect(() => {
 		if (!favorites || favorites.length === 0) {
 			fetchFavorites()
@@ -21,8 +27,8 @@ const FavCoursesButton = ({ userId }: { userId: string }) => {
 	}, [userId, favorites, fetchFavorites])
 
 	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
+		<DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+			<DropdownMenuTrigger asChild onClick={handleOpen}>
 				<Button size='icon' variant='ghost'>
 					<Heart className={'text-muted-foreground'} size={16} />
 				</Button>
@@ -41,14 +47,15 @@ const FavCoursesButton = ({ userId }: { userId: string }) => {
 							) : favorites && favorites.length > 0 ? (
 								favorites.map(course => {
 									return (
-										<MiniCourseCard
-											withoutButton={cartItems.some(item => item.product_id == course.id)}
-											key={course.id}
-											onClick={() => {
-												addToCart(course.id)
-											}}
-											{...course}
-										/>
+										<span onClick={handleClose} key={course.id}>
+											<MiniCourseCard
+												withoutButton={cartItems.some(item => item.product_id == course.id)}
+												onClick={() => {
+													addToCart(course.id)
+												}}
+												{...course}
+											/>
+										</span>
 									)
 								})
 							) : (
@@ -60,11 +67,11 @@ const FavCoursesButton = ({ userId }: { userId: string }) => {
 				<div className='w-full border-t border-border my-2'></div>
 				<div className='w-full p-2'>
 					{favorites && favorites.length > 0 ? (
-						<Link href='/wishlist'>
+						<Link onClick={handleClose} href='/wishlist'>
 							<Button className='w-full'>Go to wishlist</Button>
 						</Link>
 					) : (
-						<Link href={'/'}>
+						<Link onClick={handleClose} href={'/'}>
 							<Button className='w-full'>Discover courses</Button>
 						</Link>
 					)}
