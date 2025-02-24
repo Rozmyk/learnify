@@ -19,5 +19,6 @@ export async function fetchCoursesByCategory(categoryId: string) {
 		return []
 	}
 	const updatedCourses = addRatingsToCourses(courses)
+
 	return updatedCourses
 }
