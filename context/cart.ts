@@ -8,6 +8,7 @@ interface CartState {
 	cartItems: CartItemProps[]
 	totalPrice: number
 	loading: boolean
+	promocodeLoading: boolean
 	hasFetchedCartItems: boolean
 	deletePromoCode: (promocode: string) => Promise<void>
 	promoCode: string | null
@@ -23,6 +24,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 	cartItems: [],
 	totalPrice: 0,
 	loading: false,
+	promocodeLoading: false,
 	hasFetchedCartItems: false,
 	promoCode: null,
 	discount: 0,
@@ -39,14 +41,14 @@ export const useCartStore = create<CartState>((set, get) => ({
 	},
 
 	applyPromoCode: async (code: string) => {
-		set({ loading: true })
+		set({ promocodeLoading: true })
 		const supabase = createClient()
 		const {
 			data: { user },
 		} = await supabase.auth.getUser()
 
 		if (!user?.id) {
-			set({ loading: false })
+			set({ promocodeLoading: false })
 			return
 		}
 
@@ -59,7 +61,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 				.single()
 
 			if (promoError || !promo) {
-				set({ loading: false })
+				set({ promocodeLoading: false })
 				return
 			}
 
@@ -81,7 +83,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 		} catch (err) {
 			console.error('Error in applyPromoCode:', err)
 		} finally {
-			set({ loading: false })
+			set({ promocodeLoading: false })
 		}
 	},
 
@@ -92,7 +94,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 		} = await supabase.auth.getUser()
 
 		if (!user?.id) {
-			set({ loading: false })
+			set({ promocodeLoading: false })
 			return
 		}
 		const { error } = await supabase.from('cart_promocodes').delete().eq('value', promocode).eq('user_id', user.id)
