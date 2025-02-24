@@ -28,7 +28,7 @@ const FavButton = ({ courseId }: { courseId: string }) => {
 
 				if (user) {
 					setUserId(user.id)
-					fetchFavorites(user.id)
+					fetchFavorites()
 				}
 			} catch (err) {
 				console.error('Error fetching user:', err)
@@ -40,7 +40,7 @@ const FavButton = ({ courseId }: { courseId: string }) => {
 
 	const handleClick = () => {
 		if (userId) {
-			toggleFavorite(userId, courseId)
+			toggleFavorite(courseId)
 		}
 	}
 

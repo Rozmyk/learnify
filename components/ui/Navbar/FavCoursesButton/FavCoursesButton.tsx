@@ -16,7 +16,7 @@ const FavCoursesButton = ({ userId }: { userId: string }) => {
 
 	useEffect(() => {
 		if (!favorites || favorites.length === 0) {
-			fetchFavorites(userId)
+			fetchFavorites()
 		}
 	}, [userId, favorites, fetchFavorites])
 
