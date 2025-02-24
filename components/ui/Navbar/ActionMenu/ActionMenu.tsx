@@ -1,3 +1,5 @@
+'use client'
+import { useState } from 'react'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -11,9 +13,16 @@ import Link from 'next/link'
 import { signOutAction } from '@/app/actions'
 
 const ActionMenu = ({ avatarUrl, username, email }: { avatarUrl: string; username: string; email: string }) => {
+	const [isOpen, setIsOpen] = useState(false)
+	const handleOpen = () => {
+		setIsOpen(true)
+	}
+	const handleClose = () => {
+		setIsOpen(false)
+	}
 	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
+		<DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+			<DropdownMenuTrigger asChild onClick={handleOpen}>
 				<Button variant={'ghost'}>
 					<div className='w-[30px] h-[30px] relative rounded-full overflow-hidden'>
 						<Image src={avatarUrl} alt='User avatar' fill />
@@ -21,7 +30,7 @@ const ActionMenu = ({ avatarUrl, username, email }: { avatarUrl: string; usernam
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-content' align='start'>
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={handleClose}>
 					<Link href={'/user/edit-profile'}>
 						<div className='flex justify-between items-center gap-4 p-2'>
 							<div className='w-12 h-12 relative rounded-full overflow-hidden'>
@@ -34,29 +43,29 @@ const ActionMenu = ({ avatarUrl, username, email }: { avatarUrl: string; usernam
 						</div>
 					</Link>
 				</DropdownMenuItem>
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={handleClose}>
 					<Link className='w-full' href={'/my-courses'}>
 						My courses
 					</Link>
 				</DropdownMenuItem>
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={handleClose}>
 					<Link className='w-full' href='/cart'>
 						My cart
 					</Link>
 				</DropdownMenuItem>
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={handleClose}>
 					<Link className='w-full' href='/wishlist'>
 						Wish list
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={handleClose}>
 					<Link className='w-full' href='/edit-profile'>
 						Account settings
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={handleClose}>
 					<span className='cursor-pointer w-full' onClick={signOutAction}>
 						Logout
 					</span>
