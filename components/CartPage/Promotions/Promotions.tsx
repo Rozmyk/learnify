@@ -7,36 +7,9 @@ import { X } from 'lucide-react'
 const Promotions = () => {
 	const { applyPromoCode, promoCode, deletePromoCode } = useCartStore()
 	const [loading, setLoading] = useState(false)
-	const [promocodeData, setPromocodeData] = useState<PromocodeProps | null>(null)
+
 	const [inputValue, setInputValue] = useState('')
 	const [error, setError] = useState('')
-	const checkPromocode = async (code: string) => {
-		try {
-			setLoading(true)
-			setError('')
-
-			const response = await fetch('/api/cart/apply-promocode', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ promoCode: code }),
-			})
-
-			const data = await response.json()
-
-			if (!response.ok) {
-				throw new Error(data.error || `Error ${response.status}`)
-			}
-
-			setInputValue('')
-			console.log(data)
-			setPromocodeData(data.appliedPromoCode)
-		} catch (error) {
-			setPromocodeData(null)
-			setError(error instanceof Error ? error.message : 'Unexpected error occurred')
-		} finally {
-			setLoading(false)
-		}
-	}
 
 	useEffect(() => {
 		setError('')
