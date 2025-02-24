@@ -12,9 +12,15 @@ const LastWishlistItem = () => {
 	useEffect(() => {
 		const course = favorites.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()).at(0)
 		if (course) {
-			setLatestCourse(course)
+			const isInCart = cartItems.some(item => item.id === course.id)
+			if (!isInCart) {
+				setLatestCourse(course)
+			} else {
+				setLatestCourse(null)
+			}
 		}
-	}, [cartItems])
+	}, [cartItems, favorites])
+
 	return (
 		latestCourse && (
 			<div>
