@@ -11,7 +11,7 @@ interface SingleCartItemProps extends CartItemProps {
 
 const SingleCartItem = ({ course, onDeleteClick, moveToCart, moveToWishlist }: SingleCartItemProps) => {
 	if (!course) return null
-
+	const discountPrice = course.price * (1 - (course.discount || 0) / 100)
 	return (
 		<div className='w-full flex-col justify-between items-start gap-4 mb-4 p-2'>
 			<div className='flex justify-between items-start gap-4 '>
@@ -25,7 +25,10 @@ const SingleCartItem = ({ course, onDeleteClick, moveToCart, moveToWishlist }: S
 						<StarRating avgRating={course.avgRating} reviewCount={course.reviewCount} />
 					</div>
 				</div>
-				<p className='font-semibold text-nowrap'>{course.price} zł</p>
+				<div className='flex flex-col justify-center items-center'>
+					<p className='font-semibold text-nowrap'>{discountPrice.toFixed(2)} zł</p>{' '}
+					<p className='font-normal text-sm line-through text-muted-foreground text-nowrap'>{course.price} zł</p>
+				</div>
 			</div>
 			{[onDeleteClick, moveToCart, moveToWishlist].some(Boolean) && (
 				<div className='flex justify-start items-center gap-2 mt-2'>
