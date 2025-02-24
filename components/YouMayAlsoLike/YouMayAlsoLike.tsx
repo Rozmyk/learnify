@@ -26,7 +26,6 @@ const YouMayAlsoLike = () => {
 		if (data) {
 			setFilteredPosts(data)
 		}
-		console.log('Filtered posts:', data)
 	}
 	useEffect(() => {
 		fetchFilteredPosts()
