@@ -13,7 +13,7 @@ const Summary = ({ totalPrice }: { totalPrice: number }) => {
 			{hasDiscount && (
 				<>
 					<p className='text-muted-foreground line-through text-nowrap'>{originalTotal} zł</p>
-					<p className='text-muted-foreground mb-2 text-nowrap'>{discount} % discount</p>
+					<p className='text-muted-foreground mb-2 text-nowrap'>{discount}% discount</p>
 				</>
 			)}
 			<Button className='w-full mb-2'>Go to checkout</Button>
