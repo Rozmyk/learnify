@@ -64,6 +64,7 @@ const NavbarSearch = () => {
 					<ul>
 						{courses.map((course: CourseProps) => (
 							<Link
+								key={course.id}
 								href={`/course/${course.slug}`}
 								onClick={() => {
 									setInputValue('')
