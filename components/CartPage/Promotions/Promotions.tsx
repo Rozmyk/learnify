@@ -44,6 +44,7 @@ const Promotions = () => {
 					disabled={inputValue.trim() == ''}
 					onClick={() => {
 						applyPromoCode(inputValue)
+						setInputValue('')
 					}}>
 					{promocodeLoading ? 'Loading...' : 'Apply'}
 				</Button>
