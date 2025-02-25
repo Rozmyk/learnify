@@ -6,10 +6,12 @@ import HomeButton from '../HomeButton/HomeButton'
 import CartButton from '../CartButton/CartButton'
 import FavCoursesButton from '../FavCoursesButton/FavCoursesButton'
 import Link from 'next/link'
+import NavbarSearch from '../NavbarSearch/NavbarSearch'
 export default async function UserNavbar({ user }: { user: ProfileDataProps }) {
 	return (
 		<div className='flex justify-between items-center  gap-4 w-full'>
 			<HomeButton />
+			<NavbarSearch />
 			<div className='flex items-center'>
 				{user.isTeacher && (
 					<Link href={'/add-course'}>
