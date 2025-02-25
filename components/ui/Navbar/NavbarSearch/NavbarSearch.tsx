@@ -25,6 +25,7 @@ const SingleSearchCourse = ({ course }: { course: CourseProps }) => {
 const NavbarSearch = () => {
 	const [inputValue, setInputValue] = useState('')
 	const [courses, setCourses] = useState([])
+	const [inputFocused, setInputFocused] = useState(false)
 
 	useEffect(() => {
 		const fetchCourses = async () => {
@@ -46,13 +47,19 @@ const NavbarSearch = () => {
 	return (
 		<div className='flex-1 relative'>
 			<Input
+				onFocus={() => {
+					setInputFocused(true)
+				}}
+				onBlur={() => {
+					setInputFocused(false)
+				}}
 				value={inputValue}
 				onChange={e => setInputValue(e.target.value)}
 				type='text'
 				placeholder='Search for any courses...'
 				className='w-full rounded-xl'
 			/>
-			{inputValue.trim().length >= 3 && courses.length > 0 && (
+			{inputValue.trim().length >= 3 && courses.length > 0 && inputFocused && (
 				<div className='w-full absolute top-full left-0 bg-black border border-border shadow-lg p-2 mt-2 rounded-md'>
 					<ul>
 						{courses.map((course: CourseProps) => (
