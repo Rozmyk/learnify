@@ -4,13 +4,12 @@ import { useState, useEffect } from 'react'
 import { useCartStore } from '@/context/cart'
 import { X } from 'lucide-react'
 const Promotions = () => {
-	const { applyPromoCode, promoCode, deletePromoCode, promocodeLoading } = useCartStore()
+	const { applyPromoCode, promoCode, deletePromoCode, promocodeLoading, promoError, setPromoError } = useCartStore()
 
 	const [inputValue, setInputValue] = useState('')
-	const [error, setError] = useState('')
 
 	useEffect(() => {
-		setError('')
+		setPromoError('')
 	}, [inputValue])
 
 	return (
@@ -49,7 +48,7 @@ const Promotions = () => {
 					{promocodeLoading ? 'Loading...' : 'Apply'}
 				</Button>
 			</div>
-			{error && <p className='text-red-400 text-sm'>{error}</p>}
+			{promoError && <p className='text-red-400 text-sm'>{promoError}</p>}
 		</div>
 	)
 }
