@@ -25,7 +25,6 @@ export default async function Home() {
 			console.error('Error fetching profile data:', profileError)
 		} else {
 			profileData = data
-			
 		}
 	}
 
