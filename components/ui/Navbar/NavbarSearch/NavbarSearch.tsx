@@ -7,7 +7,7 @@ import { CourseProps } from '@/types/api'
 import Image from 'next/image'
 const SingleSearchCourse = ({ course }: { course: CourseProps }) => {
 	return (
-		<div className='flex justify-start items-start gap-4'>
+		<div className='flex justify-start items-start gap-4 mb-4'>
 			<div className='w-10 h-10 relative'>
 				<Image src={course.thumbnail} alt='course image' className='object-cover' fill />
 			</div>
