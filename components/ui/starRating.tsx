@@ -28,7 +28,7 @@ const StarRating = ({ avgRating, reviewCount }: { avgRating?: number | null; rev
 						</span>
 					))}
 			</div>
-			<span className='text-sm text-gray-600 ml-1'>({count})</span>
+			<span className='text-sm text-muted-foreground ml-1'>({count})</span>
 		</div>
 	)
 }
