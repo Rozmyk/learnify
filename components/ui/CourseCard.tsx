@@ -94,7 +94,8 @@ const CourseCard = ({
 										<p className='text-lg font-semibold '>{(price * (1 - discount / 100)).toFixed(2)} zł</p>
 									)}
 
-									<p className={`${discount && discount > 0 ? 'line-through text-gray-500' : 'text-lg font-semibold'}`}>
+									<p
+										className={`${discount && discount > 0 ? 'line-through text-muted-foreground' : 'text-lg font-semibold'}`}>
 										{price} zł
 									</p>
 								</div>

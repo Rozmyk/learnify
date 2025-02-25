@@ -60,7 +60,7 @@ const NavbarSearch = () => {
 				className='w-full rounded-xl'
 			/>
 			{inputValue.trim().length >= 3 && courses.length > 0 && inputFocused && (
-				<div className='w-full absolute top-full left-0 bg-black border border-border shadow-lg p-2 mt-2 rounded-md'>
+				<div className='w-full absolute top-full left-0 bg-secondary border border-border shadow-lg p-2 mt-2 rounded-md'>
 					<ul>
 						{courses.map((course: CourseProps) => (
 							<Link
