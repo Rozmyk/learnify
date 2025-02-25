@@ -73,7 +73,7 @@ const CourseCard = ({
 									className='object-cover transition-transform duration-300 group-hover:scale-110'
 								/>
 							) : (
-								<div className='h-full w-full flex items-center justify-center bg-muted'>Brak zdjęcia</div>
+								<div className='h-full w-full flex items-center justify-center bg-muted'>No photo</div>
 							)}
 							<div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300' />
 							<div className='absolute bottom-4 left-4 right-4 flex items-center justify-between'>
