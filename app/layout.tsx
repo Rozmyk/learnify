@@ -2,6 +2,7 @@ import { Geist } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import Navbar from '@/components/ui/Navbar/Navbar'
 import './globals.css'
+import PromocodeBanner from '@/components/PromocodeBanner/PromocodeBanner'
 import CategoryMenu from '@/components/ui/CategoryMenu/CategoryMenu'
 const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
 
@@ -27,6 +28,7 @@ export default function RootLayout({
 				<ThemeProvider attribute='class' defaultTheme='light' enableSystem disableTransitionOnChange>
 					<main className='min-h-screen flex flex-col items-center'>
 						<div className='flex-1 w-full flex flex-col  items-center'>
+							<PromocodeBanner />
 							<Navbar />
 							<CategoryMenu />
 							<div className='flex flex-col gap-20 max-w-7xl w-full '>{children}</div>
