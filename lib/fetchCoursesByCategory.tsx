@@ -1,5 +1,4 @@
 import { createClient } from '@/utils/supabase/server'
-import { addRatingsToCourses } from './calcRatings'
 export async function fetchCoursesByCategory(categoryId: string) {
 	const supabase = await createClient()
 	const { data: courses, error } = await supabase
@@ -18,7 +17,6 @@ export async function fetchCoursesByCategory(categoryId: string) {
 		console.error('Error fetching courses by category:', error)
 		return []
 	}
-	const updatedCourses = addRatingsToCourses(courses)
 
-	return updatedCourses
+	return courses
 }

@@ -2,7 +2,8 @@ import { CartItemProps } from '@/types/api'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import StarRating from '@/components/ui/starRating'
-
+import { addRatingsToCourses } from '@/lib/calcRatings'
+import { useEffect, useState } from 'react'
 interface SingleCartItemProps extends CartItemProps {
 	onDeleteClick?: () => void
 	moveToCart?: () => void
@@ -12,6 +13,24 @@ interface SingleCartItemProps extends CartItemProps {
 const SingleCartItem = ({ course, onDeleteClick, moveToCart, moveToWishlist }: SingleCartItemProps) => {
 	if (!course) return null
 	const discountPrice = course.price * (1 - (course.discount || 0) / 100)
+	const [rating, setRating] = useState({
+		avgRating: 0,
+		reviewCount: 0,
+	})
+
+	useEffect(() => {
+		if (!course.reviews || course.reviews.length === 0) {
+			setRating({ avgRating: 0, reviewCount: 0 })
+			return
+		}
+
+		const reviewsData = addRatingsToCourses(course.reviews)
+		setRating({
+			avgRating: reviewsData.avgRating ?? 0,
+			reviewCount: reviewsData.reviewCount ?? 0,
+		})
+	}, [course.reviews])
+
 	return (
 		<div className='w-full flex-col justify-between items-start gap-4 mb-4 p-2'>
 			<div className='flex justify-between items-start gap-4 '>
@@ -22,7 +41,7 @@ const SingleCartItem = ({ course, onDeleteClick, moveToCart, moveToWishlist }: S
 
 					<div className='flex flex-col justify-start items-start'>
 						<p className='font-semibold'>{course.title}</p>
-						<StarRating avgRating={course.avgRating} reviewCount={course.reviewCount} />
+						<StarRating avgRating={rating.avgRating} reviewCount={rating.reviewCount} />
 					</div>
 				</div>
 				<div className='flex flex-col justify-center items-center'>

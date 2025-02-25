@@ -17,12 +17,6 @@ export default async function ProtectedHomePage({ profileData }: { profileData: 
 		console.error('Error fetching courses:', coursesError)
 	}
 
-	const coursesWithAvgRating = courses?.map(course => {
-		const reviews = course.reviews || []
-		const avgRating =
-			reviews.length > 0 ? reviews.reduce((sum: number, r: ReviewProps) => sum + r.rating, 0) / reviews.length : null
-		return { ...course, avgRating, reviewCount: reviews.length }
-	})
 	const { data: promoted, error: promotedError } = await supabase.from('promoted').select(`
         *,
         course(
@@ -37,7 +31,7 @@ export default async function ProtectedHomePage({ profileData }: { profileData: 
 	return (
 		<>
 			<ProtectedHeader profileData={profileData} />
-			{coursesWithAvgRating && <RecommendedCourses courses={coursesWithAvgRating} />}
+			{courses && <RecommendedCourses courses={courses} />}
 			{promoted && <PromotedCourse course={promoted[0]?.course} />}
 			<PersonalizedCourse lastViewedCourseId={profileData.lastViewedCourseId} />
 		</>

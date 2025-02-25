@@ -7,8 +7,6 @@ export interface CourseProps {
 	author_id: string
 	id: string
 	reviews: ReviewProps[]
-	avgRating: number | null
-	reviewCount: number | null
 	categories_id: string
 	categories: CategoryProps
 	profiles: ProfileDataProps

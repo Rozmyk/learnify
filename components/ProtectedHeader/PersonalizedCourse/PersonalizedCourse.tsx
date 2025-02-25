@@ -13,12 +13,10 @@ export default async function PersonalizedCourse({ lastViewedCourseId }: Persona
 	}
 
 	const lastCourseData = await fetchSingleCourse(lastViewedCourseId)
-
 	let similarCourses
 	if (lastCourseData) {
-		similarCourses = await fetchCoursesByCategory(lastCourseData[0].categories_id)
-
-		similarCourses = similarCourses.filter((course: CourseProps) => course.id !== lastCourseData[0].id)
+		similarCourses = await fetchCoursesByCategory(lastCourseData.categories_id)
+		similarCourses = similarCourses.filter((course: CourseProps) => course.id !== lastCourseData.id)
 	}
 
 	return (
@@ -27,7 +25,7 @@ export default async function PersonalizedCourse({ lastViewedCourseId }: Persona
 		lastCourseData && (
 			<div>
 				<p className='mb-10 text-2xl'>
-					Because you watched <span className='font-bold'>{lastCourseData[0].title}</span>
+					Because you watched <span className='font-bold'>{lastCourseData.title}</span>
 				</p>
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
 					{similarCourses.map((course: CourseProps) => (

@@ -2,28 +2,32 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Popover, PopoverContent, PopoverTrigger, Portal } from '@radix-ui/react-popover'
 import { CourseProps } from '@/types/api'
 import StarRating from './starRating'
 import { Button } from './button'
 import FavButton from '../FavButton/FavButton'
 import { useCartStore } from '@/context/cart'
+import { addRatingsToCourses } from '@/lib/calcRatings'
 
 const CourseCard = ({
 	thumbnail,
 	title,
 	price,
 	slug,
-	avgRating,
-	reviewCount,
 	categories,
 	description,
 	profiles,
 	discount,
+	reviews,
 	id,
 }: CourseProps) => {
 	const [open, setOpen] = useState(false)
+	const [rating, setRating] = useState({
+		avgRating: 0,
+		reviewCount: 0,
+	})
 	const { addToCart, cartItems } = useCartStore()
 	const isAlreadtInCart = cartItems.some(item => item.product_id == id)
 	const updateLastViewedCourse = async () => {
@@ -37,6 +41,18 @@ const CourseCard = ({
 			console.error('Error updating last viewed course:', error)
 		}
 	}
+	useEffect(() => {
+		if (!reviews || reviews.length === 0) {
+			setRating({ avgRating: 0, reviewCount: 0 })
+			return
+		}
+
+		const reviewsData = addRatingsToCourses(reviews)
+		setRating({
+			avgRating: reviewsData.avgRating ?? 0,
+			reviewCount: reviewsData.reviewCount ?? 0,
+		})
+	}, [reviews])
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -72,7 +88,7 @@ const CourseCard = ({
 							</h3>
 							<p className='text-muted-foreground text-sm mb-4 line-clamp-2 flex-1'>Autor: {profiles.username}</p>
 							<div className='flex justify-between items-center'>
-								<StarRating avgRating={avgRating} reviewCount={reviewCount} />
+								<StarRating avgRating={rating.avgRating} reviewCount={rating.reviewCount} />
 								<div className='flex justify-center items-center gap-2'>
 									{discount && discount > 0 && (
 										<p className='text-lg font-semibold '>{(price * (1 - discount / 100)).toFixed(2)} zł</p>

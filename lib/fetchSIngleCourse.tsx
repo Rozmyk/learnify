@@ -1,5 +1,4 @@
 import { createClient } from '@/utils/supabase/server'
-import { addRatingsToCourses } from './calcRatings'
 export async function fetchSingleCourse(courseId: string) {
 	const supabase = await createClient()
 
@@ -21,6 +20,5 @@ export async function fetchSingleCourse(courseId: string) {
 
 		return null
 	}
-	const updatedCourse = addRatingsToCourses(course)
-	return updatedCourse
+	return course
 }
