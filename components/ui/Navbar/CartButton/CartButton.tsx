@@ -59,9 +59,11 @@ const CartButton = () => {
 					{cartItems.length > 0 && (
 						<h4 className='text-lg font-semibold'>
 							Total: {totalPrice} zł{' '}
-							<span className=' text-sm ml-2 text-muted-foreground line-through text-nowrap font-normal'>
-								{originalTotal} zł
-							</span>
+							{originalTotal !== totalPrice && (
+								<span className=' text-sm ml-2 text-muted-foreground line-through text-nowrap font-normal'>
+									{originalTotal} zł
+								</span>
+							)}
 						</h4>
 					)}
 					{cartItems.length > 0 ? (
