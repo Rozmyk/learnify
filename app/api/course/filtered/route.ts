@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
 			.from('course')
 			.select('*, profiles(*), categories(*)')
 			.not('id', 'in', `(${body.excludedPosts.join(',')})`)
+			.limit(3)
 
 		if (error) {
 			return NextResponse.json({ error: error.message }, { status: 500 })
