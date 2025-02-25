@@ -5,7 +5,7 @@ import { Button } from '../ui/button'
 
 const PromocodeBanner = () => {
 	const code = 'testvalue'
-	const discount = '40'
+	const discount = '30'
 	const [isVisible, setIsVisible] = useState(true)
 	const [timeLeft, setTimeLeft] = useState(7 * 60 * 60 + 28 * 60 + 30)
 
@@ -27,19 +27,20 @@ const PromocodeBanner = () => {
 	return (
 		isVisible && (
 			<div className='h-16 bg-primary w-full flex flex-col justify-center items-center relative '>
-				<p className='font-medium text-black'>
+				<p className='font-medium text-secondary'>
 					Use the code <span className='font-bold uppercase'>{code}</span> now to save{' '}
 					<span className='font-bold'>{discount}%</span>
 				</p>
-				<p className='font-semibold text-black'>Ends in {formatTime(timeLeft)}</p>
+				<p className='font-semibold text-secondary'>Ends in {formatTime(timeLeft)}</p>
 				<div className='absolute top-1 right-1'>
 					<Button
 						onClick={() => {
 							setIsVisible(false)
 						}}
 						size='icon'
-						variant='link'>
-						<X color='black' />
+						variant='link'
+						className='text-secondary'>
+						<X />
 					</Button>
 				</div>
 			</div>
