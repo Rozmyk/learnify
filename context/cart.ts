@@ -8,6 +8,8 @@ interface CartState {
 	cartItems: CartItemProps[]
 	totalPrice: number
 	originalTotal: number
+	promoError: null | string
+	setPromoError: (error: string | null) => void
 	loading: boolean
 	promocodeLoading: boolean
 	hasFetchedCartItems: boolean
@@ -26,11 +28,12 @@ export const useCartStore = create<CartState>((set, get) => ({
 	totalPrice: 0,
 	originalTotal: 0,
 	loading: false,
+	promoError: null,
 	promocodeLoading: false,
 	hasFetchedCartItems: false,
 	promoCode: null,
 	discount: 0,
-
+	setPromoError: (error: string | null) => set({ promoError: error }),
 	calculateTotalPrice: () => {
 		const { cartItems, discount } = get()
 		const originalTotal = cartItems.reduce((sum, item) => {
@@ -66,7 +69,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 				.single()
 
 			if (promoError || !promo) {
-				set({ promocodeLoading: false })
+				set({ promocodeLoading: false, promoError: 'Invalid promocode' })
 				return
 			}
 
@@ -74,6 +77,8 @@ export const useCartStore = create<CartState>((set, get) => ({
 
 			if (existingPromo) {
 				await supabase.from('cart_promocodes').delete().eq('user_id', user.id)
+				set({ promocodeLoading: false, promoError: 'Error applying promo code' })
+				return
 			}
 
 			const { error: insertError } = await supabase.from('cart_promocodes').insert([{ user_id: user.id, value: code }])
