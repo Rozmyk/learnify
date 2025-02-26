@@ -1,0 +1,34 @@
+import StarRating from '@/components/ui/starRating'
+import { CourseProps } from '@/types/api'
+import Image from 'next/image'
+import FavButton from '@/components/FavButton/FavButton'
+import { Users } from 'lucide-react'
+
+const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount }: CourseProps) => {
+	return (
+		<div className='border-bottom border-border flex justify-start items-start w-full gap-2'>
+			<div className='w-16 h-16 min-w-16 min-h-16 relative'>
+				<Image className='object-cover' src={thumbnail} alt='course photo' fill />
+			</div>
+			<div className='flex justify-between items-start gap-4'>
+				<p className='font-semibold'>{title}</p>
+				<StarRating compact reviews={reviews} />
+				<div className='flex justify-start items-center gap-1 text-muted-foreground'>
+					<Users size={16} />
+					<p className='text-sm'>12303</p>
+				</div>
+				<div className='flex flex-col justify-start items-start'>
+					<p className='font-semibold text-sm '>{price} zł</p>
+					{discount && (
+						<p className=' text-xs text-muted-foreground line-through'>
+							{(price * (1 - discount / 100)).toFixed(2)} zł
+						</p>
+					)}
+				</div>
+				<FavButton variant='outline' courseId={id} />
+			</div>
+		</div>
+	)
+}
+
+export default MiniCourseCard
