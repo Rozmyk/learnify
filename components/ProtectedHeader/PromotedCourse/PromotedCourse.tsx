@@ -49,7 +49,7 @@ const PromotedCourse = ({ course }: { course: CourseProps }) => {
 							</p>
 						</div>
 						<div className='flex justify-between items-center w-full '>
-							<StarRating />
+							<StarRating reviews={course.reviews} />
 							<div className='flex justify-center items-center gap-2'>
 								{course.discount && course.discount > 0 && (
 									<p className='text-lg font-semibold '>{(course.price * (1 - course.discount / 100)).toFixed(2)} zł</p>

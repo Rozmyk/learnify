@@ -1,6 +1,9 @@
-const StarRating = ({ avgRating, reviewCount }: { avgRating?: number | null; reviewCount?: number | null }) => {
-	const rating = avgRating ?? 0
-	const count = reviewCount ?? 0
+import { addRatingsToCourses } from '@/lib/calcRatings'
+import { ReviewProps } from '@/types/api'
+const StarRating = ({ reviews }: { reviews: ReviewProps[] | null }) => {
+	const ratingsData = reviews ? addRatingsToCourses(reviews) : null
+	const rating = ratingsData?.avgRating ?? 0
+	const count = ratingsData?.reviewCount ?? 0
 
 	const fullStars = Math.floor(rating)
 	const halfStar = rating % 1 >= 0.5

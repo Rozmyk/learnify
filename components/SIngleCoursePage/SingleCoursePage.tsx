@@ -1,5 +1,4 @@
 import { CourseProps } from '@/types/api'
-import Link from 'next/link'
 import StarRating from '../ui/starRating'
 import Image from 'next/image'
 import Loader from '../ui/loader'
@@ -20,7 +19,7 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 				<div className='relative z-10 p-2 h-full flex flex-col justify-end items-start w-2/3'>
 					<h1 className='text-4xl font-semibold mb-2'>{course.title}</h1>
 					<p>{course.description}</p>
-					<StarRating />
+					<StarRating reviews={course.reviews} />
 					<p className='text-muted-foreground text-sm'>Created by: {course.profiles.username}</p>
 					<p className='text-sm'>Last updated: </p>
 				</div>
@@ -29,9 +28,9 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 						<div className='w-full h-44 relative mb-4 rounded-lg overflow-hidden'>
 							<Image fill src={course.thumbnail} alt='course photo' />
 						</div>
-						<div className='flex gap-2 '>
+						<div className='flex gap-2 justify-start items-center '>
 							<p className='font-semibold text-3xl'>{course.price} zł</p>
-							{course.discount && <p>-{course.discount}%</p>}
+							{course.discount && <p>-{course.discount} % discount</p>}
 						</div>
 						<div className='flex gap-2 mb-4'>
 							<Button className='w-full'>Add to cart</Button>
