@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input'
 import { useState, useEffect } from 'react'
 import { useCartStore } from '@/context/cart'
 import { X } from 'lucide-react'
-const Promotions = () => {
+const Promotions = ({ withoutText }: { withoutText?: boolean }) => {
 	const { applyPromoCode, promoCode, deletePromoCode, promocodeLoading, promoError, setPromoError } = useCartStore()
 
 	const [inputValue, setInputValue] = useState('')
@@ -14,7 +14,7 @@ const Promotions = () => {
 
 	return (
 		<div>
-			<p className='font-semibold mb-2 '>Promotions</p>
+			{!withoutText && <p className='font-semibold mb-2 '>Promotions</p>}
 			{promoCode && (
 				<div className='p-2 border border-dashed border-border my-4 flex justify-between items-center'>
 					<p className='text-muted-foreground text-sm'>
