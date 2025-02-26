@@ -3,15 +3,19 @@ import { CourseProps } from '@/types/api'
 import Image from 'next/image'
 import FavButton from '@/components/FavButton/FavButton'
 import { Users } from 'lucide-react'
+import formatTimestamp from '@/lib/formatTimestamp'
 
-const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount }: CourseProps) => {
+const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount, created_at }: CourseProps) => {
 	return (
-		<div className='border-bottom border-border flex justify-start items-start w-full gap-2'>
+		<div className='border-b border-border flex justify-between items-start w-full gap-4 p-2 '>
 			<div className='w-16 h-16 min-w-16 min-h-16 relative'>
 				<Image className='object-cover' src={thumbnail} alt='course photo' fill />
 			</div>
-			<div className='flex justify-between items-start gap-4'>
-				<p className='font-semibold'>{title}</p>
+			<div className='flex justify-between items-start gap-4 0 w-full'>
+				<div>
+					<p className='font-semibold'>{title}</p>
+					<p className='text-sm'>Last updated: {formatTimestamp(created_at)}</p>
+				</div>
 				<StarRating compact reviews={reviews} />
 				<div className='flex justify-start items-center gap-1 text-muted-foreground'>
 					<Users size={16} />
