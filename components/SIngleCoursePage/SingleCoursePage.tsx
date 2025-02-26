@@ -1,15 +1,14 @@
 'use client'
 import { CourseProps } from '@/types/api'
-import StarRating from '../ui/starRating'
 import Image from 'next/image'
 import Loader from '../ui/loader'
 import { Button } from '../ui/button'
 import FavButton from '../FavButton/FavButton'
 import BackButton from './BackButton/BackButton'
 import Promotions from '../CartPage/Promotions/Promotions'
-import formatTimestamp from '@/lib/formatTimestamp'
 import WhatYouLearn from './WhatYouLearn/WhatYouLearn'
 import CourseIncludes from './CourseIncludes/CourseIncludes'
+import CourseHeader from './CourseHeader/CourseHeader'
 
 const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 	return course ? (
@@ -23,11 +22,13 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 				className='h-96 w-full rounded-lg relative   flex flex-col md:flex-row justify-between items-center gap-14 p-8 border border-border'>
 				<BackButton />
 				<div className='relative z-10 p-2 h-full flex flex-col justify-end items-start w-full md:w-2/3 '>
-					<h1 className='text-4xl font-semibold mb-2'>{course.title}</h1>
-					<p>{course.description}</p>
-					<StarRating reviews={course.reviews} />
-					<p className='text-muted-foreground text-sm'>Created by: {course.profiles.username}</p>
-					<p className='text-sm'>Last updated: {formatTimestamp(course.created_at)} </p>
+					<CourseHeader
+						title={course.title}
+						description={course.description}
+						profiles={course.profiles}
+						created_at={course.created_at}
+						reviews={course.reviews}
+					/>
 				</div>
 				<div className='w-full md:w-1/3   h-full relative z-10  px-8 '>
 					<div className='md:sticky relative md:top-0 md:right-0 p-4 bg-background border border-border opacity-95 rounded-lg shadow-lg  '>
@@ -47,7 +48,7 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 						<Button className='w-full'>Buy now</Button>
 						<p className='text-sm text-center my-2 text-muted-foreground'>30-day money back guarantee</p>
 						<Button variant='link'>Share</Button>
-						<Promotions />
+						<Promotions withoutText />
 					</div>
 				</div>
 				<div className='absolute bg-black opacity-55 top-0 left-0 right-0 bottom-0'></div>
