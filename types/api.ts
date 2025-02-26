@@ -14,6 +14,7 @@ export interface CourseProps {
 	skills_gained: string
 	detailed_description: string
 	requirements: string
+	target_audience: string
 	discount: number | null
 }
 export interface CategoryProps {
