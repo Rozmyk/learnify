@@ -5,6 +5,7 @@ import Loader from '../ui/loader'
 import { Button } from '../ui/button'
 import FavButton from '../FavButton/FavButton'
 import BackButton from './BackButton/BackButton'
+import formatTimestamp from '@/lib/formatTimestamp'
 const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 	return course ? (
 		<>
@@ -21,7 +22,7 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 					<p>{course.description}</p>
 					<StarRating reviews={course.reviews} />
 					<p className='text-muted-foreground text-sm'>Created by: {course.profiles.username}</p>
-					<p className='text-sm'>Last updated: </p>
+					<p className='text-sm'>Last updated: {formatTimestamp(course.created_at)} </p>
 				</div>
 				<div className='w-1/3   h-full relative z-10   '>
 					<div className='sticky top-0 left-0  p-4 bg-background border border-border opacity-95 rounded-lg shadow-lg  '>
