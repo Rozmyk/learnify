@@ -6,7 +6,13 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { useWishlistStore } from '@/context/wishlist'
 
-const FavButton = ({ courseId }: { courseId: string }) => {
+const FavButton = ({
+	courseId,
+	variant,
+}: {
+	courseId: string
+	variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | null | undefined
+}) => {
 	const supabase = createClient()
 	const [userId, setUserId] = useState<string | null>(null)
 	const { favorites, fetchFavorites, toggleFavorite } = useWishlistStore()
@@ -48,7 +54,7 @@ const FavButton = ({ courseId }: { courseId: string }) => {
 		<Button
 			className='rounded-full'
 			size='icon'
-			variant='outline'
+			variant={variant ?? 'outline'}
 			onClick={handleClick}
 			aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}>
 			{isFav ? <Heart className='text-red-500' /> : <HeartIcon />}
