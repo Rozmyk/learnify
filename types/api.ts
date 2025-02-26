@@ -11,6 +11,7 @@ export interface CourseProps {
 	categories: CategoryProps
 	profiles: ProfileDataProps
 	slug: string
+	skills_gained: string
 	discount: number | null
 }
 export interface CategoryProps {
