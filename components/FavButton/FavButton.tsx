@@ -57,7 +57,7 @@ const FavButton = ({
 			variant={variant ?? 'outline'}
 			onClick={handleClick}
 			aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}>
-			{isFav ? <Heart className='text-red-500' /> : <HeartIcon />}
+			{isFav ? <Heart className='text-red-400' /> : <HeartIcon />}
 		</Button>
 	)
 }
