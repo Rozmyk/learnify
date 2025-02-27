@@ -6,8 +6,10 @@ import { X } from 'lucide-react'
 import ReviewsHeader from '../ReviewsHeader/ReviewsHeader'
 import SingleReview from '../SingleReview/SingleReview'
 import { ReviewProps } from '@/types/api'
+import { addRatingsToCourses } from '@/lib/calcRatings'
 
 const ReviewsModal = ({ children, reviews }: { children: ReactNode; reviews: ReviewProps[] }) => {
+	const reviewsData = addRatingsToCourses(reviews)
 	const [isOpen, setIsOpen] = useState(false)
 	const handleOpen = () => {
 		setIsOpen(true)
@@ -24,7 +26,7 @@ const ReviewsModal = ({ children, reviews }: { children: ReactNode; reviews: Rev
 				<Dialog.Overlay className='bg-black bg-opacity-60 fixed inset-0 z-40' />
 				<Dialog.Content className='fixed top-1/2 left-1/2 w-full max-w-3xl bg-secondary rounded-lg shadow-lg flex flex-col justify-start items-start z-50 transform -translate-x-1/2 -translate-y-1/2'>
 					<div className='flex justify-between items-center w-full p-4'>
-						<ReviewsHeader avgRating={3} reviewCount={3} />
+						<ReviewsHeader avgRating={reviewsData.avgRating} reviewCount={reviewsData.reviewCount} />
 						<Button variant='secondary' onClick={handleClose} className='rounded-full ' size='icon'>
 							<X />
 						</Button>
