@@ -8,13 +8,13 @@ import formatTimestamp from '@/lib/formatTimestamp'
 const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount, created_at }: CourseProps) => {
 	return (
 		<div className='border-b border-border flex justify-between items-start w-full gap-4 p-2 '>
-			<div className='w-16 h-16 min-w-16 min-h-16 relative'>
+			<div className='w-16 h-16 min-w-16 min-h-16 relative rounded-lg overflow-hidden'>
 				<Image className='object-cover' src={thumbnail} alt='course photo' fill />
 			</div>
 			<div className='flex justify-between items-start gap-4 0 w-full'>
 				<div>
 					<p className='font-semibold'>{title}</p>
-					<p className='text-sm'>Last updated: {formatTimestamp(created_at)}</p>
+					<p className='text-sm text-muted-foreground'>Last updated: {formatTimestamp(created_at)}</p>
 				</div>
 				<StarRating compact reviews={reviews} />
 				<div className='flex justify-start items-center gap-1 text-muted-foreground'>
