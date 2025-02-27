@@ -16,6 +16,7 @@ export interface CourseProps {
 	requirements: string
 	target_audience: string
 	discount: number | null
+	language: string
 }
 export interface CategoryProps {
 	name: string
