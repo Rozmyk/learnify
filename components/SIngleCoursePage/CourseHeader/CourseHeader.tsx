@@ -9,12 +9,14 @@ const CourseHeader = ({
 	profiles,
 	reviews,
 	created_at,
+	language,
 }: {
 	title: string
 	description: string
 	profiles: ProfileDataProps
 	reviews: ReviewProps[]
 	created_at: string
+	language: string
 }) => {
 	return (
 		<>
@@ -34,7 +36,7 @@ const CourseHeader = ({
 				</div>
 				<div className='flex justify-start items-center gap-2'>
 					<Earth size={16} />
-					<p className='text-sm'>Language: English </p>
+					<p className='text-sm'>Language: {language} </p>
 				</div>
 			</div>
 		</>
