@@ -13,7 +13,7 @@ const StarRating = ({ reviews, compact }: { reviews: ReviewProps[] | null; compa
 	if (compact) {
 		return (
 			<div className='flex items-center gap-1'>
-				<span className='text-yellow-300'>★</span>
+				<span className='text-orange-400'>★</span>
 				<span className='font-medium text-sm'>{rating.toFixed(1)}</span>
 			</div>
 		)
@@ -27,16 +27,16 @@ const StarRating = ({ reviews, compact }: { reviews: ReviewProps[] | null; compa
 					.repeat(fullStars)
 					.split('')
 					.map((_, i) => (
-						<span key={`full-${i}`} className='text-yellow-300'>
+						<span key={`full-${i}`} className='text-orange-400'>
 							★
 						</span>
 					))}
-				{halfStar && <span className='text-yellow-300'>☆</span>}
+				{halfStar && <span className='text-orange-400'>☆</span>}
 				{'★'
 					.repeat(emptyStars)
 					.split('')
 					.map((_, i) => (
-						<span key={`empty-${i}`} className='text-gray-300'>
+						<span key={`empty-${i}`} className='text-gray-400'>
 							★
 						</span>
 					))}
