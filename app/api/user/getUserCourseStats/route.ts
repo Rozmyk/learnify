@@ -30,7 +30,10 @@ export async function GET(req: NextRequest) {
 
 		const reviewsCount = reviews.length
 
-		const averageRating = reviewsCount > 0 ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviewsCount : 0
+		const averageRating =
+			reviewsCount > 0
+				? parseFloat((reviews.reduce((sum, review) => sum + review.rating, 0) / reviewsCount).toFixed(1))
+				: 0
 
 		return NextResponse.json({ coursesCount: courses.length, reviewsCount, averageRating }, { status: 200 })
 	} catch (error) {
