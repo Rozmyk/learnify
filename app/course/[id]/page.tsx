@@ -8,9 +8,10 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 		.select(
 			`
 				  *,
-				  reviews(*),
+				  reviews(*, profiles(*)),
 				  categories(*),
 				  profiles(*)
+				 
 				`
 		)
 		.eq('slug', id)
