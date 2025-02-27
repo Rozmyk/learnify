@@ -40,5 +40,3 @@ export async function GET(req: NextRequest) {
 		return NextResponse.json({ message: 'An unexpected error occurred', error }, { status: 500 })
 	}
 }
-
-export const getUserCourseStats = GET
