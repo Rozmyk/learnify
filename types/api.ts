@@ -24,9 +24,11 @@ export interface CategoryProps {
 	slug: string
 }
 export interface ReviewProps {
+	id: string
 	rating: number
 	author_id: string
 	course_id: string
+	profiles: ProfileDataProps
 	content: string
 	created_at: string
 }
