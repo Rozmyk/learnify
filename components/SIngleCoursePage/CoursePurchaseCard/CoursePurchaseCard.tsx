@@ -12,7 +12,7 @@ const CoursePurchaseCard = ({ thumbnail, discount, price, id }: CourseProps) => 
 			<div className='w-full p-4'>
 				<div className='flex gap-2 justify-start items-center mb-4'>
 					<p className='font-semibold text-2xl'>{discount ? (price * (1 - discount / 100)).toFixed(2) : price} zł</p>
-					{discount && <p className='text-muted-foreground line-through'>{price}</p>}
+					{discount && <p className='text-muted-foreground line-through'>{price} zł</p>}
 					{discount && <p className='text-muted-foreground'>-{discount} % discount</p>}
 				</div>
 
