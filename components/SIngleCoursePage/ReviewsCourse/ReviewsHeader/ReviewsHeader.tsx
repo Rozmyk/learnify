@@ -1,4 +1,4 @@
-const ReviewsHeader = ({ avgRating, reviewCount }: { avgRating: number | null; reviewCount: number }) => {
+const ReviewsHeader = ({ avgRating, reviewCount }: { avgRating: number; reviewCount: number }) => {
 	return (
 		<div className='flex justify-start items-center gap-2  py-2 mb-2'>
 			<span className='text-orange-400 text-3xl'>★</span>
