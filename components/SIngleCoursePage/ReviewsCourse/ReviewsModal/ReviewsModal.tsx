@@ -35,7 +35,7 @@ const ReviewsModal = ({ children, reviews }: { children: ReactNode; reviews: Rev
 					</Dialog.Title>
 					<div className='flex flex-col justify-start items-center p-4 gap-8'>
 						{reviews.map(review => {
-							return <SingleReview review={review} />
+							return <SingleReview key={review.id} review={review} />
 						})}
 					</div>
 				</Dialog.Content>
