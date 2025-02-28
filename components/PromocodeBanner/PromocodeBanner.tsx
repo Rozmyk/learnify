@@ -27,7 +27,7 @@ const PromocodeBanner = () => {
 	return (
 		isVisible && (
 			<div className='h-16 bg-primary w-full flex flex-col justify-center items-center relative '>
-				<p className='font-medium text-secondary'>
+				<p className='font-medium text-secondary mx-4 '>
 					Use the code <span className='font-bold uppercase'>{code}</span> now to save{' '}
 					<span className='font-bold'>{discount}%</span>
 				</p>
