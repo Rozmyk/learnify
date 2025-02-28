@@ -4,7 +4,7 @@ const CourseIncludes = () => {
 	return (
 		<div>
 			<h3 className='text-2xl font-semibold mb-4'>This course includes:</h3>
-			<div className='grid grid-cols-2 gap-4'>
+			<div className='grid  grid-cols-1 md:grid-cols-2 gap-4'>
 				<SingleFeature Icon={MonitorPlay} value='20.5 hours of video-on-demand content' />
 				<SingleFeature Icon={NotepadText} value='Tasks' />
 				<SingleFeature Icon={Download} value='Downloadable resources: 105' />
