@@ -5,9 +5,10 @@ import FavButton from '@/components/FavButton/FavButton'
 import { CourseProps } from '@/types/api'
 const CoursePurchaseCard = ({ thumbnail, discount, price, id }: CourseProps) => {
 	return (
-		<div className='md:sticky relative md:top-0 md:right-0 bg-background border border-border opacity-95 rounded-lg shadow-lg  '>
-			<div className='w-full h-44 relative mb-4 rounded-lg overflow-hidden'>
-				<Image fill src={thumbnail} alt='course photo' />
+		<div className=' bg-background md:border md:border-border opacity-95 rounded-lg shadow-lg  '>
+			<div className='w-full h-44 relative mb-4 md:rounded-lg  overflow-hidden'>
+				<Image fill src={thumbnail} alt='course photo' className='object-cover' />
+				<div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300' />
 			</div>
 			<div className='w-full p-4'>
 				<div className='flex gap-2 justify-start items-center mb-4'>
