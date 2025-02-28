@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { ReactNode } from 'react'
 import { X } from 'lucide-react'
@@ -8,8 +8,18 @@ import SingleReview from '../SingleReview/SingleReview'
 import { ReviewProps } from '@/types/api'
 import { addRatingsToCourses } from '@/lib/calcRatings'
 
-const ReviewsModal = ({ children, reviews }: { children: ReactNode; reviews: ReviewProps[] }) => {
+const ReviewsModal = ({
+	children,
+	reviews,
+	course_id,
+}: {
+	children: ReactNode
+	reviews: ReviewProps[]
+	course_id: string
+}) => {
 	const reviewsData = addRatingsToCourses(reviews)
+	const [data, setData] = useState<ReviewProps[] | null>(null)
+
 	const [isOpen, setIsOpen] = useState(false)
 	const handleOpen = () => {
 		setIsOpen(true)
@@ -17,6 +27,27 @@ const ReviewsModal = ({ children, reviews }: { children: ReactNode; reviews: Rev
 	const handleClose = () => {
 		setIsOpen(false)
 	}
+	useEffect(() => {
+		const fetchReviews = async () => {
+			try {
+				const response = await fetch(`/api/reviews?course_id=${course_id}`)
+				const result = await response.json()
+				console.log(result)
+				if (result.error) {
+					console.log(result.error)
+				} else {
+					console.log(result.courses)
+					setData(result.courses)
+				}
+			} catch (err) {
+				console.log(err)
+			}
+		}
+
+		if (course_id) {
+			fetchReviews()
+		}
+	}, [course_id])
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
 			<Dialog.Trigger onClick={handleOpen} asChild>
@@ -34,9 +65,10 @@ const ReviewsModal = ({ children, reviews }: { children: ReactNode; reviews: Rev
 						</div>
 					</Dialog.Title>
 					<div className='flex flex-col justify-start items-center p-4 gap-8'>
-						{reviews.map(review => {
-							return <SingleReview key={review.id} review={review} />
-						})}
+						{data &&
+							data.map(review => {
+								return <SingleReview key={review.id} review={review} />
+							})}
 					</div>
 				</Dialog.Content>
 			</Dialog.Portal>
