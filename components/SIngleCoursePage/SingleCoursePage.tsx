@@ -50,7 +50,7 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 					)}
 					<AlsoBought course={course} />
 					<InstructorsSection {...course.profiles} />
-					<ReviewsCourse reviews={course.reviews} />
+					<ReviewsCourse reviews={course.reviews} course_id={course.id} />
 					<MoreInstructorCourses author_id={course.profiles.id} />
 				</div>
 			</div>
