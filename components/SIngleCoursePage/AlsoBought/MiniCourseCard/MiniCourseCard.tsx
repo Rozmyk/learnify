@@ -6,9 +6,11 @@ import { Users } from 'lucide-react'
 import formatTimestamp from '@/lib/formatTimestamp'
 import Link from 'next/link'
 
-const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount, created_at }: CourseProps) => {
+const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount, created_at, slug }: CourseProps) => {
 	return (
-		<div className='border-b border-border flex justify-between items-start w-full gap-4 p-2 '>
+		<Link
+			href={`/course/${slug}`}
+			className='border-b border-border flex justify-between items-start w-full gap-4 p-2 '>
 			<div className='w-16 h-16 min-w-16 min-h-16 relative rounded-lg overflow-hidden'>
 				<Image className='object-cover' src={thumbnail} alt='course photo' fill />
 			</div>
@@ -36,7 +38,7 @@ const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount, create
 					<FavButton variant='outline' courseId={id} />
 				</div>
 			</div>
-		</div>
+		</Link>
 	)
 }
 
