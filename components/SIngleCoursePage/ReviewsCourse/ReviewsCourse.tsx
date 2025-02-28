@@ -6,7 +6,7 @@ import ReviewsModal from './ReviewsModal/ReviewsModal'
 import ReviewsHeader from './ReviewsHeader/ReviewsHeader'
 import Carousel from './Carousel/Carousel'
 
-const ReviewsCourse = ({ reviews }: { reviews: ReviewProps[] }) => {
+const ReviewsCourse = ({ reviews, course_id }: { reviews: ReviewProps[]; course_id: string }) => {
 	const reviewData = addRatingsToCourses(reviews)
 	const limitedReviews = reviews.slice(0, 4)
 	return (
@@ -24,7 +24,7 @@ const ReviewsCourse = ({ reviews }: { reviews: ReviewProps[] }) => {
 			</div>
 
 			{reviews.length > 4 && (
-				<ReviewsModal reviews={reviews}>
+				<ReviewsModal course_id={course_id} reviews={reviews}>
 					<Button className='mt-6 w-full md:w-auto'>Show all reviews</Button>
 				</ReviewsModal>
 			)}
