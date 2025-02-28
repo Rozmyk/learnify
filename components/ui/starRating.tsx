@@ -12,9 +12,9 @@ const StarRating = ({ reviews, compact }: { reviews: ReviewProps[] | null; compa
 
 	if (compact) {
 		return (
-			<div className='flex items-center gap-1'>
-				<span className='text-orange-400'>★</span>
+			<div className='flex items-center gap-1 text-orange-400'>
 				<span className='font-medium text-sm'>{rating.toFixed(1)}</span>
+				<span>★</span>
 			</div>
 		)
 	}
