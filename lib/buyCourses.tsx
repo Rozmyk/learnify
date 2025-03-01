@@ -1,10 +1,10 @@
-export const buyCourses = async (userId: string, courseIds: string[]) => {
+export const buyCourses = async (courseIds: string[]) => {
 	const response = await fetch('/api/purchase', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ userId, courseIds }),
+		body: JSON.stringify({ courseIds }),
 	})
 
 	const data = await response.json()
