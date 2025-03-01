@@ -9,7 +9,9 @@ import StarRating from './starRating'
 import { Button } from './button'
 import FavButton from '../FavButton/FavButton'
 import { useCartStore } from '@/context/cart'
-
+import { useOwnedCoursesStore } from '@/context/ownedCourses'
+import { CircleAlert } from 'lucide-react'
+import formatTimestamp from '@/lib/formatTimestamp'
 const CourseCard = ({
 	thumbnail,
 	title,
@@ -21,11 +23,16 @@ const CourseCard = ({
 	discount,
 	reviews,
 	id,
+	created_at,
 }: CourseProps) => {
 	const [open, setOpen] = useState(false)
 
 	const { addToCart, cartItems } = useCartStore()
+	const { owned, fetchOwned } = useOwnedCoursesStore()
+
+	const isAlreadOwned = owned.some(item => item.course_id == id)
 	const isAlreadtInCart = cartItems.some(item => item.product_id == id)
+
 	const updateLastViewedCourse = async () => {
 		try {
 			await fetch('/api/updateLastViewed', {
@@ -98,27 +105,43 @@ const CourseCard = ({
 					sideOffset={8}
 					onMouseEnter={() => setOpen(true)}
 					onMouseLeave={() => setOpen(false)}>
-					<h4 className='text-lg font-semibold'>{title}</h4>
-					<p className='text-sm text-muted-foreground mt-2 mb-4'>{description}</p>
-					<div className='flex justify-between items-center gap-4'>
-						{isAlreadtInCart ? (
-							<Link className='w-full' href='/cart'>
-								<Button className='w-full'>Go to cart</Button>
+					{isAlreadOwned ? (
+						<div className='flex flex-col gap-4 '>
+							<div className='flex justify-start items-center gap-4'>
+								<CircleAlert />
+								<p className='text-muted-foreground '>
+									You have been attending this course since {formatTimestamp(created_at)}
+								</p>
+							</div>
+							<Link className='w-full' href={`/course/${slug}`}>
+								<Button className='w-full'>Go to course</Button>
 							</Link>
-						) : (
-							<Button
-								className='w-full'
-								onClick={() => {
-									addToCart(id)
-								}}>
-								Add to cart
-							</Button>
-						)}
-
-						<div className='w-10'>
-							<FavButton courseId={id} />
 						</div>
-					</div>
+					) : (
+						<>
+							<h4 className='text-lg font-semibold'>{title}</h4>
+							<p className='text-sm text-muted-foreground mt-2 mb-4'>{description}</p>
+							<div className='flex justify-between items-center gap-4'>
+								{isAlreadtInCart ? (
+									<Link className='w-full' href='/cart'>
+										<Button className='w-full'>Go to cart</Button>
+									</Link>
+								) : (
+									<Button
+										className='w-full'
+										onClick={() => {
+											addToCart(id)
+										}}>
+										Add to cart
+									</Button>
+								)}
+
+								<div className='w-10'>
+									<FavButton courseId={id} />
+								</div>
+							</div>
+						</>
+					)}
 				</PopoverContent>
 			</Portal>
 		</Popover>
