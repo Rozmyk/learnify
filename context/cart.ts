@@ -21,6 +21,7 @@ interface CartState {
 	removeFromCart: (productId: string) => Promise<void>
 	applyPromoCode: (code: string) => Promise<void>
 	calculateTotalPrice: () => void
+	removeAllItems: () => void
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -33,6 +34,21 @@ export const useCartStore = create<CartState>((set, get) => ({
 	hasFetchedCartItems: false,
 	promoCode: null,
 	discount: 0,
+	removeAllItems: async () => {
+		const supabase = createClient()
+		const {
+			data: { user },
+		} = await supabase.auth.getUser()
+
+		if (!user?.id) {
+			return
+		}
+
+		const { error } = await supabase.from('cart').delete().eq('user_id', user.id)
+		if (!error) {
+			set({ cartItems: [], totalPrice: 0, originalTotal: 0, promoCode: null, discount: 0 })
+		}
+	},
 	setPromoError: (error: string | null) => set({ promoError: error }),
 	calculateTotalPrice: () => {
 		const { cartItems, discount } = get()
