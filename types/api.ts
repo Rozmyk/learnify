@@ -65,3 +65,10 @@ export interface PromocodeProps {
 	created_at: string
 	id: string
 }
+export interface ownedCourseProps {
+	course: CourseProps
+	created_at: string
+	user_id: string
+	id: string
+	course_id: string
+}
