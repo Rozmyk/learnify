@@ -7,6 +7,7 @@ import CartButton from '../CartButton/CartButton'
 import FavCoursesButton from '../FavCoursesButton/FavCoursesButton'
 import Link from 'next/link'
 import NavbarSearch from '../NavbarSearch/NavbarSearch'
+import MyCoursesButton from '../MyCoursesButton/MyCoursesButton'
 export default async function UserNavbar({ user }: { user: ProfileDataProps }) {
 	return (
 		<div className='flex justify-between items-center  gap-4 w-full'>
@@ -18,9 +19,7 @@ export default async function UserNavbar({ user }: { user: ProfileDataProps }) {
 						<Button variant='ghost'>Add course</Button>
 					</Link>
 				)}
-				<Link href='/course'>
-					<Button variant={'ghost'}>My courses</Button>
-				</Link>
+				<MyCoursesButton />
 				<ThemeSwitcher />
 				<FavCoursesButton userId={user.id} />
 				<CartButton />
