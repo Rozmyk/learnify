@@ -1,31 +1,26 @@
 import { useState, useEffect } from 'react'
 import CourseCard from '@/components/ui/CourseCard'
 import { CourseProps } from '@/types/api'
+import Link from 'next/link'
+import SectionTitle from '@/components/SectionTitle/SectionTitle'
 
-const MoreInstructorCourses = ({ author_id }: { author_id: string }) => {
-	console.log(author_id)
+const MoreInstructorCourses = ({ author_id, authorUsername }: { author_id: string; authorUsername: string }) => {
 	const [instructorCourses, setIncstructorCourses] = useState<CourseProps[] | null>(null)
-	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		const fetchCourses = async () => {
 			try {
-				const response = await fetch(`/api/course/author_id/author_id=${author_id}`)
-				const text = await response.text()
-				console.log('Raw response:', text)
-				console.log(response)
+				const response = await fetch(`/api/course/author_id?author_id=${author_id}`)
+
 				if (!response.ok) {
-					console.error('Response error:', response.status, text)
+					console.error('Response error:', response.status)
 					return
 				}
 
-				const data = JSON.parse(text)
-				console.log(data)
+				const data = await response.json()
 				setIncstructorCourses(data.courses)
 			} catch (error) {
 				console.error('Error:', error)
-			} finally {
-				setLoading(false)
 			}
 		}
 
@@ -33,14 +28,24 @@ const MoreInstructorCourses = ({ author_id }: { author_id: string }) => {
 			fetchCourses()
 		}
 	}, [author_id])
+
 	return (
-		<div>
-			<h3>More instructor courses</h3>
-			{instructorCourses &&
-				instructorCourses.map(course => {
-					return <CourseCard key={course.id} {...course} />
-				})}
-		</div>
+		instructorCourses &&
+		instructorCourses.length > 0 && (
+			<>
+				<SectionTitle>
+					More courses by instructor{' '}
+					<Link className='underline' href={`/user/${authorUsername} `}>
+						{authorUsername}
+					</Link>
+				</SectionTitle>
+				<div className='grid  grid-cols-1 md:grid-cols-2 gap-4'>
+					{instructorCourses?.map(course => {
+						return <CourseCard key={course.id} {...course} />
+					})}
+				</div>
+			</>
+		)
 	)
 }
 

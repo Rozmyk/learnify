@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { Award, SquarePlay, Star } from 'lucide-react'
 import StatItem from '@/components/StatItem/StatItem'
 import Skeleton from '@/components/ui/skeleton'
+import SectionTitle from '@/components/SectionTitle/SectionTitle'
 
 interface UserStats {
 	coursesCount: number
@@ -40,7 +41,7 @@ const InstructorsSection = ({ username, avatar_url, description, header, id }: P
 	}, [id])
 	return (
 		<div>
-			<h3 className='text-2xl font-semibold mb-8'>Instructor</h3>
+			<SectionTitle>Instructor</SectionTitle>
 			<div className='mb-4'>
 				{' '}
 				<Link className='font-semibold text-lg underline' href={`/user/${username}`}>
