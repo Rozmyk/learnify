@@ -3,6 +3,7 @@ import { CourseProps } from '@/types/api'
 import Image from 'next/image'
 import StarRating from '@/components/ui/starRating'
 import Link from 'next/link'
+import SectionTitle from '@/components/SectionTitle/SectionTitle'
 const PromotedCourse = ({ course }: { course: CourseProps }) => {
 	const updateLastViewedCourse = async () => {
 		try {
@@ -17,7 +18,7 @@ const PromotedCourse = ({ course }: { course: CourseProps }) => {
 	}
 	return (
 		<>
-			<p className='my-4 text-2xl font-semibold'>Our best recommendation for you</p>
+			<SectionTitle>Our best recommendation for you</SectionTitle>
 			<Link
 				href={`/course/${course.slug}`}
 				onClick={updateLastViewedCourse}
