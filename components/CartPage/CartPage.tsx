@@ -6,10 +6,24 @@ import SingleCartItem from './SingleCartItem/SingleCartItem'
 import Summary from './Summary/Summary'
 import LastWishlistItem from './LastWishlistItem/LastWishlistItem'
 import { useWishlistStore } from '@/context/wishlist'
+import { buyCourses } from '@/lib/buyCourses'
 import YouMayAlsoLike from '../YouMayAlsoLike/YouMayAlsoLike'
 const CartPage = () => {
-	const { cartItems, totalPrice, loading, removeFromCart } = useCartStore()
+	const { cartItems, totalPrice, loading, removeFromCart, removeAllItems } = useCartStore()
 	const { toggleFavorite } = useWishlistStore()
+	const handleBuyCourses = async () => {
+		const selectedCourses = [] as string[]
+		cartItems.map(item => {
+			selectedCourses.push(item.product_id)
+		})
+
+		try {
+			await buyCourses(selectedCourses)
+			removeAllItems()
+		} catch (error) {
+			console.error(error)
+		}
+	}
 
 	return loading ? (
 		<div className='w-full h-96 flex justify-center items-center'>
@@ -40,14 +54,14 @@ const CartPage = () => {
 							<LastWishlistItem />
 						</div>
 						<div className='w-full md:w-1/3'>
-							<Summary totalPrice={totalPrice} />
+							<Summary handleBuyCourses={handleBuyCourses} totalPrice={totalPrice} />
 						</div>
 					</>
 				) : (
 					<EmptyCart />
 				)}
 			</div>
-			<YouMayAlsoLike />
+			{/* <YouMayAlsoLike /> */}
 		</div>
 	)
 }
