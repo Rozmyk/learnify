@@ -2,10 +2,10 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { Button } from '../../button'
 import { useOwnedCoursesStore } from '@/context/ownedCourses'
 import Loader from '../../loader'
+import SingleOwnedCourse from './SingleOwnedCourse/SingleOwnedCourse'
 const MyCoursesButton = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const { fetchOwned, owned, loading, hasFetchedOwnedCourses } = useOwnedCoursesStore()
@@ -24,11 +24,22 @@ const MyCoursesButton = () => {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-content ' align='start'>
 				{loading ? (
-					<Loader />
+					<div className='flex justify-center items-center w-full'>
+						<Loader />
+					</div>
 				) : (
-					owned.map(item => {
-						return <p>{item.course.title}</p>
-					})
+					<ScrollArea.Root>
+						<ScrollArea.Viewport style={{ maxHeight: 500 }}>
+							<ScrollArea.Scrollbar orientation='vertical'>
+								<ScrollArea.Thumb />
+							</ScrollArea.Scrollbar>
+							<div className='p-4 flex flex-col justify-start items-start max-w-80 gap-4'>
+								{owned.map(item => {
+									return <SingleOwnedCourse {...item.course} key={item.course.id} />
+								})}
+							</div>
+						</ScrollArea.Viewport>
+					</ScrollArea.Root>
 				)}
 			</DropdownMenuContent>
 		</DropdownMenu>
