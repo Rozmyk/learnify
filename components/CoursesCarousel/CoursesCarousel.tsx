@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { EmblaOptionsType } from 'embla-carousel'
 import CourseCard from '../ui/CourseCard'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -8,7 +8,7 @@ import { PrevButton, NextButton, usePrevNextButtons } from './Buttons/Buttons'
 
 type PropType = {
 	courses: CourseProps[]
-	text: string
+	text: string | ReactNode
 	options?: EmblaOptionsType
 }
 
