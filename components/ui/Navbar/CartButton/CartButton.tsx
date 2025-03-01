@@ -7,6 +7,7 @@ import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useCartStore } from '@/context/cart'
 import MiniCourseCard from '@/components/MiniCourseCard/MiniCourseCard'
 import Link from 'next/link'
+import { ShoppingCart } from 'lucide-react'
 const CartButton = () => {
 	const { cartItems, totalPrice, originalTotal, fetchCart } = useCartStore()
 	const [isOpen, setIsOpen] = useState(false)
@@ -48,7 +49,10 @@ const CartButton = () => {
 										)
 								)
 							) : (
-								<p>Your cart is empty</p>
+								<div className='flex justify-start items-center gap-2'>
+									<ShoppingCart size={16} />
+									<p className='text-sm text-muted-foreground'>Your cart is empty</p>
+								</div>
 							)}
 						</div>
 					</ScrollArea.Viewport>
