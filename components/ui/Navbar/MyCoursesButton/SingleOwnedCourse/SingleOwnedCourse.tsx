@@ -11,7 +11,7 @@ const SingleOwnedCourse = ({ thumbnail, title }: CourseProps) => {
 			<div className='flex-1'>
 				<p className='font-semibold text-sm mb-2'>{title}</p>
 				<Progress.Root className='relative overflow-hidden bg-gray-200 rounded-full w-full h-2'>
-					<Progress.Indicator className='bg-blue-500 h-full transition-all duration-300' style={{ width: `${50}%` }} />
+					<Progress.Indicator className='bg-blue-500 h-full transition-all duration-300' style={{ width: `${0}%` }} />
 				</Progress.Root>
 			</div>
 		</div>
