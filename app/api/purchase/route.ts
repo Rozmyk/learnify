@@ -4,14 +4,16 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(req: NextRequest) {
 	try {
 		const supabase = await createClient()
-		const { userId, courseIds } = await req.json()
-
-		if (!userId || !courseIds?.length) {
+		const { courseIds } = await req.json()
+		const {
+			data: { user },
+		} = await supabase.auth.getUser()
+		if (!user || !courseIds?.length) {
 			return NextResponse.json({ error: 'Missing required data' }, { status: 400 })
 		}
 
 		const payload = courseIds.map((courseId: string) => ({
-			user_id: userId,
+			user_id: user.id,
 			course_id: courseId,
 		}))
 
