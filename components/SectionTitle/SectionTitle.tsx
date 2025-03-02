@@ -4,7 +4,7 @@ const SectionTitle = ({ children, additionalText }: { children: string | ReactNo
 	return (
 		<div className='flex flex-col justify-start items-start mb-8'>
 			<h3 className='text-2xl font-semibold '>{children}</h3>
-			{additionalText && <p className='text-muted-foreground'>{additionalText}</p>}
+			{additionalText && <p className=' text-sm font-medium text-muted-foreground'>{additionalText}</p>}
 		</div>
 	)
 }
