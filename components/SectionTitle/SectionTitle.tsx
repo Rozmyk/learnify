@@ -1,7 +1,12 @@
 import { ReactNode } from 'react'
 
-const SectionTitle = ({ children }: { children: string | ReactNode }) => {
-	return <h3 className='text-2xl font-semibold mb-8'>{children}</h3>
+const SectionTitle = ({ children, additionalText }: { children: string | ReactNode; additionalText?: string }) => {
+	return (
+		<div className='flex flex-col justify-start items-start mb-8'>
+			<h3 className='text-2xl font-semibold '>{children}</h3>
+			{additionalText && <p className='text-muted-foreground'>{additionalText}</p>}
+		</div>
+	)
 }
 
 export default SectionTitle
