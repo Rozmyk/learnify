@@ -6,18 +6,20 @@ import Link from 'next/link'
 import SectionTitle from '@/components/SectionTitle/SectionTitle'
 import { useState, useEffect } from 'react'
 import Skeleton from '@/components/ui/skeleton'
-const PromotedCourse = ({ course }: { course: CourseProps }) => {
+const PromotedCourse = () => {
 	const [promotedData, setPromotedData] = useState<CourseProps | null>(null)
 	const [loading, setLoading] = useState(true)
 	const updateLastViewedCourse = async () => {
-		try {
-			await fetch('/api/updateLastViewed', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ courseId: course.id }),
-			})
-		} catch (error) {
-			console.error('Error updating last viewed course:', error)
+		if (promotedData && !loading) {
+			try {
+				await fetch('/api/updateLastViewed', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ courseId: promotedData.id }),
+				})
+			} catch (error) {
+				console.error('Error updating last viewed course:', error)
+			}
 		}
 	}
 	useEffect(() => {
