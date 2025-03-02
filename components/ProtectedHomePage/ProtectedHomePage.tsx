@@ -17,22 +17,11 @@ export default async function ProtectedHomePage({ profileData }: { profileData: 
 		console.error('Error fetching courses:', coursesError)
 	}
 
-	const { data: promoted, error: promotedError } = await supabase.from('promoted').select(`
-        *,
-        course(
-          *,
-          profiles:author_id(*), categories(*)
-        )
-      `)
-
-	if (promotedError) {
-		console.error('Error fetching promoted courses:', promotedError)
-	}
 	return (
 		<>
 			<ProtectedHeader profileData={profileData} />
 			{courses && <RecommendedCourses courses={courses} />}
-			{promoted && <PromotedCourse course={promoted[0]?.course} />}
+			<PromotedCourse />
 			<PersonalizedCourse lastViewedCourseId={profileData.lastViewedCourseId} />
 		</>
 	)
