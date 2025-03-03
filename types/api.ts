@@ -17,6 +17,9 @@ export interface CourseProps {
 	target_audience: string
 	discount: number | null
 	language: string
+	level: levelProps
+}
+export interface levelProps {
 	level: 'Begginer' | 'Intermediate' | 'Advanced'
 }
 export interface CategoryProps {
