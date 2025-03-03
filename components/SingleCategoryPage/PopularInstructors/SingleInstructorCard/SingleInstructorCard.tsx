@@ -33,7 +33,7 @@ const SingleInstructorCard = ({ username, avatar_url, header, id }: ProfileDataP
 		}
 	}, [id])
 	return loading ? (
-		<Skeleton className=' max-w-72 w-72 p-4  min-h-36 mx-2' />
+		<Skeleton className=' max-w-72 w-72 p-4  min-h-36 ' />
 	) : (
 		<Link
 			href={`/user/${username}`}
