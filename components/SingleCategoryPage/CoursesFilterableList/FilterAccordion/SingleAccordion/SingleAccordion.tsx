@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 
 const SingleAccordion = ({ item, children }: { item: string; children: ReactNode }) => {
 	return (
-		<Accordion.Item key={item} value={item} className='border-b w-full '>
+		<Accordion.Item  key={item} value={item} className='border-b w-full '>
 			<Accordion.Header>
 				<Accordion.Trigger className='flex justify-between w-full py-3 text-left font-semibold'>
 					{item}
