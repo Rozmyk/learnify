@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { ProfileDataProps } from '@/types/api'
 import Image from 'next/image'
-import StarRating from '@/components/ui/starRating'
+import Skeleton from '@/components/ui/skeleton'
 import Link from 'next/link'
-import { Star } from 'lucide-react'
+
 interface UserStats {
 	coursesCount: number
 	reviewsCount: number
@@ -12,6 +12,7 @@ interface UserStats {
 
 const SingleInstructorCard = ({ username, avatar_url, header, id }: ProfileDataProps) => {
 	const [userStats, setUserStats] = useState<UserStats | null>(null)
+	const [loading, setLoading] = useState(true)
 	useEffect(() => {
 		const getUserStats = async () => {
 			try {
@@ -22,6 +23,7 @@ const SingleInstructorCard = ({ username, avatar_url, header, id }: ProfileDataP
 				const data = await response.json()
 
 				setUserStats(data)
+				setLoading(false)
 			} catch (err) {
 				console.log(err)
 			}
@@ -30,10 +32,12 @@ const SingleInstructorCard = ({ username, avatar_url, header, id }: ProfileDataP
 			getUserStats()
 		}
 	}, [id])
-	return (
+	return loading ? (
+		<Skeleton className=' max-w-72 w-72 p-4  min-h-36 mx-2' />
+	) : (
 		<Link
 			href={`/user/${username}`}
-			className='flex p-4 border border-border gap-8 max-w-72 w-72 shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px]'>
+			className='flex p-4 border border-border gap-8 max-w-72 w-72 shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] h-full mx-2'>
 			<div className='relative h-16 min-h-16 min-w-16 w-16 rounded-full overflow-hidden border border-border'>
 				<Image src={avatar_url} fill alt='user profile' />
 			</div>
