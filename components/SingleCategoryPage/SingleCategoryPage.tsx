@@ -4,6 +4,7 @@ import PromotedCourse from '../ProtectedHeader/PromotedCourse/PromotedCourse'
 import SectionTitle from '../SectionTitle/SectionTitle'
 import { CircleAlert } from 'lucide-react'
 import CoursesFilterableList from './CoursesFilterableList/CoursesFilterableList'
+import PopularInstructors from './PopularInstructors/PopularInstructors'
 import Loader from '../ui/loader'
 
 const SingleCategoryPage = ({
@@ -16,7 +17,7 @@ const SingleCategoryPage = ({
 	slug: string
 }) => {
 	return courses && category && slug ? (
-		<div>
+		<div className='p-4'>
 			<h1 className='text-4xl font-semibold my-8'>Courses from the {category.name} category</h1>
 
 			<CoursesCarousel
@@ -29,6 +30,7 @@ const SingleCategoryPage = ({
 			/>
 
 			<PromotedCourse />
+			<PopularInstructors />
 			<SectionTitle>All courses in the {slug} category</SectionTitle>
 			<div className=' my-8 p-8 -full border border-border flex justify-start items-center gap-2 rounded-lg'>
 				<CircleAlert size={20} />
