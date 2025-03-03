@@ -50,7 +50,7 @@ const PopularInstructors = () => {
 							<div className='embla__container'>
 								{instructorsData?.map(instructor => {
 									return (
-										<div className='embla__slide min-h-36' key={instructor.id}>
+										<div className='embla__slide min-h-36 flex justify-center items-center' key={instructor.id}>
 											{' '}
 											<SingleInstructorCard {...instructor} />
 										</div>
