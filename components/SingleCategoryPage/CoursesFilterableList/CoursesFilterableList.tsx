@@ -1,34 +1,48 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import { Select } from '@radix-ui/react-select'
+import CoursesSelect from './CoursesSelect/CoursesSelect'
+import FilterAccordion from './FilterAccordion/FilterAccordion'
+import Loader from '@/components/ui/loader'
+import WideCourseCard from '@/components/WideCourseCard/WideCourseCard'
 
 const CoursesFilterableList = () => {
 	const [fullWidth, setFullWidth] = useState(true)
+	const [loading, setLoading] = useState(false)
+	const [sortBy, setSortBy] = useState(null)
+	const [free, setFree] = useState(false)
+	const [payable, setPayable] = useState(false)
 
 	return (
 		<>
 			<div className='flex w-full justify-between items-center'>
-				<div>
+				<div className='flex justify-start items-center gap-4 my-8'>
 					<Button
 						onClick={() => {
 							setFullWidth(!fullWidth)
 						}}>
 						FIltruj
 					</Button>
-					<Select />
+					<CoursesSelect />
+					<Button variant='ghost'>Clean filters</Button>
 				</div>
 				<p className='font-semibold'>1000 results</p>
 			</div>
-			<div className='flex justify-between items-start mb-96'>
+			<div className='flex justify-between items-start gap-8 mb-96'>
 				<div
-					className={`bg-red-400 overflow-hidden transition-all duration-500 ${
-						fullWidth ? 'max-w-full opacity-100' : 'max-w-0 opacity-0'
+					className={`overflow-hidden transition-all duration-500 ${
+						fullWidth ? 'w-full md:w-1/4 opacity-100' : 'max-w-0 opacity-0'
 					}`}>
-					<p>siema</p>
+					<FilterAccordion />
 				</div>
-				<div className={`transition-all bg-blue-300 duration-500 ${!fullWidth ? 'w-full' : 'md:w-3/4'}`}>
-					<p>testarorassa</p>
+				<div className={`transition-all  duration-500 ${!fullWidth ? 'w-full' : 'md:w-3/4'}`}>
+					{loading ? (
+						<div className='flex justify-center items-center p-8'>
+							<Loader />
+						</div>
+					) : (
+						<div className='flex flex-col gap-4'>items</div>
+					)}
 				</div>
 			</div>
 		</>
