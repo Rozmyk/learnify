@@ -4,7 +4,7 @@ import { EmblaOptionsType } from 'embla-carousel'
 import CourseCard from '../ui/CourseCard'
 import useEmblaCarousel from 'embla-carousel-react'
 import { CourseProps } from '@/types/api'
-import { PrevButton, NextButton, usePrevNextButtons } from './Buttons/Buttons'
+import { PrevButton, NextButton, usePrevNextButtons } from '../EmblaButtons/EmblaButtons'
 
 type PropType = {
 	courses: CourseProps[]
