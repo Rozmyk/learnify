@@ -91,6 +91,30 @@
 		--slide-size: 100%;
 	}
 }
+.emblaInstructors {
+	margin: auto;
+	--slide-height: 19rem;
+	--slide-spacing: 1rem;
+	--slide-size: 25%;
+}
+
+@media (min-width: 1200px) {
+	.emblaInstructors {
+		--slide-size: 25%;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 1199px) {
+	.emblaInstructors {
+		--slide-size: 50%;
+	}
+}
+
+@media (max-width: 799px) {
+	.emblaInstructors {
+		--slide-size: 100%;
+	}
+}
 
 .embla__viewport {
 	overflow: hidden;
