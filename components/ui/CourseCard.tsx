@@ -51,7 +51,7 @@ const CourseCard = ({
 				<Link
 					onClick={updateLastViewedCourse}
 					href={`/course/${slug}`}
-					className='group hover:no-underline flex cursor-pointer'
+					className='group no-underline flex cursor-pointer'
 					onMouseEnter={() => setOpen(true)}
 					onMouseLeave={() => setOpen(false)}>
 					<div className='bg-card rounded-xl overflow-hidden shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] border border-border flex flex-col flex-1'>
