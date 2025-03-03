@@ -42,7 +42,7 @@ const PromotedCourse = () => {
 	}, [])
 	return (
 		<>
-			<SectionTitle>Our best recommendation for you</SectionTitle>
+			<SectionTitle className='mt-8'>Our best recommendation for you</SectionTitle>
 			{loading ? (
 				<div className='flex justify-between items-start w-full gap-4 '>
 					<Skeleton className='md:w-2/5 w-full h-52 md:h-80' />
