@@ -2,8 +2,8 @@ import { createClient } from '@/utils/supabase/server'
 import UserPage from '@/components/UserPage/UserPage'
 import TeacherPage from '@/components/TeacherPage/TeacherPage'
 
-export default async function page({ params }: { params: { username: string } }) {
-	const { username } = params
+export default async function page({ params }: { params: Promise<{ username: string }> }) {
+	const username = (await params).username
 	const supabase = await createClient()
 
 	const { data: userData, error } = await supabase.from('profiles').select('*').eq('username', username).single()
