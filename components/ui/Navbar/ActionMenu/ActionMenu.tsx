@@ -31,7 +31,7 @@ const ActionMenu = ({ avatarUrl, username, email }: { avatarUrl: string; usernam
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-content' align='start'>
 				<DropdownMenuItem onClick={handleClose}>
-					<Link href={'/user/edit-profile'}>
+					<Link href={`/user/${username}`}>
 						<div className='flex justify-between items-center gap-4 p-2'>
 							<div className='w-12 h-12 relative rounded-full overflow-hidden'>
 								<Image fill alt='User avatar' src={avatarUrl} />
