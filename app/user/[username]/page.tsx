@@ -8,7 +8,11 @@ export default async function page({ params }: { params: Promise<{ username: str
 	const username = (await params).username
 	const supabase = await createClient()
 
-	const { data: userData, error } = await supabase.from('profiles').select('*').eq('username', username).single()
+	const { data: userData, error } = await supabase
+		.from('profiles')
+		.select('*')
+		.eq('username', username.toLowerCase())
+		.single()
 
 	if (error || !userData) {
 		return (
