@@ -77,7 +77,9 @@ const CourseCard = ({
 							<h3 className='text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300'>
 								{title}
 							</h3>
-							<p className='text-muted-foreground text-sm mb-4 line-clamp-2 flex-1'>Autor: {profiles.username}</p>
+							<p className='text-muted-foreground text-sm mb-4 line-clamp-2 flex-1 capitalize'>
+								Autor: {profiles.username}
+							</p>
 							<div className='flex justify-between items-center'>
 								<StarRating reviews={reviews} />
 								<div className='flex justify-center items-center gap-2'>
