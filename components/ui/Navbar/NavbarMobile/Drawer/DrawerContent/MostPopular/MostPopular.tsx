@@ -7,7 +7,7 @@ const MostPopular = ({ categoriesData }: { categoriesData: null | CategoryProps[
 			<p className='font-semibold my-2'>Most popular</p>
 			<div className='flex flex-col justify-center items-start'>
 				{categoriesData?.map(category => {
-					return <SingleLink content={category.name} href={category.slug} key={category.id} />
+					return <SingleLink content={category.name} href={`/courses/${category.slug}`} key={category.id} />
 				})}
 			</div>
 		</div>
