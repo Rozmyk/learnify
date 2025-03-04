@@ -22,12 +22,7 @@ const SingleStats = ({ title, value }: { title: string; value: number }) => {
 	)
 }
 const SingleStatsLoading = () => {
-	return (
-		<div className='flex flex-col justify-center items-start gap-2'>
-			<Skeleton className='w-16 h-4' />
-			<Skeleton className='h-8 w-4' />
-		</div>
-	)
+	return <Skeleton className='w-16 h-12' />
 }
 
 const TeacherPage = ({ userData }: { userData: ProfileDataProps }) => {
