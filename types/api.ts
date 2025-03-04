@@ -1,3 +1,9 @@
+export enum LevelProps {
+	Begginer = 'Begginer',
+	Intermediate = 'Intermediate',
+	Advanced = 'Advanced',
+}
+
 export interface CourseProps {
 	title: string
 	description: string
@@ -17,11 +23,9 @@ export interface CourseProps {
 	target_audience: string
 	discount: number | null
 	language: string
-	level: levelProps
+	level: LevelProps
 }
-export interface levelProps {
-	level: 'Begginer' | 'Intermediate' | 'Advanced'
-}
+
 export interface CategoryProps {
 	name: string
 	id: string
