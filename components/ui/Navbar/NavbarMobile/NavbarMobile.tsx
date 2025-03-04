@@ -48,7 +48,7 @@ const NavbarMobile = ({ user }: NavbarMobileProps) => {
 			</div>
 			{isSearchOpen && <SearchOverlay handleClose={handleCloseSearch} />}
 			<Overlay isOpen={isDrawerOpen} handleClose={handleCloseDrawer} />
-			<Drawer user={user} isOpen={isDrawerOpen} />
+			<Drawer user={user} isOpen={isDrawerOpen} handleCloseDrawer={handleCloseDrawer} />
 			<CloseButton isOpen={isDrawerOpen} handleClose={handleCloseDrawer} />
 		</>
 	)

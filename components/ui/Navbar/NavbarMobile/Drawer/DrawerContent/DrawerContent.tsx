@@ -6,7 +6,7 @@ import Explore from './Explore/Explore'
 import OtherServices from './OtherServices/OtherServices'
 import Loader from '@/components/ui/loader'
 
-const DrawerContent = () => {
+const DrawerContent = ({ handleCloseDrawer }: { handleCloseDrawer: () => void }) => {
 	const [categoriesData, setCategoriesData] = useState<null | CategoryProps[]>(null)
 	const [loading, setLoading] = useState(true)
 	useEffect(() => {
@@ -36,8 +36,8 @@ const DrawerContent = () => {
 				</div>
 			) : (
 				<>
-					<Explore />
-					<MostPopular categoriesData={categoriesData} />
+					<Explore handleCloseDrawer={handleCloseDrawer} />
+					<MostPopular handleCloseDrawer={handleCloseDrawer} categoriesData={categoriesData} />
 					<OtherServices />
 				</>
 			)}
