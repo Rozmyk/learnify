@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Button } from '../ui/button'
 import { useState, useEffect } from 'react'
 import Loader from '../ui/loader'
+import Link from 'next/link'
 import CourseCard from '../ui/CourseCard'
 
 interface UserStats {
@@ -64,7 +65,7 @@ const TeacherPage = ({ userData }: { userData: ProfileDataProps }) => {
 			<div className='w-full md:w-4/5'>
 				<div>
 					<p className='text-muted-foreground'>Instructors</p>
-					<h1 className='text-5xl font-semibold mb-2'>{userData.username}</h1>
+					<h1 className='text-5xl font-semibold mb-2 capitalize'>{userData.username}</h1>
 					<p className='font-semibold'>{userData.header}</p>
 				</div>
 				{userStatsLoading ? (
@@ -102,7 +103,13 @@ const TeacherPage = ({ userData }: { userData: ProfileDataProps }) => {
 				</div>
 				<div className='flex flex-col w-full gap-4 mt-8'>
 					<Button>Send message</Button>
-					<Button variant='outline'>Website</Button>
+					{userData.website && (
+						<Link href={userData.website} className='w-full' target='_blank'>
+							<Button className='w-full' variant='outline'>
+								Website
+							</Button>
+						</Link>
+					)}
 				</div>
 			</div>
 		</div>
