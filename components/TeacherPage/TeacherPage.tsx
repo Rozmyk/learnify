@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import Loader from '../ui/loader'
 import Link from 'next/link'
 import CourseCard from '../ui/CourseCard'
+import Skeleton from '../ui/skeleton'
 
 interface UserStats {
 	coursesCount: number
@@ -17,6 +18,14 @@ const SingleStats = ({ title, value }: { title: string; value: number }) => {
 		<div className='flex flex-col gap-2'>
 			<p className='font-semibold '>{title}</p>
 			<p className='text-3xl font-semibold text-muted-foreground'>{value}</p>
+		</div>
+	)
+}
+const SingleStatsLoading = () => {
+	return (
+		<div className='flex flex-col justify-center items-start gap-2'>
+			<Skeleton className='w-16 h-4' />
+			<Skeleton className='h-8 w-4' />
 		</div>
 	)
 }
@@ -69,7 +78,10 @@ const TeacherPage = ({ userData }: { userData: ProfileDataProps }) => {
 					<p className='font-semibold'>{userData.header}</p>
 				</div>
 				{userStatsLoading ? (
-					<div></div>
+					<div className='flex justify-start items-center gap-8 my-10'>
+						<SingleStatsLoading />
+						<SingleStatsLoading />
+					</div>
 				) : (
 					<div className='flex justify-start items-center gap-8 my-10'>
 						{userStats?.coursesCount && <SingleStats title='Courses count' value={userStats?.coursesCount} />}
