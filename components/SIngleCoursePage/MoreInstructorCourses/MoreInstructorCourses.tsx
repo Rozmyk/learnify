@@ -10,7 +10,7 @@ const MoreInstructorCourses = ({ author_id, authorUsername }: { author_id: strin
 	useEffect(() => {
 		const fetchCourses = async () => {
 			try {
-				const response = await fetch(`/api/course/author_id?author_id=${author_id}`)
+				const response = await fetch(`/api/course/author_id?author_id=${author_id}&limit=2`)
 
 				if (!response.ok) {
 					console.error('Response error:', response.status)
