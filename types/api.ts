@@ -76,3 +76,9 @@ export interface ownedCourseProps {
 	id: string
 	course_id: string
 }
+export interface FilterProps {
+	sortBy: string | null
+	free: boolean
+	payable: boolean
+	level: 'beginner' | 'intermediate' | 'advanced'
+}
