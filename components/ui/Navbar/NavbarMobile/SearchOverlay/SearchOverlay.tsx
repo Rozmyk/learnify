@@ -1,9 +1,8 @@
 'use client'
 import { Search, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { CourseProps } from '@/types/api'
 import Loader from '@/components/ui/loader'
 import SingleSearchCourse from '@/components/SingleSearchCourse/SingleSearchCourse'
 import useDebouncedSearch from '@/lib/useDebouncedSearch'
@@ -14,17 +13,7 @@ interface SearchOverlayProps {
 
 const SearchOverlay = ({ handleClose }: SearchOverlayProps) => {
 	const [inputValue, setInputValue] = useState('')
-
 	const { courses, loading } = useDebouncedSearch(inputValue)
-	useEffect(() => {
-		const handleEsc = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') {
-				handleClose()
-			}
-		}
-		window.addEventListener('keydown', handleEsc)
-		return () => window.removeEventListener('keydown', handleEsc)
-	}, [handleClose])
 
 	return (
 		<div className='fixed inset-0 bg-card z-50 flex flex-col '>
