@@ -49,7 +49,11 @@ const SearchOverlay = ({ handleClose }: SearchOverlayProps) => {
 			) : (
 				<div className='flex flex-col p-4'>
 					{courses?.map(course => {
-						return <SingleSearchCourse course={course} />
+						return (
+							<span onClick={handleClose} key={course.id}>
+								<SingleSearchCourse course={course} />
+							</span>
+						)
 					})}
 				</div>
 			)}
