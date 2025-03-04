@@ -1,12 +1,18 @@
 'use client'
 import { Search, X } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { CourseProps } from '@/types/api'
+import Loader from '@/components/ui/loader'
 
 interface SearchOverlayProps {
 	handleClose: () => void
 }
 
 const SearchOverlay = ({ handleClose }: SearchOverlayProps) => {
+	const [inputValue, setInputValue] = useState('')
+	const [courses, setCourses] = useState<CourseProps | null>(null)
 	useEffect(() => {
 		const handleEsc = (e: KeyboardEvent) => {
 			if (e.key === 'Escape') {
@@ -18,21 +24,16 @@ const SearchOverlay = ({ handleClose }: SearchOverlayProps) => {
 	}, [handleClose])
 
 	return (
-		<div className='fixed inset-0 bg-card z-50 flex flex-col p-4'>
-			<div className='flex items-center border-b border-gray-300 pb-2'>
+		<div className='fixed inset-0 bg-card z-50 flex flex-col '>
+			<div className='flex items-center justify-center border-b border-border pb-2 gap-2 p-4'>
 				<Search className='mr-2' />
-				<input
-					type='text'
-					placeholder='Szukaj dowolnych elementów'
-					className='w-full outline-none bg-transparent'
-					autoFocus
-				/>
-				<button onClick={handleClose}>
+				<Input placeholder='Search for any courses...' />
+				<Button size='icon' variant='ghost' onClick={handleClose}>
 					<X />
-				</button>
+				</Button>
 			</div>
 
-			<div className='flex-1 mt-4'>Tu będą wyniki wyszukiwania...</div>
+			<div className='flex-1  p-4 text-muted-foreground'>Here will be the search results...</div>
 		</div>
 	)
 }
