@@ -10,11 +10,11 @@ const CoursesSelect = ({
 }) => {
 	const selectArray = [
 		{
-			name: 'Highest rated',
-			value: 'highest-rated',
+			name: 'Highest priced',
+			value: 'highest-priced',
 		},
 		{ name: 'Latest', value: 'newest' },
-		{ name: 'Most popular', value: 'popularity' },
+		{ name: 'Lowest priced', value: 'lowest-priced' },
 	]
 
 	return (
