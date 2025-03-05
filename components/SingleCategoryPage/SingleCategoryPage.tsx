@@ -36,7 +36,7 @@ const SingleCategoryPage = ({
 				<CircleAlert size={20} />
 				<p className='font-semibold'>Can't make up your mind? All courses have a 30-day money back guarantee</p>
 			</div>
-			<CoursesFilterableList />
+			<CoursesFilterableList category={category} />
 		</div>
 	) : (
 		<Loader />
