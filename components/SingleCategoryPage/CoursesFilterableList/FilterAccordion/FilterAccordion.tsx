@@ -1,18 +1,23 @@
 import * as Accordion from '@radix-ui/react-accordion'
-import SingleAccordion from './SingleAccordion/SingleAccordion'
+import Ranking from './Ranking/Ranking'
+import Price from './Price/Price'
+import Level from './Level/Level'
+import Language from './Language/Language'
+import { FilterProps } from '@/types/api'
 
-const FilterAccordion = () => {
+const FilterAccordion = ({
+	filters,
+	handleFilter,
+}: {
+	filters: Record<string, string>
+	handleFilter: (paramsToUpdate: Record<string, string>) => void
+}) => {
 	return (
 		<Accordion.Root type='multiple' defaultValue={['Ranking', 'Price']} className='w-full border-t border-border'>
-			<SingleAccordion item='Ranking'>
-				<div>options</div>
-			</SingleAccordion>
-			<SingleAccordion item='Price'>
-				<div>options</div>
-			</SingleAccordion>
-			<SingleAccordion item='Level'>
-				<div>options</div>
-			</SingleAccordion>
+			<Ranking handleFilter={handleFilter} filters={filters} />
+			<Price filters={filters} handleFilter={handleFilter} />
+			<Level filters={filters} handleFilter={handleFilter} />
+			<Language filters={filters} handleFilter={handleFilter} />
 		</Accordion.Root>
 	)
 }
