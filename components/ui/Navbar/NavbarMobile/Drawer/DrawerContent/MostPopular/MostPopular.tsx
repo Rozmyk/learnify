@@ -14,8 +14,8 @@ const MostPopular = ({
 			<div className='flex flex-col justify-center items-start'>
 				{categoriesData?.map(category => {
 					return (
-						<span onClick={handleCloseDrawer}>
-							<SingleLink content={category.name} href={`/courses/${category.slug}`} key={category.id} />
+						<span key={category.id} onClick={handleCloseDrawer}>
+							<SingleLink content={category.name} href={`/courses/${category.slug}`} />
 						</span>
 					)
 				})}
