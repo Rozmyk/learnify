@@ -32,7 +32,9 @@ const Ranking = ({
 								<Star
 									key={starIndex}
 									size={12}
-									className={starIndex < item.rating ? 'text-orange-400 fill-orange-400' : 'text-muted-foreground'}
+									className={
+										starIndex < Number(item.rating) ? 'text-orange-400 fill-orange-400' : 'text-muted-foreground'
+									}
 								/>
 							))}
 						</div>
