@@ -6,15 +6,19 @@ export async function GET(req: NextRequest) {
 	const { searchParams } = new URL(req.url)
 	const level = searchParams.get('instructional_level')
 	const language = searchParams.get('lang')
+	const category = searchParams.get('category')
 	const sortBy = searchParams.get('sort')
 	const rating = searchParams.get('rating') ? Number(searchParams.get('rating')) : undefined
 
-	let query = supabase.from('course').select(
-		`*, 
+	let query = supabase
+		.from('course')
+		.select(
+			`*, 
             reviews(rating), 
             categories(id, name)`
-	)
-	console.log(query)
+		)
+		.eq('categories_id', category)
+
 	if (language) {
 		query = query.eq('language', language)
 	}
