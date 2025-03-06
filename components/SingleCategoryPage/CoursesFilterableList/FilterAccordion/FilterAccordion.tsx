@@ -3,7 +3,6 @@ import Ranking from './Ranking/Ranking'
 import Price from './Price/Price'
 import Level from './Level/Level'
 import Language from './Language/Language'
-import { FilterProps } from '@/types/api'
 
 const FilterAccordion = ({
 	filters,
