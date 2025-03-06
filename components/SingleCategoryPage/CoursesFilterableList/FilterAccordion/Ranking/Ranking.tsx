@@ -1,12 +1,7 @@
 import { Star } from 'lucide-react'
 import SingleAccordion from '../SingleAccordion/SingleAccordion'
 
-const ratings = [
-	{ rating: '4.5', count: 2451 },
-	{ rating: '4.0', count: 5288 },
-	{ rating: '3.5', count: 6028 },
-	{ rating: '3.0', count: 6181 },
-]
+const ratings = [{ rating: '4.5' }, { rating: '4.0' }, { rating: '3.5' }, { rating: '3.0' }]
 
 const Ranking = ({
 	handleFilter,
@@ -39,7 +34,6 @@ const Ranking = ({
 							))}
 						</div>
 						<span className='text-sm font-semibold '>{item.rating} and higher</span>
-						<span className='text-xs text-muted-foreground'>({item.count})</span>
 					</div>
 				))}
 			</div>
