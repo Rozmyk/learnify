@@ -14,7 +14,9 @@ const CoursesFilterableList = ({ category }: { category: CategoryProps }) => {
 	const [loading, setLoading] = useState(true)
 	const [filteredCourses, setFilteredCourses] = useState<CourseProps[]>([])
 	const [filters, setFilters] = useState<Record<string, string>>({})
+	const hasFilters = Object.keys(filters).length > 0
 	const router = useRouter()
+
 	const searchParams = useSearchParams()
 
 	const fetchFilteredCourses = async (params: Record<string, string>) => {
@@ -23,7 +25,7 @@ const CoursesFilterableList = ({ category }: { category: CategoryProps }) => {
 		const paramsToSend = new URLSearchParams(params).toString()
 		const response = await fetch(`/api/courses?${paramsToSend}`)
 		const data = await response.json()
-		console.log(data)
+
 		setFilteredCourses(data)
 		setLoading(false)
 	}
@@ -69,9 +71,11 @@ const CoursesFilterableList = ({ category }: { category: CategoryProps }) => {
 						Filters
 					</Button>
 					<CoursesSelect filters={filters} handleFilter={handleFilter} />
-					<Button onClick={handleCleanFilter} variant='ghost'>
-						Clean filters
-					</Button>
+					{hasFilters && (
+						<Button onClick={handleCleanFilter} variant='ghost'>
+							Clean filters
+						</Button>
+					)}
 				</div>
 				<p className='font-semibold'>{filteredCourses?.length ?? 0} results</p>
 			</div>
