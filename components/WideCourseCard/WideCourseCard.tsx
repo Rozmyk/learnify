@@ -13,7 +13,7 @@ const WideCourseCard = ({ thumbnail, title, description, reviews, slug, level, p
 					<h3 className='text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-300'>{title}</h3>
 					<p className='text-muted-foreground text-sm'>{description}</p>
 					<StarRating reviews={reviews} />
-					<p className='text-sm text-muted-foreground'>{level}</p>
+					<p className='text-sm text-muted-foreground capitalize'>{level}</p>
 				</div>
 				<div className='flex flex-col justify-center items-center gap-2'>
 					{discount && discount > 0 && (
