@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { ReactNode } from 'react'
 import { X } from 'lucide-react'
+import * as ScrollArea from '@radix-ui/react-scroll-area'
 import ReviewsHeader from '../ReviewsHeader/ReviewsHeader'
 import SingleReview from '../SingleReview/SingleReview'
 import { ReviewProps } from '@/types/api'
 import { addRatingsToCourses } from '@/lib/calcRatings'
+import Loader from '@/components/ui/loader'
 
 const ReviewsModal = ({
 	children,
@@ -19,6 +21,7 @@ const ReviewsModal = ({
 }) => {
 	const reviewsData = addRatingsToCourses(reviews)
 	const [data, setData] = useState<ReviewProps[] | null>(null)
+	const [loading, setLoading] = useState(true)
 
 	const [isOpen, setIsOpen] = useState(false)
 	const handleOpen = () => {
@@ -32,12 +35,12 @@ const ReviewsModal = ({
 			try {
 				const response = await fetch(`/api/reviews?course_id=${course_id}`)
 				const result = await response.json()
-				console.log(result)
+
 				if (result.error) {
 					console.log(result.error)
 				} else {
-					console.log(result.courses)
 					setData(result.courses)
+					setLoading(false)
 				}
 			} catch (err) {
 				console.log(err)
@@ -64,11 +67,26 @@ const ReviewsModal = ({
 							</Button>
 						</div>
 					</Dialog.Title>
-					<div className='flex flex-col justify-start items-center p-4 gap-8'>
-						{data &&
-							data.map(review => {
-								return <SingleReview key={review.id} review={review} />
-							})}
+					<div className='flex flex-col justify-start items-center p-4 gap-8 w-full'>
+						<ScrollArea.Root>
+							<ScrollArea.Viewport style={{ maxHeight: '80vh', height: '100%' }}>
+								<ScrollArea.Scrollbar orientation='vertical'>
+									<ScrollArea.Thumb />
+								</ScrollArea.Scrollbar>
+								{loading ? (
+									<div className='flex justify-center items-center h-[80vh] w-full'>
+										<div className='w-full text-center'>
+											<Loader />
+										</div>
+									</div>
+								) : (
+									data &&
+									data.map(review => {
+										return <SingleReview key={review.id} review={review} />
+									})
+								)}
+							</ScrollArea.Viewport>
+						</ScrollArea.Root>
 					</div>
 				</Dialog.Content>
 			</Dialog.Portal>
