@@ -56,7 +56,7 @@ const CourseCard = ({
 							<Image fill src={thumbnail} alt='course photo' />
 						</div>
 						<h3 className='font-semibold line-clamp-2 '>{title}</h3>
-						<p className='capitalize text-sm text-muted-foreground'>{profiles.username}</p>
+						<p className='capitalize text-xs text-muted-foreground my-1'>{profiles.username}</p>
 						<StarRating reviews={reviews} />
 						<p className='font-semibold'>{price} zł</p>
 					</div>
