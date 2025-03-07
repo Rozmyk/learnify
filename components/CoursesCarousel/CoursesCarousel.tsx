@@ -4,7 +4,7 @@ import { EmblaOptionsType } from 'embla-carousel'
 import CourseCard from '../ui/CourseCard/CourseCard'
 import useEmblaCarousel from 'embla-carousel-react'
 import { CourseProps } from '@/types/api'
-import Skeleton from '../ui/skeleton'
+import Loading from './Loading/Loading'
 import { PrevButton, NextButton, usePrevNextButtons } from '../EmblaButtons/EmblaButtons'
 
 type PropType = {
@@ -32,7 +32,7 @@ const CoursesCarousel: React.FC<PropType> = props => {
 			<div className='embla__viewport' ref={emblaRef}>
 				<div className='embla__container'>
 					{loading ? (
-						<></>
+						<Loading />
 					) : (
 						courses &&
 						courses.map(course => (
