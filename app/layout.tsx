@@ -1,6 +1,7 @@
 import { Geist } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import Navbar from '@/components/ui/Navbar/Navbar'
+import Footer from '@/components/Footer/Footer'
 import './globals.css'
 import PromocodeBanner from '@/components/PromocodeBanner/PromocodeBanner'
 import CategoryMenu from '@/components/ui/CategoryMenu/CategoryMenu'
@@ -32,6 +33,7 @@ export default function RootLayout({
 							<Navbar />
 							<CategoryMenu />
 							<div className='flex flex-col gap-20 max-w-7xl w-full '>{children}</div>
+							<Footer />
 						</div>
 					</main>
 				</ThemeProvider>
