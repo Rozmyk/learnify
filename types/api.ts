@@ -31,6 +31,7 @@ export interface CategoryProps {
 	id: string
 	created_at: string
 	slug: string
+	courseCount: number
 }
 export interface ReviewProps {
 	id: string
