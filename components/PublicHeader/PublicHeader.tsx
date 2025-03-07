@@ -6,7 +6,7 @@ const PublicHeader = () => {
 				style={{ backgroundImage: "url('/headerImage.png')" }}></div>
 			<div
 				className=' w-full h-[250px] block md:hidden  bg-center'
-				style={{ backgroundImage: "url('/headerImageMobile.png')" }}></div>
+				style={{ backgroundImage: "url('/headerImageMobi.png')" }}></div>
 			<div className='md:absolute md:top-10 md:left-10 max-w-96 p-4 bg-card shadow-lg rounded-md'>
 				<p className='text-3xl font-semibold'>Find what works for you</p>
 				<p className='text-muted-foreground'>
