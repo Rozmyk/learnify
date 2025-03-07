@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import CourseCard from '@/components/ui/CourseCard'
+import CourseCard from '@/components/ui/CourseCard/CourseCard'
 import { CourseProps } from '@/types/api'
 import Link from 'next/link'
 import SectionTitle from '@/components/SectionTitle/SectionTitle'
