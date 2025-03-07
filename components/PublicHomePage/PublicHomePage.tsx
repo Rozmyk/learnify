@@ -1,7 +1,7 @@
 import PublicHeader from '../PublicHeader/PublicHeader'
 import SectionTitle from '../SectionTitle/SectionTitle'
 import ChooseCourse from './ChooseCourse/ChooseCourse'
-import TrustedCompanies from '../ProtectedHomePage/TrustedCompanies/TrustedCompanies'
+import TrustedCompanies from './TrustedCompanies/TrustedCompanies'
 const PublicHomePage = () => {
 	return (
 		<>
