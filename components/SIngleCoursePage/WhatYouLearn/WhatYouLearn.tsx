@@ -1,4 +1,4 @@
-import SingleLessonPoint from './SingleLessonPoint/SingleLessonPoint'
+import SingleLessonPoint from '@/components/SingleLessonPoint/SingleLessonPoint'
 import SectionTitle from '@/components/SectionTitle/SectionTitle'
 const WhatYouLearn = ({ skills_gained }: { skills_gained: string }) => {
 	const splitStringToArray = (text: string) => {
