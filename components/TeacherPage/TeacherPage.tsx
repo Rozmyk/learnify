@@ -5,7 +5,7 @@ import { Button } from '../ui/button'
 import { useState, useEffect } from 'react'
 import Loader from '../ui/loader'
 import Link from 'next/link'
-import CourseCard from '../ui/CourseCard'
+import CourseCard from '../ui/CourseCard/CourseCard'
 import Skeleton from '../ui/skeleton'
 
 interface UserStats {
