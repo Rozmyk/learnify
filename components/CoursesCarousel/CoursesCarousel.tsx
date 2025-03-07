@@ -1,19 +1,21 @@
 'use client'
 import React, { ReactNode } from 'react'
 import { EmblaOptionsType } from 'embla-carousel'
-import CourseCard from '../ui/CourseCard'
+import CourseCard from '../ui/CourseCard/CourseCard'
 import useEmblaCarousel from 'embla-carousel-react'
 import { CourseProps } from '@/types/api'
+import Skeleton from '../ui/skeleton'
 import { PrevButton, NextButton, usePrevNextButtons } from '../EmblaButtons/EmblaButtons'
 
 type PropType = {
 	courses: CourseProps[]
 	text: string | ReactNode
+	loading?: boolean
 	options?: EmblaOptionsType
 }
 
 const CoursesCarousel: React.FC<PropType> = props => {
-	const { courses, options, text } = props
+	const { courses, options, text, loading } = props
 	const [emblaRef, emblaApi] = useEmblaCarousel(options)
 	const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi)
 
@@ -29,12 +31,16 @@ const CoursesCarousel: React.FC<PropType> = props => {
 			</div>
 			<div className='embla__viewport' ref={emblaRef}>
 				<div className='embla__container'>
-					{courses &&
+					{loading ? (
+						<></>
+					) : (
+						courses &&
 						courses.map(course => (
 							<div className='embla__slide ' key={course.id}>
 								<CourseCard {...course} />
 							</div>
-						))}
+						))
+					)}
 				</div>
 			</div>
 		</section>
