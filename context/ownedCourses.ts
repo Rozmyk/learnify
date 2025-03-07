@@ -2,7 +2,7 @@
 
 import { create } from 'zustand'
 import { createClient } from '@/utils/supabase/client'
-import { CourseProps, ownedCourseProps } from '@/types/api'
+import { ownedCourseProps } from '@/types/api'
 
 interface OwnedCoursesState {
 	owned: ownedCourseProps[]
@@ -35,7 +35,7 @@ export const useOwnedCoursesStore = create<OwnedCoursesState>((set, get) => ({
 			console.log(error)
 			return
 		}
-		console.log(data)
+
 		set({
 			owned: data,
 			loading: false,
