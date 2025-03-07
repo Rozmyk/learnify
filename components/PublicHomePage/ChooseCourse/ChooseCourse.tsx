@@ -12,7 +12,7 @@ const SingleBadge = ({ title, selected, onClick }: { title: string; selected: bo
 				selected ? 'bg-primary' : 'bg-secondary'
 			} rounded-full py-2 px-4 w-fit`}>
 			<p className='font-semibold text-sm whitespace-nowrap'>{title}</p>
-			<p className='text-xs text-muted-foreground'>124 courses</p>
+			<p className='text-xs text-muted-foreground whitespace-nowrap'>124 courses</p>
 		</div>
 	)
 }
@@ -66,7 +66,7 @@ const ChooseCourse = () => {
 		</div>
 	) : (
 		<div>
-			<div className='flex  justify-start items-center gap-4 mb-8 overflow-auto '>
+			<div className='flex  justify-start items-center gap-4 mb-8 overflow-auto py-4 '>
 				{categoriesData?.map(item => {
 					return (
 						<SingleBadge
@@ -81,8 +81,12 @@ const ChooseCourse = () => {
 				})}
 			</div>
 
-			{coursesData && coursesData.length > 0 && (
+			{coursesData && coursesData.length > 0 ? (
 				<CoursesCarousel loading={coursesLoading} courses={coursesData} text='' />
+			) : (
+				<div className='flex justify-center items-center my-4'>
+					<p className='text-muted-foreground'>No found courses for this category</p>
+				</div>
 			)}
 
 			<Button className='mt-4'>Show more course</Button>
