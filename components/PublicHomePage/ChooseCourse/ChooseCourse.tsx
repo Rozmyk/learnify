@@ -88,8 +88,7 @@ const ChooseCourse = () => {
 					<p className='text-muted-foreground'>No found courses for this category</p>
 				</div>
 			)}
-
-			<Button className='mt-4'>Show more course</Button>
+			{coursesData && coursesData.length > 0 && <Button className='mt-4'>Show more course</Button>}
 		</div>
 	)
 }
