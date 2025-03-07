@@ -4,7 +4,17 @@ import { CategoryProps, CourseProps } from '@/types/api'
 import Loader from '@/components/ui/loader'
 import { Button } from '@/components/ui/button'
 import CoursesCarousel from '@/components/CoursesCarousel/CoursesCarousel'
-const SingleBadge = ({ title, selected, onClick }: { title: string; selected: boolean; onClick: () => void }) => {
+const SingleBadge = ({
+	title,
+	selected,
+	onClick,
+	courseCount,
+}: {
+	title: string
+	selected: boolean
+	onClick: () => void
+	courseCount: number
+}) => {
 	return (
 		<div
 			onClick={onClick}
@@ -12,7 +22,7 @@ const SingleBadge = ({ title, selected, onClick }: { title: string; selected: bo
 				selected ? 'bg-primary' : 'bg-secondary'
 			} rounded-full py-2 px-4 w-fit`}>
 			<p className='font-semibold text-sm whitespace-nowrap'>{title}</p>
-			<p className='text-xs text-muted-foreground whitespace-nowrap'>124 courses</p>
+			<p className='text-xs text-muted-foreground whitespace-nowrap'>{courseCount} courses</p>
 		</div>
 	)
 }
@@ -35,6 +45,7 @@ const ChooseCourse = () => {
 				const data = await response.json()
 				setSelectedCategoryId(data[0].id)
 				setCategoriesData(data)
+
 				setLoading(false)
 			} catch (error) {
 				console.error('Error during category download:', error)
@@ -75,6 +86,7 @@ const ChooseCourse = () => {
 							}}
 							selected={selectedCategoryId == item.id}
 							key={item.id}
+							courseCount={item.courseCount}
 							title={item.name}
 						/>
 					)
