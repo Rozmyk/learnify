@@ -8,12 +8,15 @@ const SingleBadge = ({ title, selected, onClick }: { title: string; selected: bo
 	return (
 		<div
 			onClick={onClick}
-			className={`cursor-pointer border border-border ${selected ? 'text-secondary' : 'text-primary'} ${selected ? 'bg-primary' : 'bg-secondary'} rounded-full py-2 px-4`}>
-			<p className='font-semibold text-sm'>{title}</p>
+			className={`cursor-pointer border border-border ${selected ? 'text-secondary' : 'text-primary'} ${
+				selected ? 'bg-primary' : 'bg-secondary'
+			} rounded-full py-2 px-4 w-fit`}>
+			<p className='font-semibold text-sm whitespace-nowrap'>{title}</p>
 			<p className='text-xs text-muted-foreground'>124 courses</p>
 		</div>
 	)
 }
+
 const ChooseCourse = () => {
 	const [selectedCategoryId, setSelectedCategoryId] = useState<null | string>(null)
 	const [categoriesData, setCategoriesData] = useState<null | CategoryProps[]>(null)
@@ -63,7 +66,7 @@ const ChooseCourse = () => {
 		</div>
 	) : (
 		<div>
-			<div className='flex  justify-start items-center gap-4 mb-8'>
+			<div className='flex  justify-start items-center gap-4 mb-8 overflow-auto '>
 				{categoriesData?.map(item => {
 					return (
 						<SingleBadge
@@ -83,7 +86,6 @@ const ChooseCourse = () => {
 			)}
 
 			<Button className='mt-4'>Show more course</Button>
-			<h3>Zaufało nam ponad 16 000 firm i miliony użytkowników z całego świata</h3>
 		</div>
 	)
 }
