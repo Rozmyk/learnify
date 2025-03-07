@@ -37,7 +37,7 @@ const FavButton = ({
 					fetchFavorites()
 				}
 			} catch (err) {
-				console.error('Error fetching user:', err)
+				return
 			}
 		}
 
