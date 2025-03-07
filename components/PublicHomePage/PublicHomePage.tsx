@@ -1,6 +1,7 @@
 import PublicHeader from '../PublicHeader/PublicHeader'
 import SectionTitle from '../SectionTitle/SectionTitle'
 import ChooseCourse from './ChooseCourse/ChooseCourse'
+import TrustedCompanies from '../ProtectedHomePage/TrustedCompanies/TrustedCompanies'
 const PublicHomePage = () => {
 	return (
 		<>
@@ -10,6 +11,7 @@ const PublicHomePage = () => {
 				All the skills you need in one place
 			</SectionTitle>
 			<ChooseCourse />
+			<TrustedCompanies />
 		</>
 	)
 }
