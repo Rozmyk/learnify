@@ -56,7 +56,7 @@ const CoursePopover = ({
 					<div className='flex justify-start items-center gap-2'>
 						{' '}
 						<p className='text-green-300 text-xs'>Updated: {formatTimestamp(created_at)}</p>
-						<p className='text-xs text-muted-foreground'>Level: {level}</p>
+						<p className='text-xs text-muted-foreground capitalize'>Level: {level}</p>
 					</div>
 					<p className='text-sm  mt-2 mb-4'>{description}</p>
 					<div className='flex flex-col gap-2 mb-2'>
