@@ -14,7 +14,7 @@ const CoursePopover = ({
 	isAlreadOwned,
 	isAlreadInCart,
 	addToCart,
-    slug
+	slug,
 }: {
 	skills_gained: string
 	created_at: string
@@ -24,7 +24,7 @@ const CoursePopover = ({
 	level: string
 	isAlreadOwned: boolean
 	isAlreadInCart: boolean
-    slug:string
+	slug: string
 	addToCart: (id: string) => void
 }) => {
 	const splitStringToArray = (text: string) => {
@@ -55,7 +55,7 @@ const CoursePopover = ({
 					<h3 className='text-lg font-semibold mb-2'>{title}</h3>
 					<div className='flex justify-start items-center gap-2'>
 						{' '}
-						<p className='text-green-400 text-xs'>Updated: {formatTimestamp(created_at)}</p>
+						<p className='text-green-300 text-xs'>Updated: {formatTimestamp(created_at)}</p>
 						<p className='text-xs text-muted-foreground'>Level: {level}</p>
 					</div>
 					<p className='text-sm  mt-2 mb-4'>{description}</p>
