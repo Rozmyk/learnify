@@ -19,13 +19,13 @@ const CourseHeader = ({
 	language: string
 }) => {
 	return (
-		<>
-			<h1 className='text-4xl font-semibold mb-2'>{title}</h1>
+		<div className='text-white'>
+			<h1 className='text-4xl  font-semibold mb-2'>{title}</h1>
 			<p className='mb-2'>{description}</p>
 			<StarRating reviews={reviews} />
 			<p className='text-muted-foreground text-sm my-2'>
 				Created by:{' '}
-				<Link className='font-semibold text-primary' href={`/user/${profiles.username}`}>
+				<Link className='font-semibold text-white ' href={`/user/${profiles.username}`}>
 					{profiles.username}
 				</Link>
 			</p>
@@ -39,7 +39,7 @@ const CourseHeader = ({
 					<p className='text-sm'>Language: {language} </p>
 				</div>
 			</div>
-		</>
+		</div>
 	)
 }
 
