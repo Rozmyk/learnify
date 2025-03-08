@@ -26,7 +26,7 @@ const CourseCard = ({
 
 	const { addToCart, cartItems } = useCartStore()
 	const { owned } = useOwnedCoursesStore()
-
+	const discountPrice = price * (1 - (discount || 0) / 100)
 	const isAlreadOwned = owned.some(item => item.course_id == id)
 	const isAlreadInCart = cartItems.some(item => item.product_id == id)
 
@@ -48,17 +48,26 @@ const CourseCard = ({
 				<Link
 					onClick={updateLastViewedCourse}
 					href={`/course/${slug}`}
-					className='group no-underline flex cursor-pointer'
+					className='group no-underline flex cursor-pointer min-h-56 h-full  '
 					onMouseEnter={() => setOpen(true)}
 					onMouseLeave={() => setOpen(false)}>
-					<div className='max-w-60 w-60 '>
-						<div className='relative h-32 mb-1 border border-border'>
-							<Image fill src={thumbnail} alt='course photo' />
+					<div className='max-w-60 w-60 h-full flex flex-col justify-between items-start '>
+						<div>
+							<div className='relative h-32 max-w-60 w-60 mb-1 border border-border'>
+								<Image fill src={thumbnail} alt='course photo' />
+							</div>
+							<h3 className='font-semibold line-clamp-2 '>{title}</h3>
 						</div>
-						<h3 className='font-semibold line-clamp-2 '>{title}</h3>
-						<p className='capitalize text-xs text-muted-foreground my-1'>{profiles.username}</p>
-						<StarRating reviews={reviews} />
-						<p className='font-semibold'>{price} zł</p>
+						<div className='flex flex-col'>
+							<p className='capitalize text-xs text-muted-foreground my-1'>{profiles.username}</p>
+							<StarRating reviews={reviews} />
+							<div className='flex  justify-start items-center gap-2'>
+								<p className='font-semibold text-nowrap'>{discountPrice.toFixed(2)} zł</p>{' '}
+								{discountPrice !== price && (
+									<p className='font-normal text-sm line-through text-muted-foreground text-nowrap'>{price} zł</p>
+								)}
+							</div>
+						</div>
 					</div>
 				</Link>
 			</PopoverTrigger>
