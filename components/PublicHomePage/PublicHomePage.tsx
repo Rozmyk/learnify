@@ -2,6 +2,7 @@ import PublicHeader from '../PublicHeader/PublicHeader'
 import SectionTitle from '../SectionTitle/SectionTitle'
 import ChooseCourse from './ChooseCourse/ChooseCourse'
 import TrustedCompanies from './TrustedCompanies/TrustedCompanies'
+import MostPurchasedCourses from './MustPurchasedCourses/MustPurchasedCourses'
 const PublicHomePage = () => {
 	return (
 		<>
@@ -12,6 +13,7 @@ const PublicHomePage = () => {
 			</SectionTitle>
 			<ChooseCourse />
 			<TrustedCompanies />
+			<MostPurchasedCourses />
 		</>
 	)
 }
