@@ -1,3 +1,4 @@
+import { CourseProps } from '@/types/api'
 import { createClient } from '@/utils/supabase/server'
 import { NextRequest } from 'next/server'
 
@@ -15,7 +16,7 @@ export async function GET(req: NextRequest) {
 		.select(
 			`*, 
             reviews(rating), 
-            categories(id, name)`
+            categories(id, name), profiles(*)`
 		)
 		.eq('categories_id', category)
 
@@ -25,9 +26,28 @@ export async function GET(req: NextRequest) {
 	if (level) {
 		query = query.eq('level', level)
 	}
-
 	if (rating) {
-		query = query.gte('reviews.rating', rating)
+		const { data: avgRatingData, error: avgRatingError } = await supabase.rpc<CourseProps[], { min_rating: number }>(
+			'get_courses_by_avg_rating',
+			{
+				min_rating: rating,
+			}
+		)
+
+		if (avgRatingError) {
+			return new Response(JSON.stringify({ error: avgRatingError.message }), { status: 500 })
+		}
+
+		const filteredCourseIds = avgRatingData?.map(course => course.id) ?? []
+
+		if (filteredCourseIds.length > 0) {
+			query = query.in('id', filteredCourseIds)
+		} else {
+			return new Response(JSON.stringify([]), {
+				headers: { 'Content-Type': 'application/json' },
+				status: 200,
+			})
+		}
 	}
 
 	if (sortBy === 'newest') {
