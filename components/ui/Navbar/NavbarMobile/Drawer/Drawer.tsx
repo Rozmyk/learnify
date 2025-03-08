@@ -34,12 +34,12 @@ const Drawer = ({
 							</div>
 						</Link>
 					</span>
-					<DrawerContent handleCloseDrawer={handleCloseDrawer} />
+					<DrawerContent user={user} handleCloseDrawer={handleCloseDrawer} />
 				</>
 			) : (
 				<>
 					<NormalHeader />
-					<DrawerContent handleCloseDrawer={handleCloseDrawer} />
+					<DrawerContent user={user} handleCloseDrawer={handleCloseDrawer} />
 				</>
 			)}
 		</div>

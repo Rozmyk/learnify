@@ -1,12 +1,18 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { CategoryProps } from '@/types/api'
+import { CategoryProps, ProfileDataProps } from '@/types/api'
 import MostPopular from './MostPopular/MostPopular'
 import Explore from './Explore/Explore'
 import OtherServices from './OtherServices/OtherServices'
 import Loader from '@/components/ui/loader'
 
-const DrawerContent = ({ handleCloseDrawer }: { handleCloseDrawer: () => void }) => {
+const DrawerContent = ({
+	handleCloseDrawer,
+	user,
+}: {
+	handleCloseDrawer: () => void
+	user: ProfileDataProps | null
+}) => {
 	const [categoriesData, setCategoriesData] = useState<null | CategoryProps[]>(null)
 	const [loading, setLoading] = useState(true)
 	useEffect(() => {
@@ -38,7 +44,7 @@ const DrawerContent = ({ handleCloseDrawer }: { handleCloseDrawer: () => void })
 				<>
 					<Explore handleCloseDrawer={handleCloseDrawer} />
 					<MostPopular handleCloseDrawer={handleCloseDrawer} categoriesData={categoriesData} />
-					<OtherServices />
+					{user && <OtherServices />}
 				</>
 			)}
 		</div>
