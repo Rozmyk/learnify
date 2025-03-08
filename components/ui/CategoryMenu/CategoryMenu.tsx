@@ -44,7 +44,7 @@ const CategoryMenu = () => {
 					) : (
 						categoriesData?.map(category => (
 							<Button variant='ghost' key={category.id}>
-								<Link className='hover:text-white' href={`courses/${category.slug}`}>
+								<Link className='hover:text-primary' href={`courses/${category.slug}`}>
 									{category.name}
 								</Link>
 							</Button>
