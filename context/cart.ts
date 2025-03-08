@@ -24,6 +24,15 @@ interface CartState {
 	removeAllItems: () => void
 }
 
+const getLocalStorageCart = (): CartItemProps[] => {
+	const cart = localStorage.getItem('cart')
+	return cart ? JSON.parse(cart) : []
+}
+
+const setLocalStorageCart = (cartItems: CartItemProps[]) => {
+	localStorage.setItem('cart', JSON.stringify(cartItems))
+}
+
 export const useCartStore = create<CartState>((set, get) => ({
 	cartItems: [],
 	totalPrice: 0,
@@ -41,6 +50,8 @@ export const useCartStore = create<CartState>((set, get) => ({
 		} = await supabase.auth.getUser()
 
 		if (!user?.id) {
+			setLocalStorageCart([])
+			set({ cartItems: [], totalPrice: 0, originalTotal: 0, promoCode: null, discount: 0 })
 			return
 		}
 
@@ -139,7 +150,26 @@ export const useCartStore = create<CartState>((set, get) => ({
 		} = await supabase.auth.getUser()
 
 		if (!user?.id) {
-			set({ loading: false })
+			const localCartItems = getLocalStorageCart()
+			if (localCartItems.some(item => item.product_id === newItem)) {
+				set({ loading: false })
+				return
+			}
+
+			const { data, error } = await supabase.from('course').select('*, profiles(*)').eq('id', newItem).single()
+
+			if (error) {
+				set({ loading: false })
+				return
+			}
+
+			if (data) {
+				const updatedItem = { product_id: newItem, course: data }
+				const updatedCartItems = [...localCartItems, updatedItem]
+				setLocalStorageCart(updatedCartItems)
+				set({ cartItems: updatedCartItems, loading: false })
+				calculateTotalPrice()
+			}
 			return
 		}
 
@@ -176,7 +206,11 @@ export const useCartStore = create<CartState>((set, get) => ({
 		} = await supabase.auth.getUser()
 
 		if (!user?.id) {
-			set({ loading: false })
+			const localCartItems = getLocalStorageCart()
+			const updatedItems = localCartItems.filter(item => item.product_id !== productId)
+			setLocalStorageCart(updatedItems)
+			set({ cartItems: updatedItems, loading: false })
+			calculateTotalPrice()
 			return
 		}
 
@@ -200,7 +234,13 @@ export const useCartStore = create<CartState>((set, get) => ({
 			} = await supabase.auth.getUser()
 
 			if (!user?.id) {
-				set({ loading: false })
+				const localCartItems = getLocalStorageCart()
+				set({
+					cartItems: localCartItems,
+					hasFetchedCartItems: true,
+					loading: false,
+				})
+				get().calculateTotalPrice()
 				return
 			}
 
