@@ -2,11 +2,14 @@ import { Button } from '../../button'
 import Link from 'next/link'
 import { ThemeSwitcher } from '@/components/theme-switcher'
 import HomeButton from '../HomeButton/HomeButton'
+import CartButton from '../CartButton/CartButton'
 const PublicNavbar = () => {
 	return (
 		<div className='flex justify-between items-center w-full'>
 			<HomeButton />
+
 			<div className='flex gap-2'>
+				<CartButton />
 				<Button asChild size='sm' variant='outline'>
 					<Link href='/sign-in'>Sign in</Link>
 				</Button>
