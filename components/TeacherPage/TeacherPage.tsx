@@ -95,9 +95,14 @@ const TeacherPage = ({ userData }: { userData: ProfileDataProps }) => {
 					) : (
 						<div className='mt-8'>
 							<p className='font-semibold my-4'>My courses ({userCourse?.length})</p>
-							<div className='grid  grid-cols-1 md:grid-cols-2 gap-4'>
+
+							<div className='grid  grid-cols-1 md:grid-cols-4 gap-4'>
 								{userCourse?.map(course => {
-									return <CourseCard {...course} key={course.id} />
+									return (
+										<div key={course.id} className='flex justify-center items-center mb-2'>
+											<CourseCard {...course} />
+										</div>
+									)
 								})}
 							</div>
 						</div>
