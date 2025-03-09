@@ -41,8 +41,8 @@ const PromotedCourse = () => {
 		getPromotedCourse()
 	}, [])
 	return (
-		<>
-			<SectionTitle className='mt-8'>Our best recommendation for you</SectionTitle>
+		<div>
+			<SectionTitle className='mt-4'>Our best recommendation for you</SectionTitle>
 			{loading ? (
 				<div className='flex justify-between items-start w-full gap-4 '>
 					<Skeleton className='md:w-2/5 w-full h-52 md:h-80' />
@@ -80,7 +80,7 @@ const PromotedCourse = () => {
 										{promotedData.title}
 									</h3>
 									<p className='text-muted-foreground mb-4 line-clamp-2 flex-1'>{promotedData.description}</p>
-									<p className='text-muted-foreground text-sm mb-4 line-clamp-2 flex-1'>
+									<p className='text-muted-foreground text-sm mb-4 line-clamp-2 flex-1 capitalize'>
 										Author: {promotedData.profiles.username}
 									</p>
 								</div>
@@ -108,7 +108,7 @@ const PromotedCourse = () => {
 					</Link>
 				)
 			)}
-		</>
+		</div>
 	)
 }
 
