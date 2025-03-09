@@ -23,9 +23,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 				</Tabs.List>
 
 				<div className='pt-4'>
-					<Tabs.Content value='account'>
-						<p className='text-base'>Make changes to your account.</p>
-					</Tabs.Content>
+					<Tabs.Content value='account'></Tabs.Content>
 					<Tabs.Content value='documents'>
 						<p className='text-base'>Access and update your documents.</p>
 					</Tabs.Content>
