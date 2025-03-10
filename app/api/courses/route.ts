@@ -1,6 +1,6 @@
 import { CourseProps } from '@/types/api'
 import { createClient } from '@/utils/supabase/server'
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
 	const supabase = await createClient()
@@ -26,29 +26,29 @@ export async function GET(req: NextRequest) {
 	if (level) {
 		query = query.eq('level', level)
 	}
-	if (rating) {
-		const { data: avgRatingData, error: avgRatingError } = await supabase.rpc<CourseProps[], { min_rating: number }>(
-			'get_courses_by_avg_rating',
-			{
-				min_rating: rating,
-			}
-		)
+	// if (rating) {
+	// 	const { data: avgRatingData, error: avgRatingError } = await supabase.rpc<CourseProps[]>(
+	// 		'get_courses_by_avg_rating',
+	// 		{
+	// 			min_rating: rating,
+	// 		}
+	// 	)
 
-		if (avgRatingError) {
-			return new Response(JSON.stringify({ error: avgRatingError.message }), { status: 500 })
-		}
+	// 	if (avgRatingError) {
+	// 		return NextResponse.json({ error: avgRatingError.message }, { status: 500 })
+	// 	}
 
-		const filteredCourseIds = avgRatingData?.map(course => course.id) ?? []
+	// 	const filteredCourseIds = avgRatingData?.map((course: CourseProps) => course.id) ?? []
 
-		if (filteredCourseIds.length > 0) {
-			query = query.in('id', filteredCourseIds)
-		} else {
-			return new Response(JSON.stringify([]), {
-				headers: { 'Content-Type': 'application/json' },
-				status: 200,
-			})
-		}
-	}
+	// 	if (filteredCourseIds.length > 0) {
+	// 		query = query.in('id', filteredCourseIds)
+	// 	} else {
+	// 		return NextResponse.json([], {
+	// 			headers: { 'Content-Type': 'application/json' },
+	// 			status: 200,
+	// 		})
+	// 	}
+	// }
 
 	if (sortBy === 'newest') {
 		query = query.order('created_at', { ascending: false })
@@ -61,10 +61,10 @@ export async function GET(req: NextRequest) {
 	const { data, error } = await query
 
 	if (error) {
-		return new Response(JSON.stringify({ error: error.message }), { status: 500 })
+		return NextResponse.json({ error: error.message }, { status: 500 })
 	}
 
-	return new Response(JSON.stringify(data), {
+	return NextResponse.json(data, {
 		headers: { 'Content-Type': 'application/json' },
 		status: 200,
 	})
