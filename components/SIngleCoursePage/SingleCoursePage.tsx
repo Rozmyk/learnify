@@ -11,6 +11,7 @@ import InstructorsSection from './InstructorsSection/InstructorsSection'
 import ReviewsCourse from './ReviewsCourse/ReviewsCourse'
 import CoursePurchaseCard from './CoursePurchaseCard/CoursePurchaseCard'
 import MoreInstructorCourses from './MoreInstructorCourses/MoreInstructorCourses'
+import Lessons from './Lessons/Lessons'
 
 const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 	return course ? (
@@ -43,6 +44,7 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 				<div className='w-full flex flex-col justify-start items-start gap-8 p-4'>
 					{course.skills_gained && <WhatYouLearn skills_gained={course.skills_gained} />}
 					<CourseIncludes />
+					<Lessons course_id={course.id} />
 					{course.requirements && <SectionDescription title='Requirements' text={course.requirements} />}
 					{course.detailed_description && <SectionDescription title='Description' text={course.detailed_description} />}
 					{course.target_audience && (
