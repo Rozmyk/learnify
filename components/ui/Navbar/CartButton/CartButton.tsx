@@ -26,7 +26,7 @@ const CartButton = () => {
 				<Button size='icon' variant='ghost' className='relative'>
 					{cartItems.length > 0 && (
 						<div className='h-4 w-4 bg-red-500 rounded-full flex justify-center items-center absolute top-0 right-0'>
-							<p className='text-xs'>{cartItems.length}</p>
+							<p className='text-xs text-white'>{cartItems.length}</p>
 						</div>
 					)}
 					<ShoppingBasket className={'text-muted-foreground'} size={16} />
