@@ -88,3 +88,22 @@ export interface FilterProps {
 	payable: boolean
 	level: 'beginner' | 'intermediate' | 'advanced'
 }
+export interface SingleLessonProps {
+	id: string
+	course_id: string
+	title: string
+	slug: string
+	content: string
+	order: number
+	created_at: string
+	section_id: string
+	is_preview: boolean
+}
+export interface SingleSectionProps {
+	id: string
+	created_at: string
+	course_id: string
+	title: string
+	order: number
+	lessons: SingleLessonProps[]
+}
