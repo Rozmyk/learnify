@@ -6,6 +6,7 @@ import { Button } from '../../button'
 import { useOwnedCoursesStore } from '@/context/ownedCourses'
 import Loader from '../../loader'
 import SingleOwnedCourse from './SingleOwnedCourse/SingleOwnedCourse'
+import Link from 'next/link'
 const MyCoursesButton = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const { fetchOwned, owned, loading, hasFetchedOwnedCourses } = useOwnedCoursesStore()
@@ -45,7 +46,9 @@ const MyCoursesButton = () => {
 					</>
 				)}
 				<div className='w-full p-2 flex flex-col justify-center items-start gap-2'>
-					<Button className='w-full'>Open my courses</Button>
+					<Link className='w-full' href={'/home/my-courses'}>
+						<Button className='w-full'>Open my courses</Button>
+					</Link>
 				</div>
 			</DropdownMenuContent>
 		</DropdownMenu>
