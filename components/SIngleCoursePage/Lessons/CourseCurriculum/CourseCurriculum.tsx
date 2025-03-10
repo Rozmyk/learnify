@@ -3,8 +3,7 @@
 import * as Accordion from '@radix-ui/react-accordion'
 import { ChevronDown } from 'lucide-react'
 import { SingleSectionProps } from '@/types/api'
-import { cn } from '@/lib/utils'
-import { TvMinimal } from 'lucide-react'
+import { TvMinimal, StickyNote } from 'lucide-react'
 
 interface CourseCurriculumProps {
 	sections: SingleSectionProps[]
@@ -18,7 +17,10 @@ export default function CourseCurriculum({ sections }: CourseCurriculumProps) {
 					<Accordion.Header className='flex'>
 						<Accordion.Trigger className='flex w-full justify-between items-center px-4 py-3 bg-background  font-semibold text-left transition'>
 							<span>{section.title}</span>
-							<ChevronDown className='h-5 w-5 transition-transform duration-200 AccordionChevron' />
+							<div className='flex font-normal justify-start items-center gap-1'>
+								<span className='text-sm text-muted-foreground'>{section.lessons.length} lessons</span>
+								<ChevronDown className='h-5 w-5 transition-transform duration-200 AccordionChevron' />
+							</div>
 						</Accordion.Trigger>
 					</Accordion.Header>
 
@@ -27,12 +29,12 @@ export default function CourseCurriculum({ sections }: CourseCurriculumProps) {
 							<div key={lesson.id} className='flex justify-between items-center border-b pb-2 pt-1'>
 								<div className='flex justify-between items-center w-full'>
 									<div className='flex gap-2 justify-start items-center'>
-										<TvMinimal size={16} />
+										{lesson.is_video ? <TvMinimal size={16} /> : <StickyNote size={16} />}
 										<span className='font-medium text-muted-foreground'>{lesson.title}</span>
 									</div>
 									{lesson.is_preview && <span className='text-sm cursor-pointer text-primary underline'>Preview</span>}
 								</div>
-								{/* <span className='text-sm text-gray-500'>{lesson.duration}</span> */}
+								<span className='text-sm ml-2 text-muted-foreground'>{lesson.duration}</span>
 							</div>
 						))}
 					</Accordion.Content>
