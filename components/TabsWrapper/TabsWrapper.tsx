@@ -7,7 +7,7 @@ import Link from 'next/link'
 export function TabsWrapper({ children }: { children: React.ReactNode }) {
 	const pathname = usePathname()
 
-	let value: string = 'my_courses'
+	let value: string = 'my-courses'
 
 	if (pathname.includes('wishlist')) {
 		value = 'wishlist'
