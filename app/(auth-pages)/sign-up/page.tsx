@@ -32,7 +32,7 @@ export default async function Signup(props: { searchParams: Promise<Message> }) 
 						<Label htmlFor='isTeacher'>You are a teacher?</Label>
 						<input
 							type='checkbox'
-							className='w-4 h-4 border border-border rounded bg-background checked:bg-black accent-white'
+							className='peer w-4 h-4 rounded border border-border bg-secondary ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2 data-[state=checked]:bg-primary data-[state=checked]:text-black transition-colors cursor-pointer'
 							name='isTeacher'
 							id='isTeacher'
 						/>
