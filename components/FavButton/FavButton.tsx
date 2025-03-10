@@ -44,7 +44,9 @@ const FavButton = ({
 		fetchUser()
 	}, [supabase, fetchFavorites])
 
-	const handleClick = () => {
+	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault()
+
 		if (userId) {
 			toggleFavorite(courseId)
 		}
