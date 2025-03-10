@@ -24,6 +24,7 @@ export interface CourseProps {
 	discount: number | null
 	language: string
 	level: LevelProps
+	avg_rating: number
 }
 
 export interface CategoryProps {
