@@ -98,6 +98,8 @@ export interface SingleLessonProps {
 	created_at: string
 	section_id: string
 	is_preview: boolean
+	duration: string
+	is_video: boolean
 }
 export interface SingleSectionProps {
 	id: string
