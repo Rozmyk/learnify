@@ -44,7 +44,7 @@ const SingleLesson = ({ lesson }: { lesson: SingleLessonProps }) => {
 									<X />
 								</Button>
 							</div>
-							{lesson.is_video ? <VideoModal /> : <NoteModal />}
+							{lesson.is_video ? <VideoModal content={lesson.content} /> : <NoteModal content={lesson.content} />}
 						</div>
 					</div>
 				</Portal.Root>
