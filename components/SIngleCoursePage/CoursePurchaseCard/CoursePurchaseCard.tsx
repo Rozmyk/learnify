@@ -9,7 +9,7 @@ import formatTimestamp from '@/lib/formatTimestamp'
 import { useCartStore } from '@/context/cart'
 import Link from 'next/link'
 
-const CoursePurchaseCard = ({ thumbnail, discount, price, id, created_at }: CourseProps) => {
+const CoursePurchaseCard = ({ thumbnail, discount, price, id, created_at, slug }: CourseProps) => {
 	const { owned } = useOwnedCoursesStore()
 	const { addToCart, cartItems } = useCartStore()
 	const handleAddToCart = () => {
@@ -33,7 +33,7 @@ const CoursePurchaseCard = ({ thumbnail, discount, price, id, created_at }: Cour
 							You have been attending this course since {formatTimestamp(created_at)}
 						</p>
 					</div>
-					<Link href='/'>
+					<Link href={`/course/${slug}/learn`}>
 						<Button className='w-full py-2'>Go to course</Button>
 					</Link>
 				</div>
