@@ -1,5 +1,9 @@
-const NoteModal = () => {
-	return <div>note</div>
+const NoteModal = ({ content }: { content: string }) => {
+	return (
+		<div>
+			<p>{content}</p>
+		</div>
+	)
 }
 
 export default NoteModal
