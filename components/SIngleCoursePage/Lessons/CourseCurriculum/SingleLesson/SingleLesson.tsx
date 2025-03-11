@@ -35,7 +35,12 @@ const SingleLesson = ({ lesson }: { lesson: SingleLessonProps }) => {
 									<p className='text-sm text-muted-foreground'>Course preview</p>
 									<p className='text-lg font-semibold'>{lesson.title}</p>
 								</div>
-								<Button size='icon' variant='ghost'>
+								<Button
+									size='icon'
+									variant='ghost'
+									onClick={() => {
+										setShowModal(false)
+									}}>
 									<X />
 								</Button>
 							</div>
