@@ -8,8 +8,9 @@ import { CircleAlert } from 'lucide-react'
 import formatTimestamp from '@/lib/formatTimestamp'
 import { useCartStore } from '@/context/cart'
 import Link from 'next/link'
-const CoursePurchaseCard = ({ thumbnail, discount, price, id, created_at, slug }: CourseProps) => {
-	const { owned, fetchOwned, loading } = useOwnedCoursesStore()
+
+const CoursePurchaseCard = ({ thumbnail, discount, price, id, created_at }: CourseProps) => {
+	const { owned } = useOwnedCoursesStore()
 	const { addToCart, cartItems } = useCartStore()
 	const handleAddToCart = () => {
 		addToCart(id)
@@ -32,6 +33,9 @@ const CoursePurchaseCard = ({ thumbnail, discount, price, id, created_at, slug }
 							You have been attending this course since {formatTimestamp(created_at)}
 						</p>
 					</div>
+					<Link href='/'>
+						<Button className='w-full py-2'>Go to course</Button>
+					</Link>
 				</div>
 			) : (
 				<div className='w-full p-4'>
