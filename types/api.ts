@@ -93,13 +93,13 @@ export interface SingleLessonProps {
 	course_id: string
 	title: string
 	slug: string
-	content: string
 	order: number
 	created_at: string
 	section_id: string
 	is_preview: boolean
 	duration: string
-	is_video: boolean
+	video_url?: string
+	content_json?: object
 }
 export interface SingleSectionProps {
 	id: string
