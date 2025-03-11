@@ -12,7 +12,7 @@ const SingleLesson = ({ lesson }: { lesson: SingleLessonProps }) => {
 			<div className='flex justify-between items-center border-b pb-2 pt-1'>
 				<div className='flex justify-between items-center w-full'>
 					<div className='flex gap-2 justify-start items-center'>
-						{lesson.is_video ? <TvMinimal size={16} /> : <StickyNote size={16} />}
+						{lesson.video_url ? <TvMinimal size={16} /> : <StickyNote size={16} />}
 						<span className='font-medium text-muted-foreground'>{lesson.title}</span>
 					</div>
 					{lesson.is_preview && (
@@ -44,7 +44,11 @@ const SingleLesson = ({ lesson }: { lesson: SingleLessonProps }) => {
 									<X />
 								</Button>
 							</div>
-							{lesson.is_video ? <VideoModal content={lesson.content} /> : <NoteModal content={lesson.content} />}
+							{lesson.video_url ? (
+								<VideoModal content={lesson.video_url} />
+							) : (
+								<NoteModal content={lesson.content_json} />
+							)}
 						</div>
 					</div>
 				</Portal.Root>
