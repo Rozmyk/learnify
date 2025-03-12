@@ -32,12 +32,7 @@ const CourseDetails = ({ courseId }: { courseId: string }) => {
 			</div>
 		)
 	}
-	return (
-		<div className='h-screen'>
-			course details :{courseId}
-			{courseData.title}
-		</div>
-	)
+	return <div className='h-screen'>course details :{courseId}</div>
 }
 
 export default CourseDetails
