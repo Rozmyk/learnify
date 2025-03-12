@@ -3,9 +3,16 @@ import { SingleLessonProps } from '@/types/api'
 import Loader from '../ui/loader'
 import { useState, useEffect } from 'react'
 import ReactPlayer from 'react-player'
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 	const [lessonData, setLessonData] = useState<SingleLessonProps | null>(null)
 	const [loading, setLoading] = useState(true)
+	const editor = useEditor({
+		extensions: [StarterKit],
+		editable: false,
+		content: lessonData?.content_json,
+	})
 	useEffect(() => {
 		if (!lessonId) return
 		const fetchLesson = async () => {
@@ -35,7 +42,13 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 	return (
 		lessonData && (
 			<div className='flex justify-center items-centerw w-full h-full'>
-				<ReactPlayer url={lessonData.video_url} playing={true} controls={true} width='100%' height='500px' />
+				{lessonData.video_url ? (
+					<ReactPlayer url={lessonData.video_url} playing={true} controls={true} width='100%' height='500px' />
+				) : (
+					<div className='prose max-w-none'>
+						<EditorContent editor={editor} />
+					</div>
+				)}
 			</div>
 		)
 	)
