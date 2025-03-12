@@ -9,7 +9,7 @@ const Lessons = ({ course_id }: { course_id: string }) => {
 	useEffect(() => {
 		const fetchUserStats = async () => {
 			try {
-				const response = await fetch(`/api/lesson?course_id=${course_id}`)
+				const response = await fetch(`/api/section?course_id=${course_id}`)
 
 				if (!response.ok) {
 					throw new Error('Failed to fetch user stats')
