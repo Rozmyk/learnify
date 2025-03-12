@@ -32,7 +32,7 @@ export default function RootLayout({
 							<PromocodeBanner />
 							<Navbar />
 							<CategoryMenu />
-							<div className='flex flex-col gap-20 max-w-7xl w-full '>{children}</div>
+							<div className='flex flex-col max-w-7xl gap-20 w-full '>{children}</div>
 							<Footer />
 						</div>
 					</main>
