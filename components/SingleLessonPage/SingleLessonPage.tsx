@@ -1,10 +1,12 @@
 'use client'
-import { SingleLessonProps } from '@/types/api'
 import Loader from '../ui/loader'
-import { useState, useEffect } from 'react'
+
 const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
-	const [loading, setLoading] = useState(true)
-	return <div>{lessonId}</div>
+	return (
+		<div className='w-full h-full flex justify-center items-center py-8'>
+			<Loader />
+		</div>
+	)
 }
 
 export default SingleLessonPage
