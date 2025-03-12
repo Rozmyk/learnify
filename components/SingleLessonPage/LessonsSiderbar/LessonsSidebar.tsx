@@ -6,7 +6,13 @@ import { useState, useEffect } from 'react'
 import * as Accordion from '@radix-ui/react-accordion'
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-const SingleSection = ({ section }: { section: SingleSectionProps }) => {
+const SingleSection = ({
+	section,
+	currentLessonId,
+}: {
+	section: SingleSectionProps
+	currentLessonId: string | null
+}) => {
 	const router = useRouter()
 
 	return (
@@ -20,13 +26,13 @@ const SingleSection = ({ section }: { section: SingleSectionProps }) => {
 						</div> */}
 					</Accordion.Trigger>
 				</Accordion.Header>
-				<Accordion.Content className='px-4 pb-4'>
+				<Accordion.Content>
 					<ul className='flex flex-col gap-2 mt-2'>
 						{section.lessons.map((lesson, index) => (
 							<li
 								onClick={() => router.push(`/course/next-auth/learn/${lesson.id}`)}
 								key={lesson.id}
-								className={clsx('flex items-start gap-3 p-2 rounded-md transition cursor-pointer')}>
+								className={`flex items-start gap-3 p-4 px-6 rounded-md transition cursor-pointer ${currentLessonId === lesson.id ? 'bg-secondary' : 'bg-background'}`}>
 								{/* <button onClick={() => toggleLesson(index)} className='mt-1' aria-label='Toggle lesson'>
 									{checkedLessons[index] ? (
 										<CheckSquare className='text-purple-600' size={20} />
@@ -85,7 +91,7 @@ const LessonsSidebar = ({ lessonId, courseId }: { lessonId: string | null; cours
 
 	return (
 		<div className='sticky top-0 left-0 right-0 w-full'>
-			{sections?.map(lesson => <SingleSection section={lesson} />)}
+			{sections?.map(lesson => <SingleSection section={lesson} currentLessonId={lessonId} />)}
 		</div>
 	)
 }
