@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import Skeleton from '../ui/skeleton'
 const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 	const [lessonData, setLessonData] = useState<SingleLessonProps | null>(null)
 	const [loading, setLoading] = useState(true)
@@ -35,7 +36,7 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 	if (loading) {
 		return (
 			<div className='w-full h-full flex justify-center items-center py-8'>
-				<Loader />
+				<Skeleton className='w-full h-[70vh] ' />
 			</div>
 		)
 	}
@@ -45,7 +46,7 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 				{lessonData.video_url ? (
 					<ReactPlayer url={lessonData.video_url} playing={true} controls={true} width='100%' height='70vh' />
 				) : (
-					<div className='prose max-w-none'>
+					<div className='prose max-w-none w-full h-[70vh]'>
 						<EditorContent editor={editor} />
 					</div>
 				)}
