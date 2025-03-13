@@ -10,12 +10,12 @@ export default async function Layout({
 	const lessonId = (await params).lessonId
 	const courseSlug = (await params).slug
 	return (
-		<div className=' flex justify-between items-start'>
+		<div className=' flex md:flex-row flex-col justify-between items-start'>
 			<div className='w-full h-full  '>
 				{children}
 				<CourseDetails courseSlug={courseSlug} />
 			</div>
-			<div className=' max-w-[420px] w-full h-screen bg-background relative '>
+			<div className=' md:max-w-[420px] w-full h-screen bg-background relative '>
 				<LessonsSidebar lessonId={lessonId} courseId={courseSlug} />
 			</div>
 		</div>
