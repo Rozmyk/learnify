@@ -2,13 +2,15 @@
 import { CourseProps } from '@/types/api'
 import { useState, useEffect } from 'react'
 import Loader from '@/components/ui/loader'
-const CourseDetails = ({ courseId }: { courseId: string }) => {
+import formatTimestamp from '@/lib/formatTimestamp'
+import CourseStats from './CourseStats/CourseStats'
+const CourseDetails = ({ courseSlug }: { courseSlug: string }) => {
 	const [courseData, setCourseData] = useState<CourseProps | null>(null)
 	const [loading, setLoading] = useState(true)
 	useEffect(() => {
 		const fetchCourseData = async () => {
 			try {
-				const response = await fetch(`/api/course/id?id=${courseId}`)
+				const response = await fetch(`/api/course/${courseSlug}`)
 
 				if (!response.ok) {
 					throw new Error('Failed to fetch course')
@@ -20,19 +22,24 @@ const CourseDetails = ({ courseId }: { courseId: string }) => {
 				console.log(err)
 			}
 		}
-		if (courseId) {
+		if (courseSlug) {
 			fetchCourseData()
 		}
-	}, [courseId])
+	}, [courseSlug])
 
 	if (loading) {
 		return (
-			<div className='w-full  flex justify-center items-center py-8 h-screen'>
+			<div className='w-full  flex justify-center items-center py-8 '>
 				<Loader />
 			</div>
 		)
 	}
-	return <div className='h-screen'>course details :{courseId}</div>
+	return (
+		<div className='p-4'>
+			<h1 className='text-2xl font-semibold mb-4'>{courseData?.title}</h1>
+			{courseData && <CourseStats courseData={courseData} />}
+		</div>
+	)
 }
 
 export default CourseDetails
