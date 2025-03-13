@@ -80,7 +80,6 @@ const LessonsSidebar = ({ lessonId, courseId }: { lessonId: string | null; cours
 
 				const data = await response.json()
 				setSections(data.sections)
-				console.log(data)
 				setLoading(false)
 			} catch (err) {
 				console.error(err)
