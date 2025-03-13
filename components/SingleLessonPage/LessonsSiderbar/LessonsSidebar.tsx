@@ -14,10 +14,13 @@ const SingleSection = ({
 	currentLessonId: string | null
 }) => {
 	const router = useRouter()
-	const shouldByOpen = false
+	const shouldByOpen = section.lessons.some(item => item.id == currentLessonId)
 
 	return (
-		<Accordion.Root type='multiple' className='w-full border rounded-md'>
+		<Accordion.Root
+			defaultValue={shouldByOpen ? [section.id] : []}
+			type='multiple'
+			className='w-full border rounded-md'>
 			<Accordion.Item value={section.id}>
 				<Accordion.Header className='cursor-pointer'>
 					<Accordion.Trigger className='flex justify-between items-center w-full p-4 text-left font-semibold bg-background transition'>
