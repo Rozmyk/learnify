@@ -9,7 +9,6 @@ export default async function Page({ params }: { params: Promise<{ lessonId: str
 	} = await supabase.auth.getUser()
 	if (user) {
 		const haveToAcces = await userHasAccessToLesson(lessonId, user.id)
-		console.log(haveToAcces)
 	}
 
 	return <SingleLessonPage lessonId={lessonId} />
