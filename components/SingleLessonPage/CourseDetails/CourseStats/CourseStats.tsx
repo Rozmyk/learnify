@@ -18,16 +18,16 @@ const CourseStats = ({ courseData }: { courseData: CourseProps }) => {
 	const ratingData = addRatingsToCourses(courseData.reviews)
 
 	return (
-		<div className='flex flex-col'>
+		<div className='flex flex-col  p-4'>
 			<div className='flex justify-start items-center gap-6 mb-4'>
 				<SingleStat text={`${ratingData.reviewCount} reviews`}>
 					<StarRating reviews={courseData.reviews} compact />
 				</SingleStat>
-				<SingleStat text={`${ratingData.reviewCount} reviews`}>
-					<StarRating reviews={courseData.reviews} compact />
+				<SingleStat text='Course participants'>
+					<p className='font-semibold text-sm'>12 345</p>
 				</SingleStat>
-				<SingleStat text={`${ratingData.reviewCount} reviews`}>
-					<StarRating reviews={courseData.reviews} compact />
+				<SingleStat text='Total'>
+					<p className='font-semibold text-sm'>10 h</p>
 				</SingleStat>
 			</div>
 			<div className='flex flex-col gap-2'>
