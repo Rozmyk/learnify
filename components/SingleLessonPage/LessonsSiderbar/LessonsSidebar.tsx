@@ -100,7 +100,7 @@ const LessonsSidebar = ({ lessonId, courseId }: { lessonId: string | null; cours
 
 	return (
 		<div className='sticky top-0 left-0 right-0 w-full'>
-			{sections?.map(lesson => <SingleSection section={lesson} currentLessonId={lessonId} />)}
+			{sections?.map(lesson => <SingleSection key={lesson.id} section={lesson} currentLessonId={lessonId} />)}
 		</div>
 	)
 }
