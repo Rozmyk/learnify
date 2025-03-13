@@ -28,7 +28,7 @@ const SingleSection = ({
 						<div>
 							<p className='font-semibold'>{section.title}</p>
 							<div className='text-xs text-muted-foreground'>
-								0 / {section.lessons.length} | {totalDuration}
+								0 / {section.lessons.length} | {totalDuration} min
 							</div>
 						</div>
 						<div>
