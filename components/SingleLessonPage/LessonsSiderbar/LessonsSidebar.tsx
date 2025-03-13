@@ -4,7 +4,7 @@ import { SingleSectionProps } from '@/types/api'
 import Loader from '@/components/ui/loader'
 import { useState, useEffect } from 'react'
 import * as Accordion from '@radix-ui/react-accordion'
-import clsx from 'clsx'
+import { ChevronDown, CheckSquare, TvMinimal, StickyNote, Square } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 const SingleSection = ({
 	section,
@@ -14,16 +14,20 @@ const SingleSection = ({
 	currentLessonId: string | null
 }) => {
 	const router = useRouter()
+	const shouldByOpen = false
 
 	return (
 		<Accordion.Root type='multiple' className='w-full border rounded-md'>
 			<Accordion.Item value={section.id}>
 				<Accordion.Header className='cursor-pointer'>
 					<Accordion.Trigger className='flex justify-between items-center w-full p-4 text-left font-semibold bg-background transition'>
-						<div>{section.title}</div>
-						{/* <div className='text-sm text-gray-600'>
-							{completedCount} / {lessons.length} | {totalDuration} min
-						</div> */}
+						<div>
+							<p className='font-semibold'>{section.title}</p>
+							<div className='text-xs text-muted-foreground'>0 / {section.lessons.length} | 4min</div>
+						</div>
+						<div>
+							<ChevronDown size={16} />
+						</div>
 					</Accordion.Trigger>
 				</Accordion.Header>
 				<Accordion.Content>
@@ -33,18 +37,17 @@ const SingleSection = ({
 								onClick={() => router.push(`/course/next-auth/learn/${lesson.id}`)}
 								key={lesson.id}
 								className={`flex items-start gap-3 p-4 px-6 rounded-md transition cursor-pointer ${currentLessonId === lesson.id ? 'bg-secondary' : 'bg-background'}`}>
-								{/* <button onClick={() => toggleLesson(index)} className='mt-1' aria-label='Toggle lesson'>
-									{checkedLessons[index] ? (
-										<CheckSquare className='text-purple-600' size={20} />
-									) : (
-										<Square className='text-gray-400' size={20} />
-									)}
-								</button> */}
+								<button className='mt-1' aria-label='Toggle lesson'>
+									<Square size={20} />
+								</button>
 								<div>
-									<p className='text-sm font-medium'>
+									<p className='text-sm font-medium mb-1'>
 										{index + 1}. {lesson.title}
 									</p>
-									<p className='text-xs text-muted-foreground'>{lesson.duration} min</p>
+									<div className='flex justify-start items-center gap-1 text-muted-foreground'>
+										{lesson.video_url ? <TvMinimal size={14} /> : <StickyNote size={14} />}
+										<p className='text-xs '>{lesson.duration} min</p>
+									</div>
 								</div>
 							</li>
 						))}
