@@ -91,7 +91,7 @@ const LessonsSidebar = ({ lessonId, courseId }: { lessonId: string | null; cours
 
 	if (loading) {
 		return (
-			<div className='w-full flex justify-center items-center py-8 '>
+			<div className='w-full h-full flex justify-center items-center py-8 '>
 				<Loader />
 			</div>
 		)
