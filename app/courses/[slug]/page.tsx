@@ -2,6 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import SingleCategoryPage from '@/components/SingleCategoryPage/SingleCategoryPage'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import PageContainer from '@/components/PageContainer/PageContainer'
 
 export default async function CoursesPage({ params }: { params: Promise<{ slug: string }> }) {
 	const slug = (await params).slug
@@ -28,5 +29,9 @@ export default async function CoursesPage({ params }: { params: Promise<{ slug: 
 		)
 	}
 
-	return <SingleCategoryPage courses={courses} category={category} slug={slug} />
+	return (
+		<PageContainer>
+			<SingleCategoryPage courses={courses} category={category} slug={slug} />
+		</PageContainer>
+	)
 }

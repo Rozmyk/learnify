@@ -3,6 +3,7 @@ import UserPage from '@/components/UserPage/UserPage'
 import TeacherPage from '@/components/TeacherPage/TeacherPage'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import PageContainer from '@/components/PageContainer/PageContainer'
 
 export default async function page({ params }: { params: Promise<{ username: string }> }) {
 	const username = (await params).username
@@ -26,5 +27,9 @@ export default async function page({ params }: { params: Promise<{ username: str
 		)
 	}
 
-	return userData.isTeacher ? <TeacherPage userData={userData} /> : <UserPage userData={userData} />
+	return (
+		<PageContainer>
+			{userData.isTeacher ? <TeacherPage userData={userData} /> : <UserPage userData={userData} />}
+		</PageContainer>
+	)
 }

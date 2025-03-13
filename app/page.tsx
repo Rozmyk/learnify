@@ -2,7 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { ProfileDataProps } from '@/types/api'
 import ProtectedHomePage from '@/components/ProtectedHomePage/ProtectedHomePage'
 import PublicHomePage from '@/components/PublicHomePage/PublicHomePage'
-
+import PageContainer from '@/components/PageContainer/PageContainer'
 export default async function Home() {
 	const supabase = await createClient()
 	const {
@@ -29,10 +29,10 @@ export default async function Home() {
 	}
 
 	return (
-		<>
+		<PageContainer>
 			<main className='flex-1 flex flex-col gap-6 h-screen p-4'>
 				{profileData ? <ProtectedHomePage profileData={profileData} /> : <PublicHomePage />}
 			</main>
-		</>
+		</PageContainer>
 	)
 }

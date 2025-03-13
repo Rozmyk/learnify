@@ -1,6 +1,7 @@
 import AddCourse from '@/components/AddCourse/AddCourse'
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
+import PageContainer from '@/components/PageContainer/PageContainer'
 export default async function page() {
 	const supabase = await createClient()
 
@@ -14,5 +15,9 @@ export default async function page() {
 	if (authError) {
 		console.log(authError)
 	}
-	return <AddCourse />
+	return (
+		<PageContainer>
+			<AddCourse />
+		</PageContainer>
+	)
 }
