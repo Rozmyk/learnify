@@ -5,6 +5,7 @@ import Loader from '@/components/ui/loader'
 import { useState, useEffect } from 'react'
 import * as Accordion from '@radix-ui/react-accordion'
 import { ChevronDown, CheckSquare, TvMinimal, StickyNote, Square } from 'lucide-react'
+import getTotalDuration from '@/lib/getTotalDuration'
 import { useRouter } from 'next/navigation'
 const SingleSection = ({
 	section,
@@ -15,7 +16,7 @@ const SingleSection = ({
 }) => {
 	const router = useRouter()
 	const shouldByOpen = section.lessons.some(item => item.id == currentLessonId)
-
+	const totalDuration = getTotalDuration(section.lessons)
 	return (
 		<Accordion.Root
 			defaultValue={shouldByOpen ? [section.id] : []}
@@ -26,7 +27,9 @@ const SingleSection = ({
 					<Accordion.Trigger className='flex justify-between items-center w-full p-4 text-left font-semibold bg-background transition'>
 						<div>
 							<p className='font-semibold'>{section.title}</p>
-							<div className='text-xs text-muted-foreground'>0 / {section.lessons.length} | 4min</div>
+							<div className='text-xs text-muted-foreground'>
+								0 / {section.lessons.length} | {totalDuration}
+							</div>
 						</div>
 						<div>
 							<ChevronDown size={16} />
