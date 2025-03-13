@@ -14,6 +14,25 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 		editable: false,
 		content: lessonData?.content_json,
 	})
+	const handleChangeWatched = async () => {
+		try {
+			const response = await fetch('/api/updateWatched', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ lessonId }),
+			})
+			const data = await response.json()
+
+			if (!response.ok) {
+				console.log(data.error)
+			}
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
 	useEffect(() => {
 		if (!lessonId) return
 		const fetchLesson = async () => {
@@ -44,7 +63,14 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 		lessonData && (
 			<div className='flex justify-center items-centerw w-full h-full'>
 				{lessonData.video_url ? (
-					<ReactPlayer url={lessonData.video_url} playing={true} controls={true} width='100%' height='70vh' />
+					<ReactPlayer
+						onEnded={handleChangeWatched}
+						url={lessonData.video_url}
+						playing={true}
+						controls={true}
+						width='100%'
+						height='70vh'
+					/>
 				) : (
 					<div className='prose max-w-none w-full h-[70vh]'>
 						<EditorContent editor={editor} />
