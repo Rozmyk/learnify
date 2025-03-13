@@ -43,7 +43,7 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 		lessonData && (
 			<div className='flex justify-center items-centerw w-full h-full'>
 				{lessonData.video_url ? (
-					<ReactPlayer url={lessonData.video_url} playing={true} controls={true} width='100%' height='500px' />
+					<ReactPlayer url={lessonData.video_url} playing={true} controls={true} width='100%' height='70vh' />
 				) : (
 					<div className='prose max-w-none'>
 						<EditorContent editor={editor} />
