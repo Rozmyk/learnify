@@ -19,7 +19,6 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 		.single()
 
 	if (error) {
-		console.log(error)
 		console.log(error.message)
 	}
 	return (
