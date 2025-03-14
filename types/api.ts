@@ -88,6 +88,13 @@ export interface FilterProps {
 	payable: boolean
 	level: 'beginner' | 'intermediate' | 'advanced'
 }
+export interface UserLessonsProgressProps {
+	id: string
+	created_at: string
+	user_id: string
+	lesson_id: string
+	watched: boolean
+}
 export interface SingleLessonProps {
 	id: string
 	course_id: string
@@ -100,6 +107,7 @@ export interface SingleLessonProps {
 	duration: string
 	video_url?: string
 	content_json?: object
+	user_lessons_progress: UserLessonsProgressProps
 }
 export interface SingleSectionProps {
 	id: string
