@@ -4,7 +4,13 @@ import { createClient } from '@/utils/supabase/server'
 export async function GET(req: NextRequest) {
 	const supabase = await createClient()
 	const lessonId = req.nextUrl.searchParams.get('lessonId')
-
+	const {
+		data: { user },
+		error: authError,
+	} = await supabase.auth.getUser()
+	if (!user) {
+		return NextResponse.json({ error: 'user is required' }, { status: 400 })
+	}
 	if (!lessonId) {
 		return NextResponse.json({ error: 'lessonId is required' }, { status: 400 })
 	}
@@ -23,8 +29,17 @@ export async function GET(req: NextRequest) {
 
 	const { data: sections, error: sectionsError } = await supabase
 		.from('sections')
-		.select('*, lessons(*)')
+		.select(
+			`
+	  *,
+	  lessons(
+		*,
+		user_lessons_progress(watched)
+	  )
+	`
+		)
 		.eq('course_id', courseId)
+		.eq('lessons.user_lessons_progress.user_id', user.id)
 		.order('order', { ascending: true })
 
 	if (sectionsError) {
