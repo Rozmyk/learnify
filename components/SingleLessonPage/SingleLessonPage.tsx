@@ -40,11 +40,12 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 		const fetchLesson = async () => {
 			try {
 				const response = await fetch(`/api/get-single-lesson?lessonId=${lessonId}`)
+
 				if (!response.ok) {
 					throw new Error('Failed to fetch lesson')
 				}
 				const data = await response.json()
-				console.log(data)
+
 				setLessonData(data.lesson)
 				setProgressData(data.userLessonProgress)
 				setLoading(false)
