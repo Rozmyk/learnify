@@ -107,7 +107,7 @@ export interface SingleLessonProps {
 	duration: string
 	video_url?: string
 	content_json?: object
-	user_lessons_progress: UserLessonsProgressProps
+	user_lessons_progress: UserLessonsProgressProps[]
 }
 export interface SingleSectionProps {
 	id: string
