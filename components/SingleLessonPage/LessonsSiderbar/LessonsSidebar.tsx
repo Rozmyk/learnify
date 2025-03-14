@@ -43,9 +43,15 @@ const SingleSection = ({
 								onClick={() => router.push(`/course/next-auth/learn/${lesson.id}`)}
 								key={lesson.id}
 								className={`flex items-start gap-3 p-4 px-6 rounded-md transition cursor-pointer ${currentLessonId === lesson.id ? 'bg-secondary' : 'bg-background'}`}>
-								<button className='mt-1' aria-label='Toggle lesson'>
-									<Square size={20} />
-								</button>
+								{lesson.user_lessons_progress[0]?.watched ? (
+									<button className='mt-1' aria-label='Toggle lesson'>
+										<CheckSquare size={20} />
+									</button>
+								) : (
+									<button className='mt-1' aria-label='Toggle lesson'>
+										<Square size={20} />
+									</button>
+								)}
 								<div>
 									<p className='text-sm font-medium mb-1'>
 										{index + 1}. {lesson.title}
@@ -79,6 +85,7 @@ const LessonsSidebar = ({ lessonId, courseId }: { lessonId: string | null; cours
 				}
 
 				const data = await response.json()
+				console.log(data)
 				setSections(data.sections)
 				setLoading(false)
 			} catch (err) {
