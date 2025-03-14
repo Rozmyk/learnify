@@ -17,6 +17,10 @@ const SingleSection = ({
 	const router = useRouter()
 	const shouldByOpen = section.lessons.some(item => item.id == currentLessonId)
 	const totalDuration = getTotalDuration(section.lessons)
+	const totalWatched = section.lessons
+		.filter(lesson => lesson.user_lessons_progress[0]?.watched)
+		.map(lesson => lesson.id)
+
 	return (
 		<Accordion.Root
 			defaultValue={shouldByOpen ? [section.id] : []}
@@ -28,7 +32,7 @@ const SingleSection = ({
 						<div>
 							<p className='font-semibold'>{section.title}</p>
 							<div className='text-xs text-muted-foreground'>
-								0 / {section.lessons.length} | {totalDuration} min
+								{totalWatched.length} / {section.lessons.length} | {totalDuration} min
 							</div>
 						</div>
 						<div>
