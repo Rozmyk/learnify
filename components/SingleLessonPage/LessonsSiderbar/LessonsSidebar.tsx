@@ -4,7 +4,7 @@ import { SingleSectionProps } from '@/types/api'
 import Loader from '@/components/ui/loader'
 import { useState, useEffect } from 'react'
 import * as Accordion from '@radix-ui/react-accordion'
-import { ChevronDown, CheckSquare, TvMinimal, StickyNote, Square } from 'lucide-react'
+import { ChevronDown, SquareCheck, TvMinimal, StickyNote, Square } from 'lucide-react'
 import getTotalDuration from '@/lib/getTotalDuration'
 import { useRouter } from 'next/navigation'
 const SingleSection = ({
@@ -45,7 +45,7 @@ const SingleSection = ({
 								className={`flex items-start gap-3 p-4 px-6 rounded-md transition cursor-pointer ${currentLessonId === lesson.id ? 'bg-secondary' : 'bg-background'}`}>
 								{lesson.user_lessons_progress[0]?.watched ? (
 									<button className='mt-1' aria-label='Toggle lesson'>
-										<CheckSquare size={20} />
+										<SquareCheck size={20} />
 									</button>
 								) : (
 									<button className='mt-1' aria-label='Toggle lesson'>
