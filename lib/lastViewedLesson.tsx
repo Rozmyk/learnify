@@ -30,9 +30,12 @@ async function lastViewedLesson(courseSlug: string) {
 		.order('order', { ascending: true })
 
 	if (!sections || sections.length === 0) return false
-
-	for (let i = 0; i < sections.length; i++) {
-		const section = sections[i]
+	const sortedSections = sections.map(section => ({
+		...section,
+		lessons: section.lessons ? [...section.lessons].sort((a, b) => a.order - b.order) : [],
+	}))
+	for (let i = 0; i < sortedSections.length; i++) {
+		const section = sortedSections[i]
 		const lessonIndex = section.lessons.findIndex(lesson => lesson.id === lastLesson?.lesson_id)
 
 		if (lessonIndex !== -1) {
@@ -40,13 +43,13 @@ async function lastViewedLesson(courseSlug: string) {
 				return section.lessons[lessonIndex + 1].id
 			}
 
-			if (i < sections.length - 1 && sections[i + 1].lessons.length > 0) {
-				return sections[i + 1].lessons[0].id
+			if (i < sortedSections.length - 1 && sortedSections[i + 1].lessons.length > 0) {
+				return sortedSections[i + 1].lessons[0].id
 			}
 		}
 	}
 
-	const firstLesson = sections[0]?.lessons[0]
+	const firstLesson = sortedSections[0]?.lessons[0]
 	return firstLesson ? firstLesson.id : false
 }
 
