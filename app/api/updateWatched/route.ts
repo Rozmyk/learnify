@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 		}
 
 		if (user) {
-			const { error } = await supabase.from('user-lessons-progress').insert([
+			const { error } = await supabase.from('user_lessons_progress').insert([
 				{
 					user_id: user.id,
 					lesson_id: lessonId,
