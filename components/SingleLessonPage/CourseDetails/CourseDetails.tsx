@@ -11,13 +11,14 @@ const CourseDetails = ({ courseSlug }: { courseSlug: string }) => {
 	useEffect(() => {
 		const fetchCourseData = async () => {
 			try {
-				const response = await fetch(`/api/course/${courseSlug}`)
+				const response = await fetch(`/api/course/slug?slug=${courseSlug}`)
 
 				if (!response.ok) {
 					throw new Error('Failed to fetch course')
 				}
 
 				const data = await response.json()
+				console.log(data)
 				setCourseData(data)
 				setLoading(false)
 			} catch (err) {
