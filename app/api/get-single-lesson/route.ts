@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/server'
 export async function GET(req: NextRequest) {
 	const supabase = await createClient()
 	const lessonId = req.nextUrl.searchParams.get('lessonId')
+	
 	const {
 		data: { user },
 		error: authError,
@@ -11,6 +12,10 @@ export async function GET(req: NextRequest) {
 	if (authError) {
 		return NextResponse.json({ error: 'Auth error' }, { status: 404 })
 	}
+	if (!user) {
+		return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+	}
+
 	if (!lessonId) {
 		return NextResponse.json({ error: 'lessonId is required' }, { status: 400 })
 	}
@@ -24,15 +29,13 @@ export async function GET(req: NextRequest) {
 	if (lessonError || !lesson) {
 		return NextResponse.json({ error: 'Lesson not found' }, { status: 404 })
 	}
-	if (!user) {
-		return
-	}
+
 	const { data: userLessonProgress, error: userLessonProgressError } = await supabase
 		.from('user_lessons_progress')
 		.select('*')
 		.eq('user_id', user.id)
 		.eq('lesson_id', lessonId)
-		.single()
+		.maybeSingle()
 
 	if (userLessonProgressError) {
 		return NextResponse.json({ error: 'User progress not found' }, { status: 404 })
