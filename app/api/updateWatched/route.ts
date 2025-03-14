@@ -16,8 +16,35 @@ export async function POST(request: Request) {
 			return NextResponse.json({ error: userError.message }, { status: 500 })
 		}
 
-		if (user) {
-			const { error } = await supabase.from('user_lessons_progress').insert([
+		if (!user) {
+			return NextResponse.json({ error: 'User not authenticated' }, { status: 401 })
+		}
+
+		const { data: existingProgress, error: selectError } = await supabase
+			.from('user_lessons_progress')
+			.select('id, watched')
+			.eq('user_id', user.id)
+			.eq('lesson_id', lessonId)
+			.single()
+
+		if (selectError && selectError.code !== 'PGRST116') {
+			console.error(selectError)
+			return NextResponse.json({ error: selectError.message }, { status: 500 })
+		}
+
+		if (existingProgress) {
+			if (!existingProgress.watched) {
+				const { error: updateError } = await supabase
+					.from('user_lessons_progress')
+					.update({ watched: true })
+					.eq('id', existingProgress.id)
+
+				if (updateError) {
+					return NextResponse.json({ error: updateError.message }, { status: 500 })
+				}
+			}
+		} else {
+			const { error: insertError } = await supabase.from('user_lessons_progress').insert([
 				{
 					user_id: user.id,
 					lesson_id: lessonId,
@@ -25,14 +52,12 @@ export async function POST(request: Request) {
 				},
 			])
 
-			if (error) {
-				return NextResponse.json({ error: error.message }, { status: 500 })
+			if (insertError) {
+				return NextResponse.json({ error: insertError.message }, { status: 500 })
 			}
-		} else {
-			return NextResponse.json({ error: 'User not authenticated' }, { status: 401 })
 		}
 
-		return NextResponse.json({ message: 'Updated successfully' })
+		return NextResponse.json({ message: 'Watched status updated successfully' })
 	} catch (err) {
 		console.error(err)
 		return NextResponse.json({ error: 'Something went wrong' }, { status: 500 })
