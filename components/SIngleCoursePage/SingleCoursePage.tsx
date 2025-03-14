@@ -62,7 +62,9 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 			</div>
 		</div>
 	) : (
-		<Loader />
+		<div className='min-h-screen flex justify-center items-center '>
+			<Loader />
+		</div>
 	)
 }
 
