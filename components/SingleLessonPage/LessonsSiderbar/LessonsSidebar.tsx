@@ -45,7 +45,7 @@ const SingleSection = ({
 								className={`flex items-start gap-3 p-4 px-6 rounded-md transition cursor-pointer ${currentLessonId === lesson.id ? 'bg-secondary' : 'bg-background'}`}>
 								{lesson.user_lessons_progress[0]?.watched ? (
 									<button className='mt-1' aria-label='Toggle lesson'>
-										<SquareCheck size={20} />
+										<SquareCheck color='black' fill='white' size={20} />
 									</button>
 								) : (
 									<button className='mt-1' aria-label='Toggle lesson'>
@@ -85,7 +85,6 @@ const LessonsSidebar = ({ lessonId, courseId }: { lessonId: string | null; cours
 				}
 
 				const data = await response.json()
-				console.log(data)
 				setSections(data.sections)
 				setLoading(false)
 			} catch (err) {
