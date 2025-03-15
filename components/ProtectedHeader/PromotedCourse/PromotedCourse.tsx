@@ -76,7 +76,7 @@ const PromotedCourse = () => {
 						<div className=' w-full md:w-3/5 flex flex-col justify-between items-between h-80  	 '>
 							<div className='flex flex-col justify-between items-start h-full'>
 								<div>
-									<h3 className='text-3xl font-bold mb-2 group-hover:text-primary transition-colors duration-300'>
+									<h3 className='text-2xl font-bold mb-2 group-hover:text-primary transition-colors duration-300'>
 										{promotedData.title}
 									</h3>
 									<p className='text-muted-foreground mb-4 line-clamp-2 flex-1'>{promotedData.description}</p>
