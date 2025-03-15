@@ -37,6 +37,8 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 				const data = await response.json()
 				if (!response.ok) {
 					console.log(data.error)
+				} else {
+					setProgressData(prev => (prev ? { ...prev, watched: true } : null))
 				}
 			} catch (err) {
 				console.log(err)
@@ -45,7 +47,18 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 	}
 
 	useEffect(() => {
+		if (lessonData && !lessonData.video_url && !progressData?.watched) {
+			const timer = setTimeout(() => {
+				handleChangeWatched()
+			}, 30000)
+
+			return () => clearTimeout(timer)
+		}
+	}, [lessonData, progressData])
+
+	useEffect(() => {
 		if (!lessonId) return
+
 		const fetchLesson = async () => {
 			try {
 				const response = await fetch(`/api/get-single-lesson?lessonId=${lessonId}`)
@@ -58,6 +71,7 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 				console.log(err)
 			}
 		}
+
 		fetchLesson()
 	}, [lessonId])
 
