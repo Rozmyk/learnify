@@ -25,6 +25,8 @@ export interface CourseProps {
 	language: string
 	level: LevelProps
 	avg_rating: number
+	user_lessons_progress: UserLessonsProgressProps[]
+	lessons: SingleLessonProps[]
 }
 
 export interface CategoryProps {
@@ -93,6 +95,8 @@ export interface UserLessonsProgressProps {
 	created_at: string
 	user_id: string
 	lesson_id: string
+	lessons: SingleLessonProps
+	course: CourseProps
 	watched: boolean
 }
 export interface SingleLessonProps {
