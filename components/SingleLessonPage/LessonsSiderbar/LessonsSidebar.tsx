@@ -7,6 +7,7 @@ import * as Accordion from '@radix-ui/react-accordion'
 import { ChevronDown, SquareCheck, TvMinimal, StickyNote, Square } from 'lucide-react'
 import getTotalDuration from '@/lib/getTotalDuration'
 import { useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 const SingleSection = ({
 	section,
 	currentLessonId,
@@ -75,18 +76,11 @@ const SingleSection = ({
 		</Accordion.Root>
 	)
 }
-const LessonsSidebar = ({
-	lessonId,
-	courseId,
-	courseSlug,
-}: {
-	lessonId: string | null
-	courseId: string | null
-	courseSlug: string
-}) => {
+const LessonsSidebar = ({ courseId, courseSlug }: { courseId: string | null; courseSlug: string }) => {
 	const [loading, setLoading] = useState(true)
 	const [sections, setSections] = useState<SingleSectionProps[] | null>(null)
-
+	const params = useParams()
+	const lessonId = params?.lessonId as string
 	useEffect(() => {
 		if (!lessonId) return
 
