@@ -16,7 +16,7 @@ export default async function Layout({
 				<CourseDetails courseSlug={courseSlug} />
 			</div>
 			<div className=' md:max-w-[420px] w-full h-screen bg-background relative '>
-				<LessonsSidebar lessonId={lessonId} courseId={courseSlug} />
+				<LessonsSidebar courseSlug={courseSlug} lessonId={lessonId} courseId={courseSlug} />
 			</div>
 		</div>
 	)
