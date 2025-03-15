@@ -24,5 +24,18 @@ export async function GET() {
 		return NextResponse.json({ error: 'User progress not found' }, { status: 404 })
 	}
 
-	return NextResponse.json(userLessonProgress)
+	const latestProgressByCourse = Object.values(
+		userLessonProgress.reduce(
+			(acc, entry) => {
+				const courseId = entry.course.id
+				if (!acc[courseId] || new Date(entry.created_at) > new Date(acc[courseId].created_at)) {
+					acc[courseId] = entry
+				}
+				return acc
+			},
+			{} as Record<string, (typeof userLessonProgress)[number]>
+		)
+	)
+
+	return NextResponse.json(latestProgressByCourse)
 }
