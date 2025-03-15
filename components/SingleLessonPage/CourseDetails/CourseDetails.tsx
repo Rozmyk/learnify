@@ -18,7 +18,6 @@ const CourseDetails = ({ courseSlug }: { courseSlug: string }) => {
 				}
 
 				const data = await response.json()
-				console.log(data)
 				setCourseData(data)
 				setLoading(false)
 			} catch (err) {
