@@ -11,14 +11,11 @@ export async function GET(req: NextRequest) {
 	const sortBy = searchParams.get('sort')
 	const rating = searchParams.get('rating') ? Number(searchParams.get('rating')) : undefined
 
-	let query = supabase
-		.from('course')
-		.select(
-			`*, 
+	let query = supabase.from('course').select(
+		`*, 
             reviews(rating), 
             categories(id, name), profiles(*)`
-		)
-		.eq('categories_id', category)
+	)
 
 	if (language) {
 		query = query.eq('language', language)
@@ -26,6 +23,11 @@ export async function GET(req: NextRequest) {
 	if (level) {
 		query = query.eq('level', level)
 	}
+
+	if (category) {
+		query = query.eq('categories_id', category)
+	}
+
 	// if (rating) {
 	// 	const { data: avgRatingData, error: avgRatingError } = await supabase.rpc<CourseProps[]>(
 	// 		'get_courses_by_avg_rating',
