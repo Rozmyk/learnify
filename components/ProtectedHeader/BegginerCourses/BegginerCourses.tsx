@@ -16,7 +16,6 @@ const BegginerCourses = () => {
 
 			const response = await fetch(`/api/courses?${params}`)
 			const data = await response.json()
-			console.log(data)
 
 			setCourses(data)
 			setLoading(false)
