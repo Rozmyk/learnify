@@ -1,8 +1,9 @@
 import { CourseProps } from '@/types/api'
 import Image from 'next/image'
-import * as Progress from '@radix-ui/react-progress'
+import ProgressComponent from '@/components/ProgressComponent/ProgressComponent'
 
-const SingleOwnedCourse = ({ thumbnail, title }: CourseProps) => {
+const SingleOwnedCourse = ({ thumbnail, title, user_lessons_progress, lessons }: CourseProps) => {
+	const courseProgress = user_lessons_progress.length > 0 ? (user_lessons_progress.length / lessons.length) * 100 : 0
 	return (
 		<div className='flex gap-4 p-2 items-start justify-between'>
 			<div className='w-16 h-16 min-w-16 min-h-16 relative rounded-lg overflow-hidden'>
@@ -10,9 +11,7 @@ const SingleOwnedCourse = ({ thumbnail, title }: CourseProps) => {
 			</div>
 			<div className='flex-1'>
 				<p className='font-semibold text-sm mb-2'>{title}</p>
-				<Progress.Root className='relative overflow-hidden bg-gray-200 rounded-full w-full h-2'>
-					<Progress.Indicator className='bg-blue-500 h-full transition-all duration-300' style={{ width: `${0}%` }} />
-				</Progress.Root>
+				<ProgressComponent value={courseProgress} />
 			</div>
 		</div>
 	)
