@@ -10,7 +10,11 @@ export async function GET(req: Request) {
 		return NextResponse.json({ courses: [] })
 	}
 
-	let query = supabase.from('course').select('*, categories(*), profiles(*), reviews(*)').eq('slug', slug).single()
+	let query = supabase
+		.from('course')
+		.select('*, categories(*), profiles(*), reviews(*), lessons(*)')
+		.eq('slug', slug)
+		.single()
 
 	const { data, error } = await query
 
