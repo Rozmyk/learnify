@@ -7,8 +7,8 @@ export default async function Layout({
 	children: React.ReactNode
 	params: Promise<{ lessonId: string; slug: string }>
 }) {
-	const lessonId = (await params).lessonId
 	const courseSlug = (await params).slug
+
 	return (
 		<div className=' flex md:flex-row flex-col justify-between items-start'>
 			<div className='w-full h-full  '>
@@ -16,7 +16,7 @@ export default async function Layout({
 				<CourseDetails courseSlug={courseSlug} />
 			</div>
 			<div className=' md:max-w-[420px] w-full h-screen bg-background relative '>
-				<LessonsSidebar courseSlug={courseSlug} lessonId={lessonId} courseId={courseSlug} />
+				<LessonsSidebar courseSlug={courseSlug} courseId={courseSlug} />
 			</div>
 		</div>
 	)
