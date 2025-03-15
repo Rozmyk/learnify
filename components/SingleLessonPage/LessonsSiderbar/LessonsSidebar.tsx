@@ -10,9 +10,11 @@ import { useRouter } from 'next/navigation'
 const SingleSection = ({
 	section,
 	currentLessonId,
+	courseSlug,
 }: {
 	section: SingleSectionProps
 	currentLessonId: string | null
+	courseSlug: string
 }) => {
 	const router = useRouter()
 	const shouldByOpen = section.lessons.some(item => item.id == currentLessonId)
@@ -44,7 +46,7 @@ const SingleSection = ({
 					<ul className='flex flex-col gap-2 mt-2'>
 						{section.lessons.map((lesson, index) => (
 							<li
-								onClick={() => router.push(`/course/next-auth/learn/${lesson.id}`)}
+								onClick={() => router.push(`/course/${courseSlug}/learn/${lesson.id}`)}
 								key={lesson.id}
 								className={`flex items-start gap-3 p-4 px-6 rounded-md transition cursor-pointer ${currentLessonId === lesson.id ? 'bg-secondary' : 'bg-background'}`}>
 								{lesson.user_lessons_progress[0]?.watched ? (
@@ -73,7 +75,15 @@ const SingleSection = ({
 		</Accordion.Root>
 	)
 }
-const LessonsSidebar = ({ lessonId, courseId }: { lessonId: string | null; courseId: string | null }) => {
+const LessonsSidebar = ({
+	lessonId,
+	courseId,
+	courseSlug,
+}: {
+	lessonId: string | null
+	courseId: string | null
+	courseSlug: string
+}) => {
 	const [loading, setLoading] = useState(true)
 	const [sections, setSections] = useState<SingleSectionProps[] | null>(null)
 
@@ -109,7 +119,9 @@ const LessonsSidebar = ({ lessonId, courseId }: { lessonId: string | null; cours
 
 	return (
 		<div className='sticky top-0 left-0 right-0 w-full'>
-			{sections?.map(lesson => <SingleSection key={lesson.id} section={lesson} currentLessonId={lessonId} />)}
+			{sections?.map(lesson => (
+				<SingleSection courseSlug={courseSlug} key={lesson.id} section={lesson} currentLessonId={lessonId} />
+			))}
 		</div>
 	)
 }
