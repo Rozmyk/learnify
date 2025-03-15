@@ -42,7 +42,7 @@ const CoursePopover = ({
 				<div className='flex flex-col gap-4 '>
 					<div className='flex justify-start items-center gap-4'>
 						<CircleAlert />
-						<p className='text-muted-foreground '>
+						<p className='text-muted-foreground text-sm '>
 							You have been attending this course since {formatTimestamp(created_at)}
 						</p>
 					</div>
