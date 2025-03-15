@@ -18,6 +18,7 @@ const MyCoursesButton = () => {
 			fetchOwned()
 		}
 	}, [])
+
 	return (
 		<DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
 			<DropdownMenuTrigger asChild onClick={handleOpen}>
@@ -46,9 +47,15 @@ const MyCoursesButton = () => {
 					</>
 				)}
 				<div className='w-full p-2 flex flex-col justify-center items-start gap-2'>
-					<Link className='w-full' href={'/home/my-courses'}>
-						<Button className='w-full'>Open my courses</Button>
-					</Link>
+					<span
+						className='w-full'
+						onClick={() => {
+							setIsOpen(false)
+						}}>
+						<Link className='w-full' href={'/home/my-courses'}>
+							<Button className='w-full'>Open my courses</Button>
+						</Link>
+					</span>
 				</div>
 			</DropdownMenuContent>
 		</DropdownMenu>
