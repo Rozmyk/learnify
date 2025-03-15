@@ -25,14 +25,14 @@ const SingleLessonPage = ({ lessonId }: { lessonId: string | null }) => {
 	}, [lessonData?.content_json, editor])
 
 	const handleChangeWatched = async () => {
-		if (!progressData?.watched) {
+		if (!progressData?.watched && lessonData) {
 			try {
 				const response = await fetch('/api/updateWatched', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify({ lessonId }),
+					body: JSON.stringify({ lessonId, courseId: lessonData.course_id }),
 				})
 				const data = await response.json()
 				if (!response.ok) {
