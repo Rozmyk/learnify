@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
 	try {
-		const { lessonId } = await request.json()
+		const { lessonId, courseId } = await request.json()
 
 		const supabase = await createClient()
 		const {
@@ -49,6 +49,7 @@ export async function POST(request: Request) {
 					user_id: user.id,
 					lesson_id: lessonId,
 					watched: true,
+					course_id: courseId,
 				},
 			])
 
