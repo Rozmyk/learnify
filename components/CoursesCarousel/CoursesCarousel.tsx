@@ -21,9 +21,7 @@ const CoursesCarousel: React.FC<PropType> = props => {
 	const showButtons = courses.length > 5
 	return (
 		<section className='embla'>
-			<div className='flex justify-between items-center mb-2 '>
-				<p className=' text-2xl font-semibold '>{text}</p>
-			</div>
+			<p className=' text-2xl font-semibold text-left '>{text}</p>
 			<div className='relative'>
 				{showButtons && (
 					<>
