@@ -32,19 +32,19 @@ const MoreInstructorCourses = ({ author_id, authorUsername }: { author_id: strin
 	return (
 		instructorCourses &&
 		instructorCourses.length > 0 && (
-			<>
+			<div>
 				<SectionTitle>
 					More courses by instructor{' '}
 					<Link className='underline' href={`/user/${authorUsername} `}>
 						{authorUsername}
 					</Link>
 				</SectionTitle>
-				<div className='grid  grid-cols-1 md:grid-cols-2 gap-4'>
+				<div className='grid  grid-cols-1 md:grid-cols-3 gap-4 w-full'>
 					{instructorCourses?.map(course => {
 						return <CourseCard key={course.id} {...course} />
 					})}
 				</div>
-			</>
+			</div>
 		)
 	)
 }
