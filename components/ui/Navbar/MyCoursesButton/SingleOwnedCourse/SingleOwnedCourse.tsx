@@ -13,7 +13,11 @@ const SingleOwnedCourse = ({ thumbnail, title, user_lessons_progress, lessons, s
 				</div>
 				<div className='flex-1'>
 					<p className='font-semibold text-sm mb-2 line-clamp-2  '>{title}</p>
-					<ProgressComponent value={courseProgress} />
+					{courseProgress ? (
+						<ProgressComponent value={courseProgress} />
+					) : (
+						<span className='font-semibold text-sm text-muted-foreground'>Start learning</span>
+					)}
 				</div>
 			</div>
 		</Link>
