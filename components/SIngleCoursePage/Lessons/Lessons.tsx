@@ -16,7 +16,6 @@ const Lessons = ({ course_id }: { course_id: string }) => {
 				}
 
 				const data = await response.json()
-				console.log(data)
 				setSections(data)
 			} catch (err: any) {
 				console.log(err.message)
@@ -29,17 +28,17 @@ const Lessons = ({ course_id }: { course_id: string }) => {
 			fetchUserStats()
 		}
 	}, [course_id])
-	return (
-		<div className='w-full'>
-			<SectionTitle>Course content</SectionTitle>
-			{loading ? (
-				<div className='flex justify-center items-center w-full py-8'>
-					<Loader />
-				</div>
-			) : (
-				sections && <CourseCurriculum sections={sections} />
-			)}
+	return loading ? (
+		<div className='flex justify-center items-center w-full py-8'>
+			<Loader />
 		</div>
+	) : (
+		sections && sections?.length > 0 && (
+			<div className='w-full'>
+				<SectionTitle>Course content</SectionTitle>
+				sections && <CourseCurriculum sections={sections} />
+			</div>
+		)
 	)
 }
 
