@@ -49,6 +49,7 @@ const StartLearning = ({ options }: { options?: EmblaOptionsType }) => {
 				)}
 
 				<div className='embla__viewport ' ref={emblaRef}>
+					<h2 className='text-3xl font-semibold mb-5'>Let's start learning</h2>
 					<div className='embla__container'>
 						{loading ? (
 							<Loading />
