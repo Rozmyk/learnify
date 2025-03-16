@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import StarRating from '@/components/ui/starRating'
 import { CourseProps } from '@/types/api'
 import Image from 'next/image'
@@ -7,6 +8,24 @@ import formatTimestamp from '@/lib/formatTimestamp'
 import Link from 'next/link'
 
 const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount, created_at, slug }: CourseProps) => {
+	const [courseOwnersLength, setCourseOwnersLength] = useState<null | number>(null)
+	const calcCourseOwner = async () => {
+		try {
+			const response = await fetch(`/api/calc-course-owner?course_id=${id}`)
+
+			if (!response.ok) {
+				throw new Error('Failed to fetch categories')
+			}
+
+			const data = await response.json()
+			setCourseOwnersLength(data)
+		} catch (err) {
+			console.log(err)
+		}
+	}
+	useEffect(() => {
+		calcCourseOwner()
+	}, [id])
 	return (
 		<Link
 			href={`/course/${slug}`}
@@ -23,7 +42,7 @@ const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount, create
 					<StarRating compact reviews={reviews} />
 					<div className='flex justify-start items-center gap-1 text-muted-foreground'>
 						<Users size={16} />
-						<p className='text-sm'>12303</p>
+						<p className='text-sm'>{courseOwnersLength}</p>
 					</div>
 				</div>
 				<div className='flex md:flex-col flex-row md:justify-start justify-center md:items-start items-center gap-1 md:gap-0'>
