@@ -5,7 +5,7 @@ const SingleLessonCard = ({ course, lessons }: UserLessonsProgressProps) => {
 	const icon_size = 45
 	return (
 		<Link href={`/course/${course.slug}/learn/${lessons.id}`}>
-			<div className='w-96 h-40  border border-border flex justify-between items-start '>
+			<div className=' h-40  border border-border flex justify-between items-start '>
 				<div className='w-40 h-full bg-primary text-secondary flex justify-center items-center'>
 					{lessons.video_url ? <Monitor size={icon_size} /> : <StickyNote size={icon_size} />}
 				</div>
