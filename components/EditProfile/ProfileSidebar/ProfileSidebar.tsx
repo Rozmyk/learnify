@@ -29,7 +29,7 @@ const ProfileSidebar = ({ avatarUrl, username, currentType, setCurrentType }: Pr
 
 			<p className='text-lg font-semibold'>{username}</p>
 			<div className='flex flex-col gap-2 w-full mt-4'>
-				<Link className='w-full' href={`/profile/${username}`}>
+				<Link className='w-full' href={`/user/${username}`}>
 					<Button className='w-full' variant={buttonVariant}>
 						View my profile
 					</Button>
