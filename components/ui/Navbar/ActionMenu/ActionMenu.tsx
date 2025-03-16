@@ -54,7 +54,7 @@ const ActionMenu = ({ avatarUrl, username, email }: { avatarUrl: string; usernam
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem onClick={handleClose}>
-					<Link className='w-full' href='/wishlist'>
+					<Link className='w-full' href='/home/wishlist'>
 						Wish list
 					</Link>
 				</DropdownMenuItem>
