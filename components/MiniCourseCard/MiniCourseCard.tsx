@@ -32,7 +32,7 @@ const MiniCourseCard = ({
 						)}
 
 						<p
-							className={`${discount && discount > 0 ? 'line-through text-gray-500 text-sm' : 'text-sm font-semibold'}`}>
+							className={`${discount && discount > 0 ? 'line-through text-muted-foreground text-sm' : 'text-sm font-semibold'}`}>
 							{price} zł
 						</p>
 					</div>
