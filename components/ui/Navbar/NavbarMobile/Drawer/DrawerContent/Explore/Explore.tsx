@@ -4,7 +4,7 @@ const Explore = ({ handleCloseDrawer }: { handleCloseDrawer: () => void }) => {
 		<div>
 			<p className='font-semibold my-2'>Explore</p>
 			<span onClick={handleCloseDrawer}>
-				<SingleLink href='/courses' content='My courses' />
+				<SingleLink href='/home/my-courses' content='My courses' />
 			</span>
 		</div>
 	)
