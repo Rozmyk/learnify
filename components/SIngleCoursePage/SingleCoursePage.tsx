@@ -50,7 +50,7 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 					{course.target_audience && (
 						<SectionDescription title='Who this course is for:' text={course.target_audience} />
 					)}
-					<AlsoBought course={course} />
+					<AlsoBought courseId={course.id} />
 					<InstructorsSection {...course.profiles} />
 					<ReviewsCourse reviews={course.reviews} course_id={course.id} />
 					<MoreInstructorCourses authorUsername={course.profiles.username} author_id={course.profiles.id} />
