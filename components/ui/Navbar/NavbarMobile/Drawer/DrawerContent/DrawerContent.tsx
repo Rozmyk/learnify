@@ -42,7 +42,7 @@ const DrawerContent = ({
 				</div>
 			) : (
 				<>
-					<Explore handleCloseDrawer={handleCloseDrawer} />
+					{user && <Explore handleCloseDrawer={handleCloseDrawer} />}
 					<MostPopular handleCloseDrawer={handleCloseDrawer} categoriesData={categoriesData} />
 					{user && <OtherServices />}
 				</>
