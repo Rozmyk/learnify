@@ -38,7 +38,7 @@ const Drawer = ({
 				</>
 			) : (
 				<>
-					<NormalHeader />
+					<NormalHeader handleCloseDrawer={handleCloseDrawer} />
 					<DrawerContent user={user} handleCloseDrawer={handleCloseDrawer} />
 				</>
 			)}
