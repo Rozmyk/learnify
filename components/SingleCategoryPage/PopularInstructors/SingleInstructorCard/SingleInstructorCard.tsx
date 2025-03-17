@@ -43,7 +43,7 @@ const SingleInstructorCard = ({ username, avatar_url, header, id }: ProfileDataP
 			</div>
 			<div>
 				<h4 className='font-semibold'>{username}</h4>
-				<p className='text-sm text-muted-foreground'>{header}</p>
+				<p className='text-sm text-muted-foreground line-clamp-2 '>{header}</p>
 				<div className='flex justify-start items-center gap-1'>
 					<div className='flex justify-start items-center gap-1 text-orange-500'>
 						<p className='text-xs font-semibold '>{userStats?.averageRating}</p>
