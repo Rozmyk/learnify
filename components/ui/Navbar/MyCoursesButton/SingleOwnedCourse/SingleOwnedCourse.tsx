@@ -12,11 +12,11 @@ const SingleOwnedCourse = ({ thumbnail, title, user_lessons_progress, lessons, s
 					<Image src={thumbnail} className='object-cover' alt='course photo' fill />
 				</div>
 				<div className='flex-1'>
-					<p className='font-semibold text-sm mb-2 line-clamp-2  '>{title}</p>
+					<p className='font-semibold text-sm mb-1 line-clamp-2  '>{title}</p>
 					{courseProgress ? (
 						<ProgressComponent value={courseProgress} />
 					) : (
-						<span className='font-semibold text-sm text-muted-foreground'>Start learning</span>
+						<span className='text-xs '>Start learning</span>
 					)}
 				</div>
 			</div>
