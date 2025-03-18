@@ -121,3 +121,7 @@ export interface SingleSectionProps {
 	order: number
 	lessons: SingleLessonProps[]
 }
+export interface ModalDataProps {
+	isOpen: boolean
+	content: 'AddRating' | 'EditRating' | 'DeleteRating' | null
+}
