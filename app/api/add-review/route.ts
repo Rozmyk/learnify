@@ -29,20 +29,24 @@ export async function POST(request: Request) {
 			return NextResponse.json({ error: 'User not authenticated.' }, { status: 401 })
 		}
 
-		const { error: insertError } = await supabase.from('reviews').insert([
-			{
-				rating: ratingNumber,
-				course_id,
-				content,
-				author_id: user.id,
-			},
-		])
+		const { data, error: insertError } = await supabase
+			.from('reviews')
+			.insert([
+				{
+					rating: ratingNumber,
+					course_id,
+					content,
+					author_id: user.id,
+				},
+			])
+			.select('*')
+			.single()
 
 		if (insertError) {
 			return NextResponse.json({ error: insertError.message }, { status: 500 })
 		}
 
-		return NextResponse.json({ message: 'Review added successfully!' })
+		return NextResponse.json({ review: data, message: 'Review added successfully!' })
 	} catch (error) {
 		return NextResponse.json({ error: 'Something went wrong.' }, { status: 500 })
 	}
