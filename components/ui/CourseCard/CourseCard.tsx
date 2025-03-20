@@ -45,8 +45,6 @@ const CourseCard = ({
 
 	return (
 		<div className='relative'>
-			{' '}
-			{/* Dodano relative */}
 			<Popover open={open} onOpenChange={setOpen}>
 				<PopoverTrigger asChild>
 					<Link
