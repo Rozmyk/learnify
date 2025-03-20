@@ -15,8 +15,8 @@ export default async function UserNavbar({ user }: { user: ProfileDataProps }) {
 			<NavbarSearch />
 			<div className='flex items-center'>
 				{user.isTeacher && (
-					<Link href={'/add-course'}>
-						<Button variant='ghost'>Add course</Button>
+					<Link href={'/instructor/courses'}>
+						<Button variant='ghost'>Instructors</Button>
 					</Link>
 				)}
 				<MyCoursesButton />
