@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
 	const { searchParams } = new URL(req.url)
 	const level = searchParams.get('instructional_level')
 	const language = searchParams.get('lang')
+	const author_id = searchParams.get('author_id')
 	const category = searchParams.get('category')
 	const sortBy = searchParams.get('sort')
 	const rating = searchParams.get('rating') ? Number(searchParams.get('rating')) : undefined
@@ -19,6 +20,9 @@ export async function GET(req: NextRequest) {
 
 	if (language) {
 		query = query.eq('language', language)
+	}
+	if (author_id) {
+		query = query.eq('author_id', author_id)
 	}
 	if (level) {
 		query = query.eq('level', level)
