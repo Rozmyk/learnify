@@ -27,6 +27,8 @@ export interface CourseProps {
 	avg_rating: number
 	user_lessons_progress: UserLessonsProgressProps[]
 	lessons: SingleLessonProps[]
+	step_completed: number
+	status: 'draft' | 'published' | 'archived'
 }
 
 export interface CategoryProps {
