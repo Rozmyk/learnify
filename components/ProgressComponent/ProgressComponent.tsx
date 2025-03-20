@@ -1,8 +1,14 @@
 import * as Progress from '@radix-ui/react-progress'
+import { clsx } from 'clsx'
 
-const ProgressComponent = ({ value }: { value: number }) => {
+interface ProgressComponentProps {
+	value: number
+	className?: string
+}
+
+const ProgressComponent = ({ value, className }: ProgressComponentProps) => {
 	return (
-		<Progress.Root className='relative overflow-hidden bg-primary rounded-full w-full h-0.5'>
+		<Progress.Root className={clsx('relative overflow-hidden bg-primary rounded-full w-full h-0.5', className)}>
 			<Progress.Indicator className='bg-purple-300 h-full transition-all duration-300' style={{ width: `${value}%` }} />
 		</Progress.Root>
 	)
