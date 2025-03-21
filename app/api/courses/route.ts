@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
 	const { searchParams } = new URL(req.url)
 	const level = searchParams.get('instructional_level')
 	const language = searchParams.get('lang')
+	const title = searchParams.get('title')
 	const author_id = searchParams.get('author_id')
 	const category = searchParams.get('category')
 	const sortBy = searchParams.get('sort')
@@ -30,6 +31,9 @@ export async function GET(req: NextRequest) {
 
 	if (category) {
 		query = query.eq('categories_id', category)
+	}
+	if (title) {
+		query = query.ilike('title', `%${title}%`)
 	}
 
 	// if (rating) {
