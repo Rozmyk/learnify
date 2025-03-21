@@ -18,9 +18,11 @@ export default async function Layout({
 						<Link className='text-xl font-semibold' href={'/'}>
 							Learnify
 						</Link>
-						<p className=' font-semibold'>Step {step}/4</p>
+						<p className=' text-muted-foreground text-lg'>Step {step} of 4</p>
 					</div>
-					<Button>Close</Button>
+					<Link href='/instructor/courses'>
+						<Button>Close</Button>
+					</Link>
 				</div>
 				<ProgressComponent value={60} className='h-1' />
 			</div>
