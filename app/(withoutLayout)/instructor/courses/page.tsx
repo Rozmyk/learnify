@@ -1,6 +1,5 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import PageContainer from '@/components/PageContainer/PageContainer'
 import InstructorCoursesPage from '@/components/InstructorCoursesPage/InstructorCoursesPage'
 export default async function page() {
 	const supabase = await createClient()
@@ -11,9 +10,5 @@ export default async function page() {
 		redirect('/')
 	}
 
-	return (
-		<PageContainer>
-			<InstructorCoursesPage userId={user.id} />
-		</PageContainer>
-	)
+	return <InstructorCoursesPage userId={user.id} />
 }
