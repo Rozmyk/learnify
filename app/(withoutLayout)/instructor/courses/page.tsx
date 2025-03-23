@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import InstructorCoursesPage from '@/components/InstructorCoursesPage/InstructorCoursesPage'
+import InstructorCoursesPage from '@/components/InstructorPage/InstructorCoursesPage/InstructorCoursesPage'
 export default async function page() {
 	const supabase = await createClient()
 	const {

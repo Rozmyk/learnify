@@ -1,5 +1,5 @@
-import InstructorDrawer from '@/components/InstructorCoursesPage/InstrcutorDrawer/InstructorDrawer'
-import InstructorNavbar from '@/components/InstructorCoursesPage/InstructorNavbar/InstructorNavbar'
+import InstructorDrawer from '@/components/InstructorPage/InstructorCoursesPage/InstrcutorDrawer/InstructorDrawer'
+import InstructorNavbar from '@/components/InstructorPage/InstructorCoursesPage/InstructorNavbar/InstructorNavbar'
 import PageContainer from '@/components/PageContainer/PageContainer'
 import Footer from '@/components/Footer/Footer'
 import { createClient } from '@/utils/supabase/server'

@@ -9,6 +9,7 @@ export default async function Layout({
 	params: Promise<{ step: string }>
 }) {
 	const step = (await params).step
+	const totalSteps = 4
 
 	return (
 		<div className='flex flex-col justify-between items-center md:max-h-screen h-full'>
@@ -18,7 +19,9 @@ export default async function Layout({
 						<Link className='text-xl font-semibold' href={'/'}>
 							Learnify
 						</Link>
-						<p className=' text-muted-foreground text-lg'>Step {step} of 4</p>
+						<p className=' text-muted-foreground text-lg'>
+							Step {step} of {totalSteps}
+						</p>
 					</div>
 					<Link href='/instructor/courses'>
 						<Button>Close</Button>
