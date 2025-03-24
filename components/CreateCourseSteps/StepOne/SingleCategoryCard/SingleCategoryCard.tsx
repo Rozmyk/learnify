@@ -1,27 +1,26 @@
 import { LucideIcon } from 'lucide-react'
-import { Dispatch, SetStateAction } from 'react'
+
 const SingleCategoryCard = ({
 	value,
+	text,
 	description,
 	Icon,
 	selected,
-	setSelected,
+	onClick,
 }: {
-	value: string
+	value: 'course' | 'practice'
+	text: string
 	description: string
+	onClick: (value: 'course' | 'practice') => void
 	Icon: LucideIcon
 	selected: boolean
-	setSelected: Dispatch<SetStateAction<string | null>>
 }) => {
 	return (
-		<span
-			onClick={() => {
-				setSelected(value)
-			}}>
+		<span onClick={() => onClick(value)}>
 			<div
-				className={`w-56 h-72  border ${selected ? 'border-4' : 'border-1'} flex flex-col  justify-center items-center p-4 gap-4 ${selected ? 'border-primary' : 'border-border '} hover:bg-secondary cursor-pointer transition-colors `}>
+				className={`w-56 h-72 border ${selected ? 'border-4' : 'border-1'} flex flex-col justify-center items-center p-4 gap-4 ${selected ? 'border-primary' : 'border-border '} hover:bg-secondary cursor-pointer transition-colors`}>
 				<Icon size={30} />
-				<p className='font-semibold text-center'>{value}</p>
+				<p className='font-semibold text-center'>{text}</p>
 				<p className='text-sm text-muted-foreground text-center'>{description}</p>
 			</div>
 		</span>

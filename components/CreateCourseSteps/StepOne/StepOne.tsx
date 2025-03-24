@@ -1,28 +1,62 @@
 'use client'
-import { useState } from 'react'
-import { Monitor, NotepadText } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { LucideIcon, Monitor, NotepadText } from 'lucide-react'
+import { useCreateCourseStore } from '@/context/useCreateCourseStore'
 import SingleCategoryCard from './SingleCategoryCard/SingleCategoryCard'
-const categoriesArray = [
+
+import StepTitle from '../StepTitle/StepTitle'
+interface categoriesProps {
+	value: 'course' | 'practice'
+	text: string
+	description: string
+	Icon: LucideIcon
+}
+
+const categoriesArray: categoriesProps[] = [
 	{
-		value: 'Course',
+		value: 'course',
+		text: 'Course',
 		description: 'Create engaging courses with video lectures, tests, coding exercises, and more.',
 		Icon: Monitor,
 	},
 	{
-		value: 'Practice test',
+		value: 'practice',
+		text: 'Practice test',
 		description: 'Help course participants prepare for certification exams by creating practice questions.',
 		Icon: NotepadText,
 	},
 ]
+
 const StepOne = () => {
-	const [selected, setSelected] = useState<string | null>(null)
+	const { setData, data, completedSteps, setCompletedSteps } = useCreateCourseStore()
+	const [selected, setSelected] = useState<string | null>(data.type ?? null)
+
+	const handleCategoryClick = (value: 'practice' | 'course') => {
+		setData({ type: value })
+		setSelected(value)
+	}
+	useEffect(() => {
+		if (selected && !completedSteps.includes('1')) {
+			setCompletedSteps([...completedSteps, '1'])
+		}
+	}, [selected])
+
 	return (
 		<>
-			<h1 className='text-4xl font-semibold'>First, let's find out what kind of course you are creating.</h1>
+			<StepTitle title="First, let's find out what kind of course you are creating." />
+
 			<div className='flex justify-center items-center gap-4 py-8'>
-				{categoriesArray.map(item => {
-					return <SingleCategoryCard setSelected={setSelected} selected={item.value == selected} {...item} />
-				})}
+				{categoriesArray.map(item => (
+					<SingleCategoryCard
+						key={item.value}
+						value={item.value}
+						text={item.text}
+						description={item.description}
+						Icon={item.Icon}
+						onClick={() => handleCategoryClick(item.value)}
+						selected={item.value === selected}
+					/>
+				))}
 			</div>
 		</>
 	)

@@ -3,9 +3,10 @@ export enum LevelProps {
 	Intermediate = 'Intermediate',
 	Advanced = 'Advanced',
 }
-
+export type TimeCommitment = '0-2' | '2-4' | '5+' | 'undecided'
 export interface CourseProps {
 	title: string
+	type: 'course' | 'practice'
 	description: string
 	price: number
 	thumbnail: string
@@ -29,6 +30,7 @@ export interface CourseProps {
 	lessons: SingleLessonProps[]
 	step_completed: number
 	status: 'draft' | 'published' | 'archived'
+	time_commitment: TimeCommitment
 }
 
 export interface CategoryProps {

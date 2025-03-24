@@ -69,7 +69,7 @@ const InstructorCoursesPage = ({ userId }: { userId: string }) => {
 			</div>
 
 			{loading ? (
-				<div className='flex justify-center items-center py-8 w-full '>
+				<div className='flex justify-center items-center py-8 w-full min-h-screen '>
 					<Loader />
 				</div>
 			) : (

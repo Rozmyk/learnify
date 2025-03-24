@@ -5,11 +5,17 @@ import Link from 'next/link'
 import { CourseProps } from '@/types/api'
 import ProgressComponent from '@/components/ProgressComponent/ProgressComponent'
 import Image from 'next/image'
-const SingleInstructorCourse = ({ title, step_completed, status, thumbnail }: CourseProps) => {
+import { useCreateCourseStore } from '@/context/useCreateCourseStore'
+
+const SingleInstructorCourse = ({ title, step_completed, status, thumbnail, id }: CourseProps) => {
+	const { loadCourse } = useCreateCourseStore()
 	const [isHovered, setIsHovered] = useState(false)
 	const progressValue = step_completed * 25
 	return (
 		<div
+			onClick={() => {
+				loadCourse(id)
+			}}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 			className='w-full flex justify-between items-start border border-border'>

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '../ui/button'
-import CategorySelect from './CategorySelect/CategorySelect'
+import CategorySelect from '../CategorySelect/CategorySelect'
 import FileInput from './FileInput/FileInput'
 const AddCourse = () => {
 	const [title, setTitle] = useState('')
