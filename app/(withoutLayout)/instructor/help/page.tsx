@@ -20,7 +20,7 @@ export default async function page() {
 		},
 	]
 	return (
-		<div>
+		<div className='min-h-screen'>
 			<SectionTitle title='Resources' />
 			<div className='flex md:flex-row flex-col gap-4 md:gap-0 justify-between items-center'>
 				{cardArray.map(card => {

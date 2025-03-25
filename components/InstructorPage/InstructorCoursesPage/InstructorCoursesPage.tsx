@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { CourseProps } from '@/types/api'
 import SectionTitle from '../SectionTitle/SectionTitle'
+import Loading from './SingleInstructorCourse/Loading/Loading'
 const InstructorCoursesPage = ({ userId }: { userId: string }) => {
 	const [courses, setCourses] = useState<CourseProps[] | null>(null)
 	const [inputValue, setInputValue] = useState('')
@@ -69,11 +70,11 @@ const InstructorCoursesPage = ({ userId }: { userId: string }) => {
 			</div>
 
 			{loading ? (
-				<div className='flex justify-center items-center py-8 w-full min-h-screen '>
-					<Loader />
+				<div className='flex flex-col gap-4 mt-8 min-h-screen'>
+					<Loading />
 				</div>
 			) : (
-				<div className='flex flex-col gap-4 mt-8'>
+				<div className='flex flex-col gap-4 mt-8 min-h-screen'>
 					{courses && courses?.length > 0 ? (
 						courses?.map(course => {
 							return <SingleInstructorCourse key={course.id} {...course} />
