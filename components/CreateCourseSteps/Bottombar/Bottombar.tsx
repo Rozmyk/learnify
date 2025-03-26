@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useCreateCourseStore } from '@/context/useCreateCourseStore'
+import Loader from '@/components/ui/loader'
 
 const Bottombar = ({ step }: { step: number }) => {
-	const { isStepValid, completedSteps } = useCreateCourseStore()
+	const { isStepValid, completedSteps, createCourse, createCourseLoading } = useCreateCourseStore()
 	const router = useRouter()
 
 	const isNextStepAvailable = step > 1 ? completedSteps.includes((step - 1).toString()) : true
@@ -35,16 +36,8 @@ const Bottombar = ({ step }: { step: number }) => {
 					</Link>
 				)}
 				{step === 4 ? (
-					<Button
-						disabled={!areAllStepsValid()}
-						onClick={() => {
-							if (areAllStepsValid()) {
-								console.log('course create')
-							} else {
-								console.log('Not all steps are valid')
-							}
-						}}>
-						Create course
+					<Button disabled={!areAllStepsValid()} onClick={createCourse}>
+						{createCourseLoading ? <Loader /> : 'Create course'}
 					</Button>
 				) : (
 					<Button onClick={handleRedirect} disabled={isContinueDisabled}>

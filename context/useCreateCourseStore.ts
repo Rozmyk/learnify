@@ -7,14 +7,17 @@ type CreateCourseStore = {
 	setData: (newData: Partial<CourseProps>) => void
 	isStepValid: (step: number) => boolean
 	reset: () => void
+	createCourse: () => void
 	completedSteps: string[]
 	setCompletedSteps: (steps: string[]) => void
 	loading: boolean
+	createCourseLoading: boolean
 }
 
 export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 	data: {},
 	loading: true,
+	createCourseLoading: false,
 	completedSteps: [],
 	loadCourse: async (id: string) => {
 		set({ loading: true })
@@ -32,6 +35,43 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 		}
 	},
 	setCompletedSteps: steps => set(() => ({ completedSteps: steps })),
+	createCourse: async () => {
+		const { data, reset } = get()
+
+		if (!data.title || !data.type || !data.time_commitment || !data.categories_id) {
+			return { success: false, message: 'All fields are required.' }
+		}
+
+		set({ createCourseLoading: true })
+
+		try {
+			const formData = new FormData()
+			formData.append('title', data.title)
+			formData.append('type', data.type)
+			formData.append('time_commitment', data.time_commitment)
+			formData.append('categories_id', data.categories_id)
+
+			const response = await fetch('/api/course/create', {
+				method: 'POST',
+				body: formData,
+			})
+
+			const result = await response.json()
+
+			if (!response.ok) {
+				throw new Error(result.error || 'Failed to create course')
+			}
+
+			set({ data: {}, createCourseLoading: false })
+			reset()
+			return { success: true, message: 'Course created successfully!', course: result }
+		} catch (error) {
+			console.error(error)
+			set({ createCourseLoading: false })
+			return { success: false, message: 'Something went wrong.' }
+		}
+	},
+
 	setData: newData =>
 		set(state => ({
 			data: {

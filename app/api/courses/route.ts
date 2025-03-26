@@ -13,11 +13,14 @@ export async function GET(req: NextRequest) {
 	const sortBy = searchParams.get('sort')
 	const rating = searchParams.get('rating') ? Number(searchParams.get('rating')) : undefined
 
-	let query = supabase.from('course').select(
-		`*, 
+	let query = supabase
+		.from('course')
+		.select(
+			`*, 
             reviews(rating), 
             categories(id, name), profiles(*)`
-	)
+		)
+		.order('created_at', { ascending: false })
 
 	if (language) {
 		query = query.eq('language', language)

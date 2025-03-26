@@ -28,7 +28,7 @@ const SingleInstructorCourse = ({ title, step_completed, status, thumbnail, id }
 			</div>
 			<div className='flex justify-start items-start w-full  flex-1  relative h-28 min-h-28  pl-2 md:pl-8'>
 				{isHovered && (
-					<Link href='/course/create/1'>
+					<Link href={`/instructor/course/${id}/manage`}>
 						<div className='absolute w-full h-full bg-background/85 top-0 left-0 right-0 bottom-0 flex justify-center items-center cursor-pointer p-4 z-20'>
 							<p className='text-lg md:text-xl font-semibold'>Edit or manage the course</p>
 						</div>
