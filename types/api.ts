@@ -7,7 +7,7 @@ export type TimeCommitment = '0-2' | '2-4' | '5+' | 'undecided'
 export interface CourseProps {
 	title: string
 	type: 'course' | 'practice'
-	description: string
+	subtitle: string
 	price: number
 	thumbnail: string
 	created_at: string
@@ -19,7 +19,7 @@ export interface CourseProps {
 	profiles: ProfileDataProps
 	slug: string
 	skills_gained: string
-	detailed_description: string
+	description: string
 	requirements: string
 	target_audience: string
 	discount: number | null

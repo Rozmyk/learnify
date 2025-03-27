@@ -45,7 +45,7 @@ const CourseDetails = ({ courseSlug }: { courseSlug: string }) => {
 				<p>Language: {courseData?.language}</p> <p>Subtitles: No</p>
 			</DetailsBox>
 			<DetailsBox title='Description'>
-				<p>{courseData?.detailed_description}</p>
+				<p>{courseData?.description}</p>
 			</DetailsBox>
 			{courseData && (
 				<DetailsBox title='Instructors'>

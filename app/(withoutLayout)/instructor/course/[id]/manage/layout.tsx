@@ -10,7 +10,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 		redirect('/')
 	}
 	return (
-		<div className=' flex md:flex-row min-h-screen'>
+		<div className=' flex md:flex-row min-h-screen gap-4'>
 			<div className='md:w-1/4 w-full '>
 				<ManageSidebar />
 			</div>

@@ -46,7 +46,7 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 					<CourseIncludes />
 					<Lessons course_id={course.id} />
 					{course.requirements && <SectionDescription title='Requirements' text={course.requirements} />}
-					{course.detailed_description && <SectionDescription title='Description' text={course.detailed_description} />}
+					{course.description && <SectionDescription title='Description' text={course.description} />}
 					{course.target_audience && (
 						<SectionDescription title='Who this course is for:' text={course.target_audience} />
 					)}

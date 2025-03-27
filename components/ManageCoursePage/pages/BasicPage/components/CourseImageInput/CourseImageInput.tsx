@@ -10,12 +10,13 @@ import { getCroppedImg } from '@/lib/getCroppedImg'
 import { Button } from '@/components/ui/button'
 import { Area } from 'react-easy-crop/types'
 
-const CourseImageInput = ({ courseId }: { courseId: string }) => {
+const CourseImageInput = ({ courseId, courseImage }: { courseId: string; courseImage: string }) => {
 	const [imageSrc, setImageSrc] = useState<string | null>(null)
-	const [croppedImage, setCroppedImage] = useState<string | null>(null)
+	const [croppedImage, setCroppedImage] = useState<string | null>(courseImage)
 	const [crop, setCrop] = useState({ x: 0, y: 0 })
 	const [zoom, setZoom] = useState(1)
 	const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
+	const [imageUploaded, setImageUploaded] = useState(false)
 	const [buttonLoading, setButtonLoading] = useState(false)
 	const onCropComplete = useCallback((_: Area, croppedAreaPixels: Area) => {
 		setCroppedAreaPixels(croppedAreaPixels)
@@ -34,7 +35,6 @@ const CourseImageInput = ({ courseId }: { courseId: string }) => {
 		if (imageSrc && croppedAreaPixels) {
 			const croppedImageUrl = await getCroppedImg(imageSrc, croppedAreaPixels)
 			setCroppedImage(croppedImageUrl)
-			handleUploadPhoto()
 		}
 	}
 	const handleUploadPhoto = async () => {
@@ -64,7 +64,13 @@ const CourseImageInput = ({ courseId }: { courseId: string }) => {
 			console.error('Upload error:', err)
 		} finally {
 			setButtonLoading(false)
+			setImageUploaded(true)
 		}
+	}
+	const handleChangePhoto = () => {
+		setImageUploaded(false)
+		setImageSrc(null)
+		setCroppedImage(null)
 	}
 
 	return (
@@ -103,7 +109,12 @@ const CourseImageInput = ({ courseId }: { courseId: string }) => {
 						{!croppedImage && (
 							<Input className='cursor-pointer' onChange={handleFileChange} accept='image/*' type='file' />
 						)}
-						{imageSrc && (
+						{imageSrc && croppedImage && !imageUploaded ? (
+							<Button onClick={handleUploadPhoto}>Update</Button>
+						) : (
+							<Button onClick={handleChangePhoto}>Change</Button>
+						)}
+						{imageSrc && !imageUploaded && (
 							<Button onClick={handleCrop} className='mt-2'>
 								Crop image
 							</Button>
