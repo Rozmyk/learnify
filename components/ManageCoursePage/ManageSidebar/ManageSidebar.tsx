@@ -7,7 +7,7 @@ const ManageSidebar = () => {
 	const pathname = usePathname()
 	const items = [
 		{ href: 'goals', text: 'Target participants' },
-		{ href: 'practice-tests', text: 'Practice tests' },
+
 		{ href: 'basic', text: 'Course landing page' },
 		{ href: 'pricing', text: 'Pricing' },
 		{ href: 'promotions', text: 'Promotions' },
