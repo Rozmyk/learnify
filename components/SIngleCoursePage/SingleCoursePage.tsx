@@ -37,7 +37,7 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 						<div className='relative z-10 p-2 h-full flex flex-col justify-end items-start w-full md:w-2/3 '>
 							<CourseHeader
 								title={course.title}
-								description={course.description}
+								subtitle={course.subtitle}
 								profiles={course.profiles}
 								language={course.language}
 								created_at={course.created_at}
