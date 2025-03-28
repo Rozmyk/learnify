@@ -27,7 +27,7 @@ const CourseCard = ({
 
 	const { addToCart, cartItems } = useCartStore()
 	const { owned } = useOwnedCoursesStore()
-	const discountPrice = price * (1 - (discount || 0) / 100)
+	const discountPrice = Number(price) * (1 - (discount || 0) / 100)
 	const isAlreadOwned = owned.some(item => item.course_id == id)
 	const isAlreadInCart = cartItems.some(item => item.product_id == id)
 
@@ -65,7 +65,7 @@ const CourseCard = ({
 								<StarRating reviews={reviews} />
 								<div className='flex justify-start items-center gap-2'>
 									<p className='font-semibold text-nowrap'>{discountPrice.toFixed(2)} zł</p>
-									{discountPrice !== price && (
+									{discountPrice !== Number(price) && (
 										<p className='font-normal text-sm line-through text-muted-foreground text-nowrap'>{price} zł</p>
 									)}
 								</div>

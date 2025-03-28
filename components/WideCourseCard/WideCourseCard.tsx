@@ -17,7 +17,7 @@ const WideCourseCard = ({ thumbnail, title, description, reviews, slug, level, p
 				</div>
 				<div className='flex flex-col justify-center items-center gap-2'>
 					{discount && discount > 0 && (
-						<p className=' font-semibold '>{(price * (1 - discount / 100)).toFixed(2)} zł</p>
+						<p className=' font-semibold '>{(Number(price) * (1 - discount / 100)).toFixed(2)} zł</p>
 					)}
 
 					<p className={`${discount && discount > 0 ? 'line-through text-muted-foreground' : ' font-semibold'}`}>

@@ -89,7 +89,7 @@ const PromotedCourse = () => {
 									<div className='flex justify-center items-center gap-2'>
 										{promotedData.discount && promotedData.discount > 0 && (
 											<p className='text-lg font-semibold '>
-												{(promotedData.price * (1 - promotedData.discount / 100)).toFixed(2)} zł
+												{(Number(promotedData.price) * (1 - promotedData.discount / 100)).toFixed(2)} zł
 											</p>
 										)}
 

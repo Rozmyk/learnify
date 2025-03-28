@@ -3,11 +3,14 @@ import { CourseProps } from '@/types/api'
 
 type CreateCourseStore = {
 	data: Partial<CourseProps>
+	temporaryData: Partial<CourseProps>
 	loadCourse: (id: string) => void
 	setData: (newData: Partial<CourseProps>) => void
+	setTemporaryData: (newData: Partial<CourseProps>) => void
 	isStepValid: (step: number) => boolean
 	reset: () => void
 	createCourse: () => void
+	updateCourse: () => void
 	completedSteps: string[]
 	setCompletedSteps: (steps: string[]) => void
 	loading: boolean
@@ -16,9 +19,18 @@ type CreateCourseStore = {
 
 export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 	data: {},
+	temporaryData: {},
+	setTemporaryData: newData =>
+		set(state => ({
+			temporaryData: {
+				...state.data,
+				...newData,
+			},
+		})),
 	loading: true,
 	createCourseLoading: false,
 	completedSteps: [],
+	updateCourse: async () => {},
 	loadCourse: async (id: string) => {
 		set({ loading: true })
 		try {
@@ -28,7 +40,7 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 			}
 			const data = await response.json()
 
-			set({ data, loading: false })
+			set({ data, temporaryData: data, loading: false })
 		} catch (error) {
 			console.error(error)
 			set({ loading: false })

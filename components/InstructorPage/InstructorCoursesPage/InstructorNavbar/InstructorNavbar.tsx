@@ -7,10 +7,12 @@ import { Bell } from 'lucide-react'
 import { ProfileDataProps } from '@/types/api'
 import Image from 'next/image'
 import { ChevronLeft } from 'lucide-react'
+import { useCreateCourseStore } from '@/context/useCreateCourseStore'
 
 const InstructorNavbar = ({ userId }: { userId: string }) => {
 	const [userData, setUserData] = useState<ProfileDataProps | null>(null)
 	const pathname = usePathname()
+	const { data, temporaryData, updateCourse } = useCreateCourseStore()
 
 	const primaryPaths = ['/instructor/course', '/instructor/tools', '/instructor/help']
 	const isPrimaryNavbar = primaryPaths.some(path => pathname.startsWith(path)) && !pathname.includes('/manage')
@@ -57,13 +59,15 @@ const InstructorNavbar = ({ userId }: { userId: string }) => {
 						<ChevronLeft size={16} /> Back to courses
 					</Button>
 				</Link>
-				<h2 className='font-semibold'>course title</h2>
+				<h2 className='font-semibold'>{data.title}</h2>
 				<span className='bg-secondary text-primary px-1 py-2 rounded-lg text-xs'>Operating mode</span>
 				<p className='text-sm'>0 min of uploaded video content</p>
 			</div>
 			<div className='flex items-center gap-2'>
 				<Button>Preview</Button>
-				<Button variant='secondary'>Save</Button>
+				<Button onClick={updateCourse} disabled={data == temporaryData} variant='secondary'>
+					Save
+				</Button>
 			</div>
 		</div>
 	)

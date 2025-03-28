@@ -8,7 +8,7 @@ import FavButton from '@/components/FavButton/FavButton'
 
 const SingleWishlistCard = ({ title, profiles, thumbnail, reviews, slug, price, discount, id }: CourseProps) => {
 	const [isHovered, setIsHovered] = useState(false)
-	const discountPrice = price * (1 - (discount || 0) / 100)
+	const discountPrice = Number(price) * (1 - (discount || 0) / 100)
 	return (
 		<Link href={`/course/${slug}`}>
 			<div className='w-80 max-w-80 mix-w-80  p-2'>
@@ -35,7 +35,7 @@ const SingleWishlistCard = ({ title, profiles, thumbnail, reviews, slug, price, 
 				<p className='text-xs text-muted-foreground mb-2'>35 hours, 123 lessons</p>
 				<div className='flex  justify-start items-center gap-2'>
 					<p className='font-semibold text-nowrap text-sm'>{discountPrice.toFixed(2)} zł</p>{' '}
-					{discountPrice !== price && (
+					{discountPrice !== Number(price) && (
 						<p className='font-normal text-xs line-through text-muted-foreground text-nowrap'>{price} zł</p>
 					)}
 				</div>

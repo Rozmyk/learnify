@@ -1,21 +1,14 @@
 'use client'
 import PageWrapper from '../../PageWrapper/PageWrapper'
 import CourseTitleInput from '../../components/CourseTitleInput/CourseTitleInput'
-import { useState } from 'react'
-import RichTextEditor from '../../components/RichTextEditor/RichTextEditor'
-import { Label } from '@/components/ui/label'
+import RichTextEditor from '../../../RichTextEditor/RichTextEditor'
+import Loader from '@/components/ui/loader'
 import CourseImageInput from './components/CourseImageInput/CourseImageInput'
-import { CourseProps } from '@/types/api'
+import { useCreateCourseStore } from '@/context/useCreateCourseStore'
 import BasicInfo from './components/BasicInfo/BasicInfo'
-interface DataProps {
-	title: string
-	subtitle: string
-}
-const BasicPage = ({ courseId, courseData }: { courseId: string; courseData: CourseProps }) => {
-	const [data, setData] = useState<DataProps>({
-		title: courseData.title,
-		subtitle: '',
-	})
+
+const BasicPage = ({ courseId }: { courseId: string }) => {
+	const { setTemporaryData, temporaryData, loading } = useCreateCourseStore()
 
 	return (
 		<PageWrapper title='Course landing page'>
@@ -26,30 +19,40 @@ const BasicPage = ({ courseId, courseData }: { courseId: string; courseData: Cou
 				standards for course titling.
 			</p>
 
-			<CourseTitleInput
-				maxLength={60}
-				onChange={e => setData({ ...data, title: e.target.value })}
-				value={data.title}
-				placeholder='Insert the title of your course'
-				description='The title should attract attention, be informative and well optimized for search.'
-				label='Course title'
-			/>
+			{!loading ? (
+				<>
+					<CourseTitleInput
+						maxLength={60}
+						onChange={e => setTemporaryData({ ...temporaryData, title: e.target.value })}
+						value={temporaryData.title ?? ''}
+						placeholder='Insert the title of your course'
+						description='The title should attract attention, be informative and well optimized for search.'
+						label='Course title'
+					/>
 
-			<CourseTitleInput
-				onChange={e => setData({ ...data, subtitle: e.target.value })}
-				maxLength={120}
-				value={data.subtitle}
-				placeholder='Insert the subtitle of your course'
-				description='Use one or two related keywords and list 3-4 key areas that the course covers.'
-				label='Course subtitle'
-			/>
+					<CourseTitleInput
+						onChange={e => setTemporaryData({ ...temporaryData, subtitle: e.target.value })}
+						maxLength={120}
+						value={temporaryData.subtitle ?? ''}
+						placeholder='Insert the subtitle of your course'
+						description='Use one or two related keywords and list 3-4 key areas that the course covers.'
+						label='Course subtitle'
+					/>
 
-			<RichTextEditor
-				courseDescription={courseData.description}
-				description='The description should be at least 200 words.'
-			/>
-			<BasicInfo />
-			<CourseImageInput courseImage={courseData.thumbnail} courseId={courseId} />
+					<RichTextEditor
+						title='Course description'
+						value={temporaryData.description ?? ''}
+						onChange={e => setTemporaryData({ ...temporaryData, description: e })}
+						description='The description should be at least 200 words.'
+					/>
+					<BasicInfo />
+					<CourseImageInput courseImage={temporaryData.thumbnail ?? ''} courseId={courseId} />
+				</>
+			) : (
+				<div className='w-full py-10 flex justify-center items-center'>
+					<Loader />
+				</div>
+			)}
 		</PageWrapper>
 	)
 }

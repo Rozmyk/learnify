@@ -5,14 +5,14 @@ import Link from 'next/link'
 import { Earth, CircleAlert } from 'lucide-react'
 const CourseHeader = ({
 	title,
-	description,
+	subtitle,
 	profiles,
 	reviews,
 	created_at,
 	language,
 }: {
 	title: string
-	description: string
+	subtitle: string
 	profiles: ProfileDataProps
 	reviews: ReviewProps[]
 	created_at: string
@@ -21,7 +21,7 @@ const CourseHeader = ({
 	return (
 		<div className='text-white'>
 			<h1 className='text-4xl  font-semibold mb-2'>{title}</h1>
-			<p className='mb-2'>{description}</p>
+			<p className='mb-2'>{subtitle}</p>
 			<StarRating reviews={reviews} />
 			<p className='text-muted-foreground text-sm my-2'>
 				Created by:{' '}

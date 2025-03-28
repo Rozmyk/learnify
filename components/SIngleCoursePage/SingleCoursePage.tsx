@@ -12,8 +12,16 @@ import ReviewsCourse from './ReviewsCourse/ReviewsCourse'
 import CoursePurchaseCard from './CoursePurchaseCard/CoursePurchaseCard'
 import MoreInstructorCourses from './MoreInstructorCourses/MoreInstructorCourses'
 import Lessons from './Lessons/Lessons'
+import { EditorContent, useEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 
 const SingleCoursePage = ({ course }: { course: CourseProps }) => {
+	const editor = useEditor({
+		extensions: [StarterKit],
+		editable: false,
+		content: course.description,
+	})
+	console.log(course)
 	return course ? (
 		<div className='relative w-full h-full  flex md:flex-row flex-col-reverse justify-between items-start'>
 			<div className=' h-full w-full md:w-2/3 flex flex-col'>
@@ -46,7 +54,8 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 					<CourseIncludes />
 					<Lessons course_id={course.id} />
 					{course.requirements && <SectionDescription title='Requirements' text={course.requirements} />}
-					{course.description && <SectionDescription title='Description' text={course.description} />}
+
+					<EditorContent editor={editor} />
 					{course.target_audience && (
 						<SectionDescription title='Who this course is for:' text={course.target_audience} />
 					)}

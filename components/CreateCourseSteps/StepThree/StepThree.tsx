@@ -8,7 +8,7 @@ import { useCreateCourseStore } from '@/context/useCreateCourseStore'
 const StepThree = () => {
 	const { data, setData, completedSteps, setCompletedSteps } = useCreateCourseStore()
 
-	const [category, setCategory] = useState<string | null>(data.categories_id ?? null)
+	const [category, setCategory] = useState<string | undefined>(data.categories_id ?? undefined)
 	useEffect(() => {
 		if (category && !completedSteps.includes('3')) {
 			setCompletedSteps([...completedSteps, '3'])
@@ -27,12 +27,7 @@ const StepThree = () => {
 				description='If you are not sure about a category, you can change it later.'
 			/>
 			<div className='w-full flex justify-center items-center'>
-				<CategorySelect
-					className='w-full max-w-96'
-					selectedCategory={category}
-					setSelectedCategory={setCategory}
-					withoutLabel
-				/>
+				<CategorySelect className='w-full max-w-96' value={category} onChange={setCategory} withoutLabel />
 			</div>
 		</div>
 	)

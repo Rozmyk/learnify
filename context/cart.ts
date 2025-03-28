@@ -64,10 +64,10 @@ export const useCartStore = create<CartState>((set, get) => ({
 	calculateTotalPrice: () => {
 		const { cartItems, discount } = get()
 		const originalTotal = cartItems.reduce((sum, item) => {
-			return sum + (item.course?.price ?? 0) * (1 - (item?.course?.discount ?? 0) / 100)
+			return sum + (Number(item.course?.price) ?? 0) * (1 - (item?.course?.discount ?? 0) / 100)
 		}, 0)
 		const total = cartItems.reduce((sum, item) => {
-			const price = (item.course?.price ?? 0) * (1 - (item?.course?.discount ?? 0) / 100) || 0
+			const price = (Number(item.course?.price) ?? 0) * (1 - (item?.course?.discount ?? 0) / 100) || 0
 			const finalPrice = price * (1 - discount / 100)
 			return sum + finalPrice
 		}, 0)

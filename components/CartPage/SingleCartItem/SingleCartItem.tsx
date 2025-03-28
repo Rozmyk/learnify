@@ -10,7 +10,7 @@ interface SingleCartItemProps extends CartItemProps {
 
 const SingleCartItem = ({ course, onDeleteClick, moveToCart, moveToWishlist }: SingleCartItemProps) => {
 	if (!course) return null
-	const discountPrice = course.price * (1 - (course.discount || 0) / 100)
+	const discountPrice = Number(course.price) * (1 - (course.discount || 0) / 100)
 
 	return (
 		<div className='w-full flex-col justify-between items-start gap-4 mb-4 p-2'>
@@ -27,7 +27,7 @@ const SingleCartItem = ({ course, onDeleteClick, moveToCart, moveToWishlist }: S
 				</div>
 				<div className='flex flex-col justify-center items-center'>
 					<p className='font-semibold text-nowrap'>{discountPrice.toFixed(2)} zł</p>{' '}
-					{discountPrice !== course.price && (
+					{discountPrice !== Number(course.price) && (
 						<p className='font-normal text-sm line-through text-muted-foreground text-nowrap'>{course.price} zł</p>
 					)}
 				</div>

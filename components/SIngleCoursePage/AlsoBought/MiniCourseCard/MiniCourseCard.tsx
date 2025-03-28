@@ -49,7 +49,7 @@ const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount, create
 					<p className='font-semibold text-sm '>{price} zł</p>
 					{discount && (
 						<p className=' text-xs text-muted-foreground line-through'>
-							{(price * (1 - discount / 100)).toFixed(2)} zł
+							{(Number(price) * (1 - discount / 100)).toFixed(2)} zł
 						</p>
 					)}
 				</div>

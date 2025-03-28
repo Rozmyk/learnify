@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import CustomSelect from '@/components/CustomSelect/CustomSelect'
 import PageWrapper from '../../PageWrapper/PageWrapper'
 import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { useCreateCourseStore } from '@/context/useCreateCourseStore'
 
 const FREE_API_URL = 'https://api.exchangerate-api.com/v4/latest/USD'
 
@@ -11,7 +13,12 @@ const CurrencySelect = ({ value, onChange }: { value: string; onChange: (value: 
 	const currencies = ['USD', 'EUR', 'GBP', 'PLN', 'MXN', 'JPY', 'CAD']
 	const options = currencies.map(code => ({ label: code, value: code }))
 
-	return <CustomSelect value={value} onChange={onChange} placeholder='Choose currency' options={options} />
+	return (
+		<div className='flex flex-col gap-2'>
+			<Label className='font-semibold my-1 text-base'>Currency</Label>
+			<CustomSelect value={value} onChange={onChange} placeholder='Choose currency' options={options} />
+		</div>
+	)
 }
 
 const PriceLevelSelect = ({
@@ -38,12 +45,16 @@ const PriceLevelSelect = ({
 		}
 	}, [currency, rates])
 
-	return <CustomSelect value={value} onChange={onChange} placeholder='Choose price level' options={priceLevels} />
+	return (
+		<div className='flex flex-col gap-2 '>
+			<Label className='font-semibold my-1 text-base'>Price level</Label>
+			<CustomSelect value={value} onChange={onChange} placeholder='Choose price level' options={priceLevels} />
+		</div>
+	)
 }
 
 const PricingPage = () => {
-	const [selectedCurrency, setSelectedCurrency] = useState('USD')
-	const [selectedPriceLevel, setSelectedPriceLevel] = useState('19.99')
+	const { temporaryData, setTemporaryData } = useCreateCourseStore()
 	const [exchangeRates, setExchangeRates] = useState<Record<string, number>>({ USD: 1 })
 
 	useEffect(() => {
@@ -68,11 +79,14 @@ const PricingPage = () => {
 				length must not exceed 2 hours. In addition, courses with practice tests cannot be free.
 			</p>
 			<div className='flex my-10 gap-4'>
-				<CurrencySelect value={selectedCurrency} onChange={setSelectedCurrency} />
+				<CurrencySelect
+					value={temporaryData.currency ?? ''}
+					onChange={e => setTemporaryData({ ...temporaryData, currency: e })}
+				/>
 				<PriceLevelSelect
-					value={selectedPriceLevel}
-					onChange={setSelectedPriceLevel}
-					currency={selectedCurrency}
+					value={String(temporaryData.price) ?? ''}
+					onChange={e => setTemporaryData({ ...temporaryData, price: e })}
+					currency={temporaryData.currency ?? ''}
 					rates={exchangeRates}
 				/>
 			</div>

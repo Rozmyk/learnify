@@ -16,7 +16,9 @@ const CourseTitleInput = ({ label, description, placeholder, value, onChange, ma
 			<div className='flex w-full justify-between  items-center gap-2'>
 				<Input maxLength={maxLength} value={value} onChange={onChange} placeholder={placeholder} />
 
-				{maxLength && <p className=' w-10 flex justify-center items-center  text-muted-foreground'>{value.length}</p>}
+				{maxLength && (
+					<p className=' w-10 flex justify-center items-center  text-muted-foreground'>{maxLength - value.length}</p>
+				)}
 			</div>
 			<p className='text-xs text-muted-foreground mt-2 mb-4'>{description}</p>
 		</div>
