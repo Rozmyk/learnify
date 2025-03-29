@@ -9,15 +9,15 @@ import Cropper from 'react-easy-crop'
 import { getCroppedImg } from '@/lib/getCroppedImg'
 import { Button } from '@/components/ui/button'
 import { Area } from 'react-easy-crop/types'
+import { useCreateCourseStore } from '@/context/useCreateCourseStore'
 
-const CourseImageInput = ({ courseId, courseImage }: { courseId: string; courseImage: string }) => {
+const CourseImageInput = () => {
+	const { temporaryData, setTemporaryData } = useCreateCourseStore()
 	const [imageSrc, setImageSrc] = useState<string | null>(null)
-	const [croppedImage, setCroppedImage] = useState<string | null>(courseImage)
 	const [crop, setCrop] = useState({ x: 0, y: 0 })
 	const [zoom, setZoom] = useState(1)
 	const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
-	const [imageUploaded, setImageUploaded] = useState(false)
-	const [buttonLoading, setButtonLoading] = useState(false)
+
 	const onCropComplete = useCallback((_: Area, croppedAreaPixels: Area) => {
 		setCroppedAreaPixels(croppedAreaPixels)
 	}, [])
@@ -34,43 +34,13 @@ const CourseImageInput = ({ courseId, courseImage }: { courseId: string; courseI
 	const handleCrop = async () => {
 		if (imageSrc && croppedAreaPixels) {
 			const croppedImageUrl = await getCroppedImg(imageSrc, croppedAreaPixels)
-			setCroppedImage(croppedImageUrl)
+			setTemporaryData({ ...temporaryData, thumbnail: croppedImageUrl })
 		}
 	}
-	const handleUploadPhoto = async () => {
-		setButtonLoading(true)
 
-		if (!croppedImage) {
-			console.error('No cropped image available')
-			setButtonLoading(false)
-			return
-		}
-
-		const blob = await fetch(croppedImage).then(res => res.blob())
-		const file = new File([blob], 'course-thumbnail.png', { type: 'image/png' })
-
-		const formData = new FormData()
-		formData.append('course_id', courseId)
-		formData.append('thumbnail', file)
-
-		try {
-			const response = await fetch(`/api/course/upload-image`, {
-				method: 'POST',
-				body: formData,
-			})
-			const data = await response.json()
-			console.log('Upload success:', data)
-		} catch (err) {
-			console.error('Upload error:', err)
-		} finally {
-			setButtonLoading(false)
-			setImageUploaded(true)
-		}
-	}
 	const handleChangePhoto = () => {
-		setImageUploaded(false)
 		setImageSrc(null)
-		setCroppedImage(null)
+		setTemporaryData({ ...temporaryData, thumbnail: undefined })
 	}
 
 	return (
@@ -78,8 +48,8 @@ const CourseImageInput = ({ courseId, courseImage }: { courseId: string; courseI
 			<Label className='font-semibold text-base my-1'>Course image</Label>
 			<div className='w-full flex justify-between items-start gap-8'>
 				<div className='w-1/2 h-64 relative border border-border'>
-					{croppedImage ? (
-						<Image className='object-cover' fill alt='course photo' src={croppedImage} />
+					{temporaryData.thumbnail ? (
+						<Image className='object-cover' fill alt='course photo' src={temporaryData.thumbnail} />
 					) : imageSrc ? (
 						<Cropper
 							style={{
@@ -106,15 +76,13 @@ const CourseImageInput = ({ courseId, courseImage }: { courseId: string; courseI
 						quality standards. Key rules: 750x422 pixels, .jpg, .jpeg, .gif or .png, no text.
 					</p>
 					<div className='flex justify-between items-center gap-4'>
-						{!croppedImage && (
+						{!temporaryData.thumbnail && (
 							<Input className='cursor-pointer' onChange={handleFileChange} accept='image/*' type='file' />
 						)}
-						{imageSrc && croppedImage && !imageUploaded ? (
-							<Button onClick={handleUploadPhoto}>Update</Button>
-						) : (
-							<Button onClick={handleChangePhoto}>Change</Button>
-						)}
-						{imageSrc && !imageUploaded && (
+
+						{temporaryData.thumbnail && <Button onClick={handleChangePhoto}>Change</Button>}
+
+						{imageSrc && !temporaryData.thumbnail && (
 							<Button onClick={handleCrop} className='mt-2'>
 								Crop image
 							</Button>

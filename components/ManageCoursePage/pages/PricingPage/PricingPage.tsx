@@ -34,21 +34,22 @@ const PriceLevelSelect = ({
 }) => {
 	const basePriceUSD = 19.99
 	const conversionRate = rates[currency] || 1
+
 	const priceLevels = Array.from({ length: 10 }, (_, i) => {
 		const price = ((basePriceUSD + i * 10) * conversionRate).toFixed(2)
 		return { label: `${price} ${currency} (Level ${i + 1})`, value: price }
 	})
 
 	useEffect(() => {
-		if (!value) {
+		if (!value || !priceLevels.some(p => p.value === value)) {
 			onChange(priceLevels[0].value)
 		}
-	}, [currency, rates])
+	}, [value, currency, rates])
 
 	return (
-		<div className='flex flex-col gap-2 '>
+		<div className='flex flex-col gap-2'>
 			<Label className='font-semibold my-1 text-base'>Price level</Label>
-			<CustomSelect value={value} onChange={onChange} placeholder='Choose price level' options={priceLevels} />
+			<CustomSelect value={value ?? ''} onChange={onChange} placeholder='Choose price level' options={priceLevels} />
 		</div>
 	)
 }
