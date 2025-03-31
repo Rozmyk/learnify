@@ -8,7 +8,7 @@ const CoursePopover = ({
 	skills_gained,
 	created_at,
 	title,
-	description,
+	subtitle,
 	id,
 	level,
 	isAlreadOwned,
@@ -19,7 +19,7 @@ const CoursePopover = ({
 	skills_gained: string
 	created_at: string
 	title: string
-	description: string
+	subtitle: string
 	id: string
 	level: string
 	isAlreadOwned: boolean
@@ -58,7 +58,7 @@ const CoursePopover = ({
 						<p className='text-green-300 text-xs'>Updated: {formatTimestamp(created_at)}</p>
 						<p className='text-xs text-muted-foreground capitalize'>Level: {level}</p>
 					</div>
-					<p className='text-sm  mt-2 mb-4'>{description}</p>
+					<p className='text-sm  mt-2 mb-4'>{subtitle}</p>
 					<div className='flex flex-col gap-2 mb-2'>
 						{skillsArray?.map(item => {
 							return <SingleLessonPoint key={item} value={item} />

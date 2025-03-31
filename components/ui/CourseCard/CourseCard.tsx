@@ -14,7 +14,7 @@ const CourseCard = ({
 	title,
 	price,
 	slug,
-	description,
+	subtitle,
 	profiles,
 	discount,
 	reviews,
@@ -87,7 +87,7 @@ const CourseCard = ({
 							skills_gained={skills_gained}
 							created_at={created_at}
 							title={title}
-							description={description}
+							subtitle={subtitle}
 							id={id}
 							level={level}
 							addToCart={addToCart}
