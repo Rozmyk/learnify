@@ -25,7 +25,7 @@ const CourseHeader = ({ title, subtitle, profiles, reviews, created_at, language
 				</div>
 				<div className='flex justify-start items-center gap-2'>
 					<Earth size={16} />
-					<p className='text-sm'>Language: {language} </p>
+					<p className='text-sm'>Language: {language}</p>
 				</div>
 			</div>
 			{draftMode && (

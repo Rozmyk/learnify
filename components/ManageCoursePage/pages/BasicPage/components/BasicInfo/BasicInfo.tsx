@@ -11,7 +11,7 @@ const LanguageSelect = ({ value, onChange }: { value: string; onChange: (value: 
 
 	const options = languageCodes.map((code, index) => ({
 		label: `${languages[index]} `,
-		value: code,
+		value: `${languages[index]} `,
 	}))
 
 	return <CustomSelect value={value} onChange={onChange} options={options} placeholder='Choose language' />
