@@ -36,7 +36,7 @@ const Lessons = ({ course_id }: { course_id: string }) => {
 		sections && sections?.length > 0 && (
 			<div className='w-full'>
 				<SectionTitle>Course content</SectionTitle>
-				sections && <CourseCurriculum sections={sections} />
+				<CourseCurriculum sections={sections} />
 			</div>
 		)
 	)
