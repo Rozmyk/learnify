@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
 		query = query.eq('level', level)
 	}
 	if (status) {
-		query = query.eq('status', status)
+		query = query.in('status', ['published', 'draft', 'archived'])
 	}
 
 	if (category) {

@@ -15,6 +15,12 @@ const Bottombar = ({ step }: { step: number }) => {
 	const handleRedirect = () => {
 		router.push(`/course/create/${step + 1}`)
 	}
+	const handleCreateCourse = async () => {
+		const courseData = await createCourse()
+		if (courseData.success) {
+			router.push(`/instructor/course/${courseData.course?.id}/manage`)
+		}
+	}
 
 	const areAllStepsValid = () => {
 		for (let i = 1; i <= 4; i++) {
@@ -36,7 +42,7 @@ const Bottombar = ({ step }: { step: number }) => {
 					</Link>
 				)}
 				{step === 4 ? (
-					<Button disabled={!areAllStepsValid()} onClick={createCourse}>
+					<Button disabled={!areAllStepsValid()} onClick={handleCreateCourse}>
 						{createCourseLoading ? <Loader /> : 'Create course'}
 					</Button>
 				) : (

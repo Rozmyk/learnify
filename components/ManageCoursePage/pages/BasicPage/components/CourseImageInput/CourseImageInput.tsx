@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/label'
 import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { BookOpenText } from 'lucide-react'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Cropper from 'react-easy-crop'
 import { getCroppedImg } from '@/lib/getCroppedImg'
 import { Button } from '@/components/ui/button'
@@ -12,11 +12,12 @@ import { Area } from 'react-easy-crop/types'
 import { useCreateCourseStore } from '@/context/useCreateCourseStore'
 
 const CourseImageInput = () => {
-	const { temporaryData, setTemporaryData } = useCreateCourseStore()
+	const { temporaryData, setTemporaryData, setThumbnailData } = useCreateCourseStore()
 	const [imageSrc, setImageSrc] = useState<string | null>(null)
 	const [crop, setCrop] = useState({ x: 0, y: 0 })
 	const [zoom, setZoom] = useState(1)
 	const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
+	const [objectUrl, setObjectUrl] = useState<string | null>(null)
 
 	const onCropComplete = useCallback((_: Area, croppedAreaPixels: Area) => {
 		setCroppedAreaPixels(croppedAreaPixels)
@@ -33,15 +34,41 @@ const CourseImageInput = () => {
 
 	const handleCrop = async () => {
 		if (imageSrc && croppedAreaPixels) {
-			const croppedImageUrl = await getCroppedImg(imageSrc, croppedAreaPixels)
-			setTemporaryData({ ...temporaryData, thumbnail: croppedImageUrl })
+			try {
+				const croppedBlob = await getCroppedImg(imageSrc, croppedAreaPixels)
+
+				if (!croppedBlob) {
+					console.error('Cropping failed: Blob is null')
+					return
+				}
+
+				const newObjectUrl = URL.createObjectURL(croppedBlob)
+
+				setObjectUrl(newObjectUrl)
+				setTemporaryData({ thumbnail: newObjectUrl })
+				setThumbnailData(croppedBlob)
+			} catch (error) {
+				console.error('Cropping error:', error)
+			}
 		}
 	}
 
 	const handleChangePhoto = () => {
+		if (objectUrl) {
+			URL.revokeObjectURL(objectUrl)
+		}
+		setObjectUrl(null)
 		setImageSrc(null)
-		setTemporaryData({ ...temporaryData, thumbnail: undefined })
+		setTemporaryData({ thumbnail: undefined })
 	}
+
+	useEffect(() => {
+		return () => {
+			if (objectUrl) {
+				URL.revokeObjectURL(objectUrl)
+			}
+		}
+	}, [objectUrl])
 
 	return (
 		<div className='w-full flex flex-col'>
@@ -49,7 +76,13 @@ const CourseImageInput = () => {
 			<div className='w-full flex justify-between items-start gap-8'>
 				<div className='w-1/2 h-64 relative border border-border'>
 					{temporaryData.thumbnail ? (
-						<Image className='object-cover' fill alt='course photo' src={temporaryData.thumbnail} />
+						<Image
+							className='object-cover'
+							fill
+							alt='course photo'
+							src={temporaryData.thumbnail}
+							onError={e => console.error('Image load error:', e)}
+						/>
 					) : imageSrc ? (
 						<Cropper
 							style={{

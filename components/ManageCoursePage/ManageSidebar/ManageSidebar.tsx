@@ -3,11 +3,10 @@ import { usePathname } from 'next/navigation'
 import SingleItem from './SingleItem/SingleItem'
 import { Button } from '@/components/ui/button'
 import { useCreateCourseStore } from '@/context/useCreateCourseStore'
-import { useEffect } from 'react'
 
-const ManageSidebar = ({ courseId }: { courseId: string }) => {
+const ManageSidebar = () => {
 	const pathname = usePathname()
-	const { temporaryData, loadCourse } = useCreateCourseStore()
+	const { temporaryData } = useCreateCourseStore()
 	const safeData = temporaryData
 
 	const items = [
@@ -33,9 +32,6 @@ const ManageSidebar = ({ courseId }: { courseId: string }) => {
 	]
 
 	const allCompleted = items.every(item => item.complete)
-	useEffect(() => {
-		loadCourse(courseId)
-	}, [])
 
 	return (
 		<aside className='flex flex-col gap-4 px-2'>

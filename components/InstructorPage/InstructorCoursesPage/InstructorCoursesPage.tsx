@@ -3,12 +3,12 @@ import { Button } from '../../ui/button'
 import { Input } from '../../ui/input'
 import { Search } from 'lucide-react'
 import SingleInstructorCourse from './SingleInstructorCourse/SingleInstructorCourse'
-import Loader from '../../ui/loader'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { CourseProps } from '@/types/api'
 import SectionTitle from '../SectionTitle/SectionTitle'
 import Loading from './SingleInstructorCourse/Loading/Loading'
+
 const InstructorCoursesPage = ({ userId }: { userId: string }) => {
 	const [courses, setCourses] = useState<CourseProps[] | null>(null)
 	const [inputValue, setInputValue] = useState('')
@@ -22,7 +22,7 @@ const InstructorCoursesPage = ({ userId }: { userId: string }) => {
 			if (inputValue.trim() !== '') {
 				setSearchedTitle(inputValue)
 			}
-			const response = await fetch(`/api/courses?author_id=${userId}&title=${inputValue.trim()}`)
+			const response = await fetch(`/api/courses?author_id=${userId}&title=${inputValue.trim()}&status=''`)
 
 			if (!response.ok) {
 				throw new Error('Failed to fetch  courses')
@@ -35,6 +35,7 @@ const InstructorCoursesPage = ({ userId }: { userId: string }) => {
 			console.log(err)
 		}
 	}
+
 	useEffect(() => {
 		fetchCourses()
 	}, [userId])

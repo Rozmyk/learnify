@@ -1,23 +1,12 @@
 import formatTimestamp from '@/lib/formatTimestamp'
 import StarRating from '@/components/ui/starRating'
-import { ProfileDataProps, ReviewProps } from '@/types/api'
+import { CourseProps } from '@/types/api'
 import Link from 'next/link'
-import { Earth, CircleAlert } from 'lucide-react'
-const CourseHeader = ({
-	title,
-	subtitle,
-	profiles,
-	reviews,
-	created_at,
-	language,
-}: {
-	title: string
-	subtitle: string
-	profiles: ProfileDataProps
-	reviews: ReviewProps[]
-	created_at: string
-	language: string
-}) => {
+import { Earth, CircleAlert, TriangleAlert } from 'lucide-react'
+interface CourseHeaderProps extends CourseProps {
+	draftMode: boolean | undefined
+}
+const CourseHeader = ({ title, subtitle, profiles, reviews, created_at, language, draftMode }: CourseHeaderProps) => {
 	return (
 		<div className='text-white'>
 			<h1 className='text-4xl  font-semibold mb-2'>{title}</h1>
@@ -39,6 +28,20 @@ const CourseHeader = ({
 					<p className='text-sm'>Language: {language} </p>
 				</div>
 			</div>
+			{draftMode && (
+				<div className='bg-primary p-2 w-full text-secondary mt-4 flex justify-start gap-8  items-start '>
+					<TriangleAlert size={35} />
+					<div>
+						<h4 className='font-semibold text-sm'>This course is in working mode.</h4>
+						<p className='text-xs'>
+							More information can be provided to you directly{' '}
+							<Link className='capitalize font-semibold' href={`/user/${profiles.username}`}>
+								{profiles.username}
+							</Link>
+						</p>
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

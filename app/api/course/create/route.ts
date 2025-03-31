@@ -14,7 +14,7 @@ const createSlug = (title: string): string => {
 export async function POST(request: Request) {
 	try {
 		const formData = await request.formData()
-		console.log(formData)
+
 		const type = formData.get('type') as string
 		const title = formData.get('title') as string
 		const time_commitment = formData.get('time_commitment') as string
@@ -37,25 +37,32 @@ export async function POST(request: Request) {
 
 		let slug = createSlug(title)
 
-		const { error: insertError } = await supabase.from('course').insert([
-			{
-				id: uuidv4(),
-				title,
-				type,
-				time_commitment,
-				author_id: user.id,
-				categories_id,
-				slug,
-			},
-		])
+		const { data: insertData, error: insertError } = await supabase
+			.from('course')
+			.insert([
+				{
+					id: uuidv4(),
+					title,
+					type,
+					time_commitment,
+					author_id: user.id,
+					categories_id,
+					slug,
+				},
+			])
+			.select()
 
-		if (insertError) {
-			console.log(insertError)
-			return NextResponse.json({ error: insertError.message }, { status: 500 })
+		if (insertError || !insertData?.length) {
+			console.error('Insert Error:', insertError)
+			return NextResponse.json({ error: insertError?.message || 'Failed to insert course.' }, { status: 500 })
 		}
 
-		return NextResponse.json({ message: 'Course added successfully!' })
+		return NextResponse.json({
+			message: 'Course added successfully!',
+			course: insertData[0]
+		})
 	} catch (error) {
+		console.error('Unexpected Error:', error)
 		return NextResponse.json({ error: 'Something went wrong.' }, { status: 500 })
 	}
 }

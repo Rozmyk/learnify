@@ -1,16 +1,24 @@
 import { create } from 'zustand'
 import { CourseProps } from '@/types/api'
+type CreateCourseResponse = {
+	success: boolean
+	message: string
+	course?: CourseProps
+}
 
 type CreateCourseStore = {
 	data: Partial<CourseProps>
+	thumbnailData: File | null | Blob
 	temporaryData: Partial<CourseProps>
 	loadCourse: (id: string) => void
 	setData: (newData: Partial<CourseProps>) => void
+	setThumbnailData: (newData: File | null | Blob) => void
 	setTemporaryData: (newData: Partial<CourseProps>) => void
 	isStepValid: (step: number) => boolean
 	reset: () => void
-	createCourse: () => void
+	createCourse: () => Promise<CreateCourseResponse>
 	updateCourse: () => void
+	updateCourseLoading: boolean
 	completedSteps: string[]
 	setCompletedSteps: (steps: string[]) => void
 	loading: boolean
@@ -19,6 +27,12 @@ type CreateCourseStore = {
 
 export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 	data: {},
+	thumbnailData: null,
+	updateCourseLoading: false,
+	setThumbnailData: (newData: File | null | Blob) =>
+		set({
+			thumbnailData: newData,
+		}),
 	temporaryData: {},
 	setTemporaryData: newData =>
 		set(state => ({
@@ -30,7 +44,72 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 	loading: true,
 	createCourseLoading: false,
 	completedSteps: [],
-	updateCourse: async () => {},
+	updateCourse: async (): Promise<{ success: boolean; message: string; course?: any }> => {
+		const { temporaryData, setData, thumbnailData } = get()
+		set({ updateCourseLoading: true })
+
+		if (
+			!temporaryData.title ||
+			!temporaryData.type ||
+			!temporaryData.time_commitment ||
+			!temporaryData.categories_id ||
+			!temporaryData.id
+		) {
+			return { success: false, message: 'All required fields must be filled.' }
+		}
+
+		setData(temporaryData)
+
+		try {
+			const formData = new FormData()
+
+			formData.append('title', temporaryData.title)
+			formData.append('type', temporaryData.type)
+			formData.append('time_commitment', temporaryData.time_commitment)
+			formData.append('categories_id', temporaryData.categories_id)
+			formData.append('course_id', temporaryData.id)
+
+			const optionalFields: (keyof CourseProps)[] = [
+				'subtitle',
+				'description',
+				'price',
+				'currency',
+				'language',
+				'level',
+				'welcome_message',
+				'congratulatory_message',
+			]
+
+			optionalFields.forEach(field => {
+				const value = temporaryData[field]
+				if (value !== undefined && value !== null && value !== '') {
+					formData.append(field, String(value))
+				}
+			})
+
+			if (thumbnailData) {
+				formData.append('thumbnail', thumbnailData)
+			}
+
+			const response = await fetch('/api/course/update', {
+				method: 'PUT',
+				body: formData,
+			})
+
+			const result = await response.json()
+
+			if (!response.ok) {
+				throw new Error(result.error || 'Failed to update course')
+			}
+
+			set({ updateCourseLoading: false, data: temporaryData, thumbnailData: null })
+			return { success: true, message: 'Course updated successfully!', course: result }
+		} catch (error) {
+			console.error(error)
+			set({ updateCourseLoading: false })
+			return { success: false, message: 'Something went wrong.' }
+		}
+	},
 	loadCourse: async (id: string) => {
 		set({ loading: true })
 		try {
@@ -75,8 +154,9 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 			}
 
 			set({ data: {}, createCourseLoading: false })
+
 			reset()
-			return { success: true, message: 'Course created successfully!', course: result }
+			return { success: true, message: 'Course created successfully!', course: result.course }
 		} catch (error) {
 			console.error(error)
 			set({ createCourseLoading: false })

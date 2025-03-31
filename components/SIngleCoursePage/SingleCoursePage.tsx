@@ -15,13 +15,13 @@ import Lessons from './Lessons/Lessons'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
-const SingleCoursePage = ({ course }: { course: CourseProps }) => {
+const SingleCoursePage = ({ course, draftMode }: { course: CourseProps; draftMode?: boolean }) => {
 	const editor = useEditor({
 		extensions: [StarterKit],
 		editable: false,
-		content: course.description,
+		content: course.description ?? '',
 	})
-	console.log(course)
+
 	return course ? (
 		<div className='relative w-full h-full  flex md:flex-row flex-col-reverse justify-between items-start'>
 			<div className=' h-full w-full md:w-2/3 flex flex-col'>
@@ -35,14 +35,7 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 						className='h-96 w-full rounded-lg relative    flex flex-col md:flex-row justify-between items-center gap-14 p-8 border border-border'>
 						<BackButton />
 						<div className='relative z-10 p-2 h-full flex flex-col justify-end items-start w-full md:w-2/3 '>
-							<CourseHeader
-								title={course.title}
-								subtitle={course.subtitle}
-								profiles={course.profiles}
-								language={course.language}
-								created_at={course.created_at}
-								reviews={course.reviews}
-							/>
+							<CourseHeader draftMode={draftMode} {...course} />
 						</div>
 
 						<div className='absolute bg-black opacity-55 top-0 left-0 right-0 bottom-0'></div>
@@ -61,13 +54,17 @@ const SingleCoursePage = ({ course }: { course: CourseProps }) => {
 					)}
 					<AlsoBought courseId={course.id} />
 					<InstructorsSection {...course.profiles} />
-					<ReviewsCourse reviews={course.reviews} course_id={course.id} />
-					<MoreInstructorCourses authorUsername={course.profiles.username} author_id={course.profiles.id} />
+					{!draftMode && (
+						<>
+							<ReviewsCourse reviews={course.reviews} course_id={course.id} />
+							<MoreInstructorCourses authorUsername={course.profiles.username} author_id={course.profiles.id} />
+						</>
+					)}
 				</div>
 			</div>
 
 			<div className='md:w-1/3 w-full   md:p-8  relative md:sticky top-0 right-0  '>
-				<CoursePurchaseCard {...course} />
+				<CoursePurchaseCard draftMode={draftMode} {...course} />
 			</div>
 		</div>
 	) : (

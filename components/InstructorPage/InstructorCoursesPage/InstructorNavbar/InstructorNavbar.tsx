@@ -5,15 +5,18 @@ import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Bell } from 'lucide-react'
 import { ProfileDataProps } from '@/types/api'
-import Image from 'next/image'
+import Loader from '@/components/ui/loader'
 import { ChevronLeft } from 'lucide-react'
+import { useParams } from 'next/navigation'
 import { useCreateCourseStore } from '@/context/useCreateCourseStore'
+import ActionMenu from '@/components/ui/Navbar/ActionMenu/ActionMenu'
 
 const InstructorNavbar = ({ userId }: { userId: string }) => {
 	const [userData, setUserData] = useState<ProfileDataProps | null>(null)
 	const pathname = usePathname()
-	const { data, temporaryData, updateCourse } = useCreateCourseStore()
-
+	const { data, temporaryData, updateCourse, updateCourseLoading, thumbnailData } = useCreateCourseStore()
+	const params = useParams()
+	const courseId = params.id
 	const primaryPaths = ['/instructor/course', '/instructor/tools', '/instructor/help']
 	const isPrimaryNavbar = primaryPaths.some(path => pathname.startsWith(path)) && !pathname.includes('/manage')
 
@@ -37,16 +40,18 @@ const InstructorNavbar = ({ userId }: { userId: string }) => {
 
 	if (isPrimaryNavbar) {
 		return (
-			<div className='w-full h-12 flex justify-end items-center px-8 gap-1 mb-10 '>
+			<div className='w-full h-12 flex justify-end items-center px-8 py-2  gap-1 mb-10 '>
 				<Link href='/'>
 					<Button variant='ghost'>Course participant</Button>
 				</Link>
 				<Button className='text-muted-foreground' size='icon' variant='ghost'>
 					<Bell size={16} />
 				</Button>
-				<div className='w-8 h-8 min-h-8 min-w-8 relative rounded-full overflow-hidden bg-red-400'>
-					{userData && <Image src={userData?.avatar_url} fill alt='user photo' />}
-				</div>
+				<ActionMenu
+					email={userData?.email ?? ''}
+					username={userData?.username ?? ''}
+					avatarUrl={userData?.avatar_url ?? ''}
+				/>
 			</div>
 		)
 	}
@@ -64,9 +69,11 @@ const InstructorNavbar = ({ userId }: { userId: string }) => {
 				<p className='text-sm'>0 min of uploaded video content</p>
 			</div>
 			<div className='flex items-center gap-2'>
-				<Button>Preview</Button>
-				<Button onClick={updateCourse} disabled={data == temporaryData} variant='secondary'>
-					Save
+				<Link href={`/course/draft/${courseId}`}>
+					<Button>Preview</Button>
+				</Link>
+				<Button onClick={updateCourse} disabled={data == temporaryData && !thumbnailData} variant='secondary'>
+					{updateCourseLoading ? <Loader /> : 'Save'}
 				</Button>
 			</div>
 		</div>

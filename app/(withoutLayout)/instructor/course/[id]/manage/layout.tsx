@@ -1,8 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import ManageSidebar from '@/components/ManageCoursePage/ManageSidebar/ManageSidebar'
 import isAuthorOfCourse from '@/lib/isAuthorOfCourse'
-import Loader from '@/components/ui/loader'
+import CourseProvider from '@/components/ManageCoursePage/CourseProvider/CourseProvider'
 export default async function Layout({
 	children,
 	params,
@@ -26,10 +25,7 @@ export default async function Layout({
 
 	return (
 		<div className=' flex md:flex-row min-h-screen gap-4'>
-			<div className='md:w-1/4 w-full '>
-				<ManageSidebar courseId={id} />
-			</div>
-			<div className='md:w-3/4 w-full'>{children}</div>
+			<CourseProvider courseId={id}>{children}</CourseProvider>
 		</div>
 	)
 }

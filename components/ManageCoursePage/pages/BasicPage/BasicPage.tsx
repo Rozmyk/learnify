@@ -7,7 +7,7 @@ import CourseImageInput from './components/CourseImageInput/CourseImageInput'
 import { useCreateCourseStore } from '@/context/useCreateCourseStore'
 import BasicInfo from './components/BasicInfo/BasicInfo'
 
-const BasicPage = ({ courseId }: { courseId: string }) => {
+const BasicPage = () => {
 	const { setTemporaryData, temporaryData, loading } = useCreateCourseStore()
 
 	return (
@@ -46,7 +46,7 @@ const BasicPage = ({ courseId }: { courseId: string }) => {
 						description='The description should be at least 200 words.'
 					/>
 					<BasicInfo />
-					<CourseImageInput courseImage={temporaryData.thumbnail ?? ''} courseId={courseId} />
+					<CourseImageInput />
 				</>
 			) : (
 				<div className='w-full py-10 flex justify-center items-center'>
