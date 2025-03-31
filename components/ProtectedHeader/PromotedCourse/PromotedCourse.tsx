@@ -79,7 +79,7 @@ const PromotedCourse = () => {
 									<h3 className='text-2xl font-bold mb-2 group-hover:text-primary transition-colors duration-300'>
 										{promotedData.title}
 									</h3>
-									<p className='text-muted-foreground mb-4 line-clamp-2 flex-1'>{promotedData.description}</p>
+									<p className='text-muted-foreground mb-4 line-clamp-2 flex-1'>{promotedData.subtitle}</p>
 									<p className='text-muted-foreground text-sm mb-4 line-clamp-2 flex-1 capitalize'>
 										Author: {promotedData.profiles.username}
 									</p>

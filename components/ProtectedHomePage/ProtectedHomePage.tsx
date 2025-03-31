@@ -8,12 +8,17 @@ import { createClient } from '@/utils/supabase/server'
 import StartLearning from '../ProtectedHeader/StartLearning/StartLearning'
 export default async function ProtectedHomePage({ profileData }: { profileData: ProfileDataProps }) {
 	const supabase = await createClient()
-	const { data: courses, error: coursesError } = await supabase.from('course').select(`
+	const { data: courses, error: coursesError } = await supabase
+		.from('course')
+		.select(
+			`
         *,
         reviews(*),
         categories(*),
         profiles(*)
-      `)
+      `
+		)
+		.eq('status', 'published')
 
 	if (coursesError) {
 		console.error('Error fetching courses:', coursesError)

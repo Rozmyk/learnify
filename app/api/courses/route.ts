@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
 	const author_id = searchParams.get('author_id')
 	const category = searchParams.get('category')
 	const sortBy = searchParams.get('sort')
+	const status = searchParams.get('status') ?? 'published'
 	const rating = searchParams.get('rating') ? Number(searchParams.get('rating')) : undefined
 
 	let query = supabase
@@ -30,6 +31,9 @@ export async function GET(req: NextRequest) {
 	}
 	if (level) {
 		query = query.eq('level', level)
+	}
+	if (status) {
+		query = query.eq('status', status)
 	}
 
 	if (category) {
