@@ -41,8 +41,8 @@ const CourseDetails = ({ courseSlug }: { courseSlug: string }) => {
 			<h1 className='text-2xl font-semibold mb-4'>{courseData?.title}</h1>
 			{courseData && <CourseStats courseData={courseData} />}
 			<DetailsBox title='Details'>
-				<p>Skill level: {courseData?.level}</p>
-				<p>Language: {courseData?.language}</p> <p>Subtitles: No</p>
+				<p>Skill level: {courseData?.levels.name}</p>
+				<p>Language: {courseData?.languages.name}</p> <p>Subtitles: No</p>
 			</DetailsBox>
 			<DetailsBox title='Description'>
 				<p>{courseData?.description}</p>

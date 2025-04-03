@@ -4,13 +4,14 @@ import { Button } from '../../button'
 import formatTimestamp from '@/lib/formatTimestamp'
 import SingleLessonPoint from '@/components/SingleLessonPoint/SingleLessonPoint'
 import FavButton from '@/components/FavButton/FavButton'
+import { LevelProps } from '@/types/api'
 const CoursePopover = ({
 	skills_gained,
 	created_at,
 	title,
 	subtitle,
 	id,
-	level,
+	levels,
 	isAlreadOwned,
 	isAlreadInCart,
 	addToCart,
@@ -21,7 +22,7 @@ const CoursePopover = ({
 	title: string
 	subtitle: string
 	id: string
-	level: string
+	levels: LevelProps
 	isAlreadOwned: boolean
 	isAlreadInCart: boolean
 	slug: string
@@ -56,7 +57,7 @@ const CoursePopover = ({
 					<div className='flex justify-start items-center gap-2'>
 						{' '}
 						<p className='text-green-300 text-xs'>Updated: {formatTimestamp(created_at)}</p>
-						<p className='text-xs text-muted-foreground capitalize'>Level: {level}</p>
+						<p className='text-xs text-muted-foreground capitalize'>Level: {levels.name}</p>
 					</div>
 					<p className='text-sm  mt-2 mb-4'>{subtitle}</p>
 					<div className='flex flex-col gap-2 mb-2'>

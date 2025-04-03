@@ -7,34 +7,34 @@ export async function PUT(request: Request) {
 		const formData = await request.formData()
 
 		const title = formData.get('title') as string
-		const type = formData.get('type') as string
+		const type_id = formData.get('type_id') as string
 		const description = formData.get('description') as string
-		const language = formData.get('language') as string
-		const level = formData.get('level') as string
+		const lang_id = formData.get('lang_id') as string
+		const level_id = formData.get('level_id') as string
 		const subtitle = formData.get('subtitle') as string
-		const time_commitment = formData.get('time_commitment') as string
+		const times_commited_id = formData.get('times_commited_id') as string
 		const categories_id = formData.get('categories_id') as string
 		const course_id = formData.get('course_id') as string
 		const thumbnail = formData.get('thumbnail') as File | null
-		const price = formData.get('price') as string
-		const currency = formData.get('currency') as string
+		const price_id = formData.get('price_id') as string
+		const currencies_id = formData.get('currencies_id') as string
 		const welcome_message = formData.get('welcome_message') as string
 		const congratulatory_message = formData.get('congratulatory_message') as string
 
-		if (!title || !type || !time_commitment || !categories_id || !course_id) {
+		if (!title || !type_id || !times_commited_id || !categories_id || !course_id) {
 			return NextResponse.json({ error: 'All required fields must be filled.' }, { status: 400 })
 		}
 
 		let updateData: Record<string, any> = {
 			title,
-			type,
-			level,
+			type_id,
+			level_id,
 			subtitle,
 			description,
-			currency,
-			price,
-			language,
-			time_commitment,
+			currencies_id,
+			price_id,
+			lang_id,
+			times_commited_id,
 			welcome_message,
 			congratulatory_message,
 			categories_id,

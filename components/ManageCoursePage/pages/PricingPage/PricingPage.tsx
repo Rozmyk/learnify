@@ -1,75 +1,65 @@
 'use client'
-
 import { useEffect, useState } from 'react'
-import CustomSelect from '@/components/CustomSelect/CustomSelect'
 import PageWrapper from '../../PageWrapper/PageWrapper'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
 import { useCreateCourseStore } from '@/context/useCreateCourseStore'
-
+import Loader from '@/components/ui/loader'
+import PriceLevelSelect from './PriceLevelSelect/PriceLevelSelect'
+import CurrencySelect from './CurrencySelect/CurrencySelect'
+import { PriceProps, CurrenciesProps } from '@/types/api'
 const FREE_API_URL = 'https://api.exchangerate-api.com/v4/latest/USD'
-
-const CurrencySelect = ({ value, onChange }: { value: string; onChange: (value: string) => void }) => {
-	const currencies = ['USD', 'EUR', 'GBP', 'PLN', 'MXN', 'JPY', 'CAD']
-	const options = currencies.map(code => ({ label: code, value: code }))
-
-	return (
-		<div className='flex flex-col gap-2'>
-			<Label className='font-semibold my-1 text-base'>Currency</Label>
-			<CustomSelect value={value} onChange={onChange} placeholder='Choose currency' options={options} />
-		</div>
-	)
-}
-
-const PriceLevelSelect = ({
-	value,
-	onChange,
-	currency,
-	rates,
-}: {
-	value: string
-	onChange: (value: string) => void
-	currency: string
-	rates: Record<string, number>
-}) => {
-	const basePriceUSD = 19.99
-	const conversionRate = rates[currency] || 1
-
-	const priceLevels = Array.from({ length: 10 }, (_, i) => {
-		const price = ((basePriceUSD + i * 10) * conversionRate).toFixed(2)
-		return { label: `${price} ${currency} (Level ${i + 1})`, value: price }
-	})
-
-	useEffect(() => {
-		if (!value || !priceLevels.some(p => p.value === value)) {
-			onChange(priceLevels[0].value)
-		}
-	}, [value, currency, rates])
-
-	return (
-		<div className='flex flex-col gap-2'>
-			<Label className='font-semibold my-1 text-base'>Price level</Label>
-			<CustomSelect value={value ?? ''} onChange={onChange} placeholder='Choose price level' options={priceLevels} />
-		</div>
-	)
-}
 
 const PricingPage = () => {
 	const { temporaryData, setTemporaryData } = useCreateCourseStore()
 	const [exchangeRates, setExchangeRates] = useState<Record<string, number>>({ USD: 1 })
+	const [prices, setPrices] = useState<PriceProps[] | null>(null)
+	const [currencies, setCurrencies] = useState<CurrenciesProps[] | null>(null)
+	const [globalLoading, setGlobalLoading] = useState({ price: true, currency: true, rates: true })
 
 	useEffect(() => {
-		const fetchExchangeRates = async () => {
-			try {
-				const res = await fetch(FREE_API_URL)
-				const data = await res.json()
-				setExchangeRates(data.rates)
-			} catch (error) {
-				console.error('Error fetching exchange rates:', error)
+		const fetchData = async () => {
+			const fetchExchangeRates = async () => {
+				try {
+					const response = await fetch(FREE_API_URL)
+					if (!response.ok) throw new Error('Exchange rate fetch failed')
+					const data = await response.json()
+					setExchangeRates(data.rates)
+				} catch (error) {
+					console.error('Error fetching exchange rates:', error)
+				} finally {
+					setGlobalLoading(prev => ({ ...prev, rates: false }))
+				}
 			}
+
+			const fetchPrices = async () => {
+				try {
+					const response = await fetch('/api/prices')
+					if (!response.ok) throw new Error('Network response was not ok')
+					const data = await response.json()
+					setPrices(data.prices)
+				} catch (error) {
+					console.error('Error fetching prices:', error)
+				} finally {
+					setGlobalLoading(prev => ({ ...prev, price: false }))
+				}
+			}
+
+			const fetchCurrencies = async () => {
+				try {
+					const response = await fetch('/api/currencies')
+					if (!response.ok) throw new Error('Network response was not ok')
+					const data = await response.json()
+					setCurrencies(data.currencies)
+				} catch (error) {
+					console.error('Error fetching currencies:', error)
+				} finally {
+					setGlobalLoading(prev => ({ ...prev, currency: false }))
+				}
+			}
+
+			await Promise.all([fetchCurrencies(), fetchPrices(), fetchExchangeRates()])
 		}
 
-		fetchExchangeRates()
+		fetchData()
 	}, [])
 
 	return (
@@ -79,19 +69,27 @@ const PricingPage = () => {
 				Choose the currency and price level for your course. If you want to make the course available for free, its
 				length must not exceed 2 hours. In addition, courses with practice tests cannot be free.
 			</p>
-			<div className='flex my-10 gap-4'>
-				<CurrencySelect
-					value={temporaryData.currency ?? ''}
-					onChange={e => setTemporaryData({ ...temporaryData, currency: e })}
-				/>
-				<PriceLevelSelect
-					value={String(temporaryData.price) ?? ''}
-					onChange={e => setTemporaryData({ ...temporaryData, price: e })}
-					currency={temporaryData.currency ?? ''}
-					rates={exchangeRates}
-				/>
-			</div>
-			<Button>Save</Button>
+			{globalLoading.currency || globalLoading.price ? (
+				<div className='flex w-full py-10 justify-center items-center'>
+					<Loader />
+				</div>
+			) : (
+				<div className='flex my-10 gap-4'>
+					<CurrencySelect
+						currencies={currencies}
+						value={temporaryData.currencies_id ?? ''}
+						onChange={e => setTemporaryData({ ...temporaryData, currencies_id: e })}
+					/>
+					<PriceLevelSelect
+						currencies={currencies}
+						prices={prices}
+						value={temporaryData.price_id ?? ''}
+						onChange={e => setTemporaryData({ ...temporaryData, price_id: e })}
+						currency={temporaryData.currencies_id}
+						rates={exchangeRates}
+					/>
+				</div>
+			)}
 		</PageWrapper>
 	)
 }

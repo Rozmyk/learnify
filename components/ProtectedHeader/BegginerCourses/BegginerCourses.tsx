@@ -5,20 +5,26 @@ import { CourseProps } from '@/types/api'
 const BegginerCourses = () => {
 	const [courses, setCourses] = useState<CourseProps[] | null>(null)
 	const [loading, setLoading] = useState(true)
+
 	const level = 'begginer'
 	useEffect(() => {
 		const fetchFilteredCourses = async () => {
-			setLoading(true)
+			try {
+				setLoading(true)
 
-			const params = new URLSearchParams({
-				instructional_level: level,
-			})
+				const params = new URLSearchParams({
+					instructional_level: level,
+					status: 'published',
+				})
 
-			const response = await fetch(`/api/courses?${params}`)
-			const data = await response.json()
+				const response = await fetch(`/api/courses?${params}`)
+				const data = await response.json()
 
-			setCourses(data)
-			setLoading(false)
+				setCourses(data)
+				setLoading(false)
+			} catch (err) {
+				console.log(err)
+			}
 		}
 
 		fetchFilteredCourses()

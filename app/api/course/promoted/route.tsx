@@ -10,11 +10,13 @@ export async function GET() {
         *,
         course(
           *,
-          profiles:author_id(*), categories(*), reviews(*)
+          profiles(*), categories(*), reviews(*), languages(*), currencies(*), prices(*), levels(*)
         )
       `
 		)
+		.eq('course.status', 'published')
 		.single()
+
 	if (error) {
 		return NextResponse.json({ error: error.message }, { status: 500 })
 	}

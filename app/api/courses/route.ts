@@ -1,15 +1,14 @@
-import { CourseProps } from '@/types/api'
 import { createClient } from '@/utils/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
 	const supabase = await createClient()
 	const { searchParams } = new URL(req.url)
-	const level = searchParams.get('instructional_level')
-	const language = searchParams.get('lang')
+	const level_id = searchParams.get('instructional_level')
+	const language_id = searchParams.get('lang')
 	const title = searchParams.get('title')
 	const author_id = searchParams.get('author_id')
-	const category = searchParams.get('category')
+	const category_id = searchParams.get('category_id')
 	const sortBy = searchParams.get('sort')
 	const status = searchParams.get('status') ?? 'published'
 	const rating = searchParams.get('rating') ? Number(searchParams.get('rating')) : undefined
@@ -19,25 +18,25 @@ export async function GET(req: NextRequest) {
 		.select(
 			`*, 
             reviews(rating), 
-            categories(id, name), profiles(*)`
+            categories(id, name), profiles(*), currencies(*),levels(*), prices(*), languages(*)`
 		)
 		.order('created_at', { ascending: false })
 
-	if (language) {
-		query = query.eq('language', language)
+	if (language_id) {
+		query = query.eq('language_id', language_id)
 	}
 	if (author_id) {
 		query = query.eq('author_id', author_id)
 	}
-	if (level) {
-		query = query.eq('level', level)
+	if (level_id) {
+		query = query.eq('level_id', level_id)
 	}
 	if (status) {
 		query = query.in('status', ['published', 'draft', 'archived'])
 	}
 
-	if (category) {
-		query = query.eq('categories_id', category)
+	if (category_id) {
+		query = query.eq('categories_id', category_id)
 	}
 	if (title) {
 		query = query.ilike('title', `%${title}%`)

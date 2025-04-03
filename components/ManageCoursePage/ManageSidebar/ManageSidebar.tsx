@@ -17,13 +17,13 @@ const ManageSidebar = () => {
 				safeData.title &&
 				safeData.subtitle &&
 				safeData.description &&
-				safeData.language &&
-				safeData.level &&
+				safeData.lang_id &&
+				safeData.level_id &&
 				safeData.categories_id &&
 				safeData.thumbnail
 			),
 		},
-		{ href: 'pricing', text: 'Pricing', complete: !!(safeData.price && safeData.currency) },
+		{ href: 'pricing', text: 'Pricing', complete: !!(safeData.price_id && safeData.currencies_id) },
 		{
 			href: 'messages',
 			text: 'Course messages',

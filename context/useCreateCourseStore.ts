@@ -44,17 +44,27 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 	loading: true,
 	createCourseLoading: false,
 	completedSteps: [],
-	updateCourse: async (): Promise<{ success: boolean; message: string; course?: any }> => {
+	updateCourse: async (): Promise<{ success: boolean; message: string; course?: CourseProps }> => {
 		const { temporaryData, setData, thumbnailData } = get()
 		set({ updateCourseLoading: true })
 
 		if (
 			!temporaryData.title ||
-			!temporaryData.type ||
-			!temporaryData.time_commitment ||
+			!temporaryData.type_id ||
+			!temporaryData.times_commited_id ||
 			!temporaryData.categories_id ||
 			!temporaryData.id
 		) {
+			console.log('nie ma wszystkich danych')
+			console.table({
+				title: temporaryData.title,
+				type_id: temporaryData.type_id,
+				times_commited_id: temporaryData.times_commited_id,
+				categories_id: temporaryData.categories_id,
+				id: temporaryData.id,
+			})
+
+			console.log(temporaryData)
 			return { success: false, message: 'All required fields must be filled.' }
 		}
 
@@ -64,18 +74,18 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 			const formData = new FormData()
 
 			formData.append('title', temporaryData.title)
-			formData.append('type', temporaryData.type)
-			formData.append('time_commitment', temporaryData.time_commitment)
+			formData.append('type_id', temporaryData.type_id)
+			formData.append('times_commited_id', temporaryData.times_commited_id)
 			formData.append('categories_id', temporaryData.categories_id)
 			formData.append('course_id', temporaryData.id)
-
+			console.log(formData)
 			const optionalFields: (keyof CourseProps)[] = [
 				'subtitle',
 				'description',
-				'price',
-				'currency',
-				'language',
-				'level',
+				'price_id',
+				'currencies_id',
+				'lang_id',
+				'level_id',
 				'welcome_message',
 				'congratulatory_message',
 			]
@@ -129,7 +139,7 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 	createCourse: async () => {
 		const { data, reset } = get()
 
-		if (!data.title || !data.type || !data.time_commitment || !data.categories_id) {
+		if (!data.title || !data.type_id || !data.times_commited_id || !data.categories_id) {
 			return { success: false, message: 'All fields are required.' }
 		}
 
@@ -138,8 +148,8 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 		try {
 			const formData = new FormData()
 			formData.append('title', data.title)
-			formData.append('type', data.type)
-			formData.append('time_commitment', data.time_commitment)
+			formData.append('type_id', data.type_id)
+			formData.append('times_commited_id', data.times_commited_id)
 			formData.append('categories_id', data.categories_id)
 
 			const response = await fetch('/api/course/create', {
@@ -176,13 +186,13 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 
 		switch (step) {
 			case 1:
-				return !!data.type
+				return !!data.type_id
 			case 2:
 				return !!data.title && data.title.trim().length >= 0
 			case 3:
 				return !!data.categories_id
 			case 4:
-				return !!data.time_commitment
+				return !!data.times_commited_id
 			default:
 				return false
 		}

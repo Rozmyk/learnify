@@ -16,7 +16,7 @@ interface CoursePurchasedCardProps extends CourseProps {
 const CoursePurchaseCard = ({
 	thumbnail,
 	discount,
-	price,
+	prices,
 	id,
 	created_at,
 	slug,
@@ -33,8 +33,8 @@ const CoursePurchaseCard = ({
 	const isAlreadyInCart = cartItems.some(item => item.product_id == id)
 
 	let finalPrice = 'Free'
-	if (price) {
-		finalPrice = discount ? `${(Number(price) * (1 - discount / 100)).toFixed(2)} zł` : `${price} zł`
+	if (prices) {
+		finalPrice = discount ? `${(prices.value * (1 - discount / 100)).toFixed(2)} zł` : `${prices.value} zł`
 	}
 
 	return (
@@ -70,7 +70,7 @@ const CoursePurchaseCard = ({
 				<div className='w-full p-4'>
 					<div className='flex gap-2 justify-start items-center mb-4'>
 						<p className='font-semibold text-2xl'>{finalPrice}</p>
-						{discount && <p className='text-muted-foreground line-through'>{price} zł</p>}
+						{discount && <p className='text-muted-foreground line-through'>{prices.value} zł</p>}
 						{discount && <p className='text-muted-foreground'>-{discount} % discount</p>}
 					</div>
 

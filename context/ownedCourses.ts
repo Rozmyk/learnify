@@ -31,7 +31,7 @@ export const useOwnedCoursesStore = create<OwnedCoursesState>((set, get) => ({
 
 		const { data, error } = await supabase
 			.from('owned_courses')
-			.select('*, course(*, profiles(*), user_lessons_progress(*), lessons(*))')
+			.select('*, course(*, profiles(*), user_lessons_progress(*), lessons(*), prices(*))')
 			.eq('user_id', user.id)
 
 		if (error) {

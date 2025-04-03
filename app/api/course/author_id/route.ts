@@ -11,7 +11,11 @@ export async function GET(req: Request) {
 		return NextResponse.json({ courses: [] })
 	}
 
-	let query = supabase.from('course').select('*, categories(*), profiles(*), reviews(*)').eq('author_id', author_id)
+	let query = supabase
+		.from('course')
+		.select('*, categories(*), profiles(*), reviews(*), languages(*), currencies(*), prices(*),levels(*)')
+		.eq('author_id', author_id)
+		.eq('status', 'published')
 
 	if (limit) {
 		query = query.limit(Number(limit))

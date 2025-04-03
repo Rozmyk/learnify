@@ -1,14 +1,10 @@
-export enum LevelProps {
-	begginer = 'begginer',
-	intermediate = 'intermediate',
-	advanced = 'advanced',
-}
-export type TimeCommitment = '0-2' | '2-4' | '5+' | 'undecided'
 export interface CourseProps {
 	title: string
-	type: 'course' | 'practice'
+	type_id: string
+	types: TypeProps
 	subtitle: string
-	price: string
+	prices: PriceProps
+	price_id: string
 	thumbnail: string
 	created_at: string
 	author_id: string
@@ -16,6 +12,8 @@ export interface CourseProps {
 	reviews: ReviewProps[]
 	categories_id: string
 	categories: CategoryProps
+	lang_id: string
+	languages: LanguageProps
 	profiles: ProfileDataProps
 	slug: string
 	skills_gained: string
@@ -23,15 +21,17 @@ export interface CourseProps {
 	requirements: string
 	target_audience: string
 	discount: number | null
-	language: string
-	level: LevelProps
+	level_id: string
+	levels: LevelProps
 	avg_rating: number
 	user_lessons_progress: UserLessonsProgressProps[]
 	lessons: SingleLessonProps[]
 	step_completed: number
 	status: 'draft' | 'published' | 'archived'
-	time_commitment: TimeCommitment
-	currency: string
+	times_commited_id: string
+	times_commited: TimeCommitmentProps
+	currencies_id: string
+	currencies: CurrenciesProps
 	welcome_message: string
 	congratulatory_message: string
 }
@@ -95,7 +95,7 @@ export interface FilterProps {
 	sortBy: string | null
 	free: boolean
 	payable: boolean
-	level: 'beginner' | 'intermediate' | 'advanced'
+	level: string
 }
 export interface UserLessonsProgressProps {
 	id: string
@@ -131,4 +131,37 @@ export interface SingleSectionProps {
 export interface ModalDataProps {
 	isOpen: boolean
 	content: 'AddRating' | 'EditRating' | 'DeleteRating' | null
+}
+export interface LanguageProps {
+	id: string
+	name: string
+	lang_code: string
+	course: CourseProps[]
+}
+export interface LevelProps {
+	id: string
+	name: string
+	value: string
+	course: CourseProps[]
+}
+export interface CurrenciesProps {
+	id: string
+	name: string
+}
+export interface PriceProps {
+	id: string
+	level: number
+	value: number
+}
+export interface TypeProps {
+	id: string
+	name: string
+	value: string
+	description: string
+	icon: string
+}
+export interface TimeCommitmentProps {
+	id: string
+	value: string
+	label: string
 }

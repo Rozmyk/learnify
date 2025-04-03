@@ -6,7 +6,7 @@ import { Earth, CircleAlert, TriangleAlert } from 'lucide-react'
 interface CourseHeaderProps extends CourseProps {
 	draftMode: boolean | undefined
 }
-const CourseHeader = ({ title, subtitle, profiles, reviews, created_at, language, draftMode }: CourseHeaderProps) => {
+const CourseHeader = ({ title, subtitle, profiles, reviews, created_at, languages, draftMode }: CourseHeaderProps) => {
 	return (
 		<div className='text-white'>
 			<h1 className='text-4xl  font-semibold mb-2'>{title}</h1>
@@ -25,7 +25,7 @@ const CourseHeader = ({ title, subtitle, profiles, reviews, created_at, language
 				</div>
 				<div className='flex justify-start items-center gap-2'>
 					<Earth size={16} />
-					<p className='text-sm'>Language: {language}</p>
+					<p className='text-sm'>Language: {languages.name}</p>
 				</div>
 			</div>
 			{draftMode && (

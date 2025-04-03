@@ -1,22 +1,19 @@
 import { CategoryProps } from '@/types/api'
-import * as Select from '@radix-ui/react-select'
-import { useState, useEffect, Dispatch, SetStateAction } from 'react'
-import { Label } from '@/components/ui/label'
-import { Check, ChevronDown } from 'lucide-react'
-import clsx from 'clsx'
+import { useState, useEffect } from 'react'
+import CustomSelect from '../CustomSelect/CustomSelect'
+import { Label } from '../ui/label'
 
 const CategorySelect = ({
 	value,
 	onChange,
 	withoutLabel,
-	className,
 }: {
-	value: string | undefined
+	value: string
 	onChange: (value: string) => void
 	withoutLabel?: boolean
-	className?: string
 }) => {
 	const [categoriesData, setCategoriesData] = useState<null | CategoryProps[]>(null)
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		const getCategories = async () => {
@@ -31,48 +28,25 @@ const CategorySelect = ({
 				setCategoriesData(data)
 			} catch (error) {
 				console.error('Error during category download:', error)
+			} finally {
+				setLoading(false)
 			}
 		}
 
 		getCategories()
 	}, [])
-
+	const options = categoriesData?.map(code => ({ label: code.name, value: code.id }))
 	return (
-		<>
+		<div>
 			{!withoutLabel && <Label>Category</Label>}
-			<Select.Root value={value ?? undefined} onValueChange={onChange}>
-				<Select.Trigger
-					className={clsx(
-						'inline-flex items-center justify-between bg-background border border-input rounded-md px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 text-muted-foreground',
-						className
-					)}>
-					<Select.Value placeholder='Choose category' />
-					<Select.Icon>
-						<ChevronDown />
-					</Select.Icon>
-				</Select.Trigger>
-
-				<Select.Portal>
-					<Select.Content className='bg-background border border-input rounded shadow-lg '>
-						<Select.ScrollUpButton />
-						<Select.Viewport className='p-2'>
-							{categoriesData?.map(value => (
-								<Select.Item
-									key={value.id}
-									value={value.id}
-									className='cursor-pointer select-none px-4 py-2 rounded hover:bg-accent focus:bg-accent flex items-center justify-between'>
-									<Select.ItemText>{value.name}</Select.ItemText>
-									<Select.ItemIndicator>
-										<Check />
-									</Select.ItemIndicator>
-								</Select.Item>
-							))}
-						</Select.Viewport>
-						<Select.ScrollDownButton />
-					</Select.Content>
-				</Select.Portal>
-			</Select.Root>
-		</>
+			<CustomSelect
+				placeholder='Choose category'
+				loading={loading}
+				value={value}
+				onChange={onChange}
+				options={options ?? []}
+			/>
+		</div>
 	)
 }
 

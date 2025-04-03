@@ -12,8 +12,9 @@ export async function POST(req: NextRequest) {
 
 		const { data, error } = await supabase
 			.from('course')
-			.select('*, profiles(*), categories(*)')
+			.select('*, profiles(*), categories(*), languages(*), currencies(*), prices(*),levels(*)')
 			.not('id', 'in', `(${body.excludedPosts.join(',')})`)
+			.eq('status', 'published')
 			.limit(3)
 
 		if (error) {

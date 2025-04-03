@@ -64,7 +64,7 @@ const CourseStats = ({ courseData }: { courseData: CourseProps }) => {
 			</div>
 			<div className='flex flex-col gap-2'>
 				<StatItem value={`Last update: ${formatTimestamp(courseData.created_at)}`} icon={CircleAlert} />
-				<StatItem value={`Language: ${courseData.language}`} icon={Globe} />
+				<StatItem value={`Language: ${courseData.languages.name}`} icon={Globe} />
 			</div>
 		</div>
 	)

@@ -9,7 +9,8 @@ export async function fetchSingleCourse(courseId: string) {
       *,
       reviews(*),
       categories(*),
-      profiles(*)
+      profiles(*), currencies(*), prices(*),levels(*),
+	  languages(*)
     `
 		)
 		.eq('id', courseId)

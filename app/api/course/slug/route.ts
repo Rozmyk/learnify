@@ -12,8 +12,9 @@ export async function GET(req: Request) {
 
 	let query = supabase
 		.from('course')
-		.select('*, categories(*), profiles(*), reviews(*), lessons(*)')
+		.select('*, categories(*), profiles(*), reviews(*), lessons(*), languages(*), currencies(*), prices(*),levels(*)')
 		.eq('slug', slug)
+		.eq('status', 'published')
 		.single()
 
 	const { data, error } = await query

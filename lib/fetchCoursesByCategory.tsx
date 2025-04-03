@@ -8,7 +8,7 @@ export async function fetchCoursesByCategory(categoryId: string) {
       *,
       reviews(*),
       categories!inner(*),
-      profiles(*)
+      profiles(*), currencies(*), prices(*),levels(*)
       `
 		)
 		.eq('categories.id', categoryId)

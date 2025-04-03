@@ -27,7 +27,7 @@ const StepThree = () => {
 				description='If you are not sure about a category, you can change it later.'
 			/>
 			<div className='w-full flex justify-center items-center'>
-				<CategorySelect className='w-full max-w-96' value={category} onChange={setCategory} withoutLabel />
+				<CategorySelect value={category ?? ''} onChange={setCategory} withoutLabel />
 			</div>
 		</div>
 	)

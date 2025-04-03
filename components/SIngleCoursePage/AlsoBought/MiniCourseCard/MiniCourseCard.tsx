@@ -7,7 +7,7 @@ import { Users } from 'lucide-react'
 import formatTimestamp from '@/lib/formatTimestamp'
 import Link from 'next/link'
 
-const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount, created_at, slug }: CourseProps) => {
+const MiniCourseCard = ({ title, thumbnail, reviews, id, prices, discount, created_at, slug }: CourseProps) => {
 	const [courseOwnersLength, setCourseOwnersLength] = useState<null | number>(null)
 	const calcCourseOwner = async () => {
 		try {
@@ -47,10 +47,10 @@ const MiniCourseCard = ({ title, thumbnail, reviews, id, price, discount, create
 						</div>
 					</div>
 					<div className='flex md:flex-col flex-row md:justify-start justify-center md:items-start items-center gap-1 md:gap-0'>
-						<p className='font-semibold text-sm '>{price} zł</p>
+						<p className='font-semibold text-sm '>{prices.value} zł</p>
 						{discount && (
 							<p className=' text-xs text-muted-foreground line-through'>
-								{(Number(price) * (1 - discount / 100)).toFixed(2)} zł
+								{(prices.value * (1 - discount / 100)).toFixed(2)} zł
 							</p>
 						)}
 					</div>

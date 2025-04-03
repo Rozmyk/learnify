@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 				  *,
 				  reviews(*, profiles(*)),
 				  categories(*),
-				  profiles(*)
+				  profiles(*), languages(*)
 				 
 				`
 		)

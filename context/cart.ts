@@ -64,10 +64,10 @@ export const useCartStore = create<CartState>((set, get) => ({
 	calculateTotalPrice: () => {
 		const { cartItems, discount } = get()
 		const originalTotal = cartItems.reduce((sum, item) => {
-			return sum + (Number(item.course?.price) ?? 0) * (1 - (item?.course?.discount ?? 0) / 100)
+			return sum + (item.course?.prices.value ?? 0) * (1 - (item?.course?.discount ?? 0) / 100)
 		}, 0)
 		const total = cartItems.reduce((sum, item) => {
-			const price = (Number(item.course?.price) ?? 0) * (1 - (item?.course?.discount ?? 0) / 100) || 0
+			const price = (item.course?.prices.value ?? 0) * (1 - (item?.course?.discount ?? 0) / 100) || 0
 			const finalPrice = price * (1 - discount / 100)
 			return sum + finalPrice
 		}, 0)
@@ -156,7 +156,11 @@ export const useCartStore = create<CartState>((set, get) => ({
 				return
 			}
 
-			const { data, error } = await supabase.from('course').select('*, profiles(*)').eq('id', newItem).single()
+			const { data, error } = await supabase
+				.from('course')
+				.select('*, profiles(*), prices(*)')
+				.eq('id', newItem)
+				.single()
 
 			if (error) {
 				set({ loading: false })
@@ -246,7 +250,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 
 			const { data: cartData, error: cartError } = await supabase
 				.from('cart')
-				.select('*, course(*, profiles(*), reviews(*))')
+				.select('*, course(*, profiles(*), reviews(*), prices(*))')
 				.eq('user_id', user.id)
 
 			if (cartError) {

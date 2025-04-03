@@ -10,7 +10,7 @@ const MiniCourseCard = ({
 	title,
 	profiles,
 	thumbnail,
-	price,
+	prices,
 	discount,
 	slug,
 	withoutButton,
@@ -28,12 +28,12 @@ const MiniCourseCard = ({
 					<p className='text-sm text-muted-foreground'>{profiles.username}</p>
 					<div className='flex justify-start items-center gap-2 mt-2 '>
 						{discount && discount > 0 && (
-							<p className='text-sm font-semibold '>{(Number(price) * (1 - discount / 100)).toFixed(2)} zł</p>
+							<p className='text-sm font-semibold '>{(Number(prices.value) * (1 - discount / 100)).toFixed(2)} zł</p>
 						)}
 
 						<p
 							className={`${discount && discount > 0 ? 'line-through text-muted-foreground text-sm' : 'text-sm font-semibold'}`}>
-							{price} zł
+							{prices.value} zł
 						</p>
 					</div>
 				</div>

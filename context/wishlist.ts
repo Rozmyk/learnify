@@ -32,7 +32,7 @@ export const useWishlistStore = create<WishlistState>((set, get) => ({
 
 		const { data: favCourses, error } = (await supabase
 			.from('favCourses')
-			.select('course(*, profiles(*), reviews(*))')
+			.select('course(*, profiles(*), reviews(*), prices(*), categories(*))')
 			.eq('user_id', user.id)) as { data: { course: CourseProps }[] | null; error: any }
 
 		if (error) {
@@ -76,7 +76,7 @@ export const useWishlistStore = create<WishlistState>((set, get) => ({
 
 			const { data: newCourse } = await supabase
 				.from('course')
-				.select('*, reviews(*), categories(*), profiles(*)')
+				.select('*, reviews(*), categories(*), profiles(*), prices(*), levels(*)')
 				.eq('id', courseId)
 				.single()
 

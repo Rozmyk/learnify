@@ -10,7 +10,11 @@ export async function GET(req: Request) {
 		return NextResponse.json({ courses: [] })
 	}
 
-	const { data, error } = await supabase.from('course').select('*, profiles(*)').ilike('title', `%${query}%`)
+	const { data, error } = await supabase
+		.from('course')
+		.select('*, profiles(*), languages(*), currencies(*), prices(*),levels(*)')
+		.ilike('title', `%${query}%`)
+		.eq('status', 'published')
 
 	if (error) {
 		return NextResponse.json({ error: error.message }, { status: 500 })

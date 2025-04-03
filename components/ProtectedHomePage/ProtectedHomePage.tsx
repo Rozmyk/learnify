@@ -15,7 +15,7 @@ export default async function ProtectedHomePage({ profileData }: { profileData: 
         *,
         reviews(*),
         categories(*),
-        profiles(*)
+        profiles(*), currencies(*), prices(*), levels(*)
       `
 		)
 		.eq('status', 'published')
