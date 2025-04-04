@@ -10,6 +10,7 @@ import { ChevronLeft } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useCreateCourseStore } from '@/context/useCreateCourseStore'
 import ActionMenu from '@/components/ui/Navbar/ActionMenu/ActionMenu'
+import StatusBadge from './StatusBadge/StatusBadge'
 
 const InstructorNavbar = ({ userId }: { userId: string }) => {
 	const [userData, setUserData] = useState<ProfileDataProps | null>(null)
@@ -65,7 +66,7 @@ const InstructorNavbar = ({ userId }: { userId: string }) => {
 					</Button>
 				</Link>
 				<h2 className='font-semibold'>{data.title}</h2>
-				<span className='bg-secondary text-primary px-1 py-2 rounded-lg text-xs'>Operating mode</span>
+				{data.status && <StatusBadge status={data.status} />}
 				<p className='text-sm'>0 min of uploaded video content</p>
 			</div>
 			<div className='flex items-center gap-2'>

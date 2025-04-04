@@ -13,6 +13,7 @@ type CreateCourseStore = {
 	loadCourse: (id: string) => void
 	setData: (newData: Partial<CourseProps>) => void
 	setThumbnailData: (newData: File | null | Blob) => void
+	publishCourse: () => void
 	setTemporaryData: (newData: Partial<CourseProps>) => void
 	isStepValid: (step: number) => boolean
 	reset: () => void
@@ -23,12 +24,14 @@ type CreateCourseStore = {
 	setCompletedSteps: (steps: string[]) => void
 	loading: boolean
 	createCourseLoading: boolean
+	publishCourseLoading: boolean
 }
 
 export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 	data: {},
 	thumbnailData: null,
 	updateCourseLoading: false,
+	publishCourseLoading: false,
 	setThumbnailData: (newData: File | null | Blob) =>
 		set({
 			thumbnailData: newData,
@@ -55,16 +58,6 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 			!temporaryData.categories_id ||
 			!temporaryData.id
 		) {
-			console.log('nie ma wszystkich danych')
-			console.table({
-				title: temporaryData.title,
-				type_id: temporaryData.type_id,
-				times_commited_id: temporaryData.times_commited_id,
-				categories_id: temporaryData.categories_id,
-				id: temporaryData.id,
-			})
-
-			console.log(temporaryData)
 			return { success: false, message: 'All required fields must be filled.' }
 		}
 
@@ -78,7 +71,7 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 			formData.append('times_commited_id', temporaryData.times_commited_id)
 			formData.append('categories_id', temporaryData.categories_id)
 			formData.append('course_id', temporaryData.id)
-			console.log(formData)
+
 			const optionalFields: (keyof CourseProps)[] = [
 				'subtitle',
 				'description',
@@ -173,7 +166,34 @@ export const useCreateCourseStore = create<CreateCourseStore>((set, get) => ({
 			return { success: false, message: 'Something went wrong.' }
 		}
 	},
+	publishCourse: async () => {
+		const { data } = get()
 
+		if (!data.id) {
+			return { success: false, message: 'Course ID is required.' }
+		}
+		set({ updateCourseLoading: true })
+
+		try {
+			const response = await fetch('/api/course/publish', {
+				method: 'POST',
+				body: JSON.stringify({ courseId: data.id }),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+
+			if (!response.ok) {
+				throw new Error('Failed to publish course')
+			}
+
+			set({ data: { ...data, status: 'published' }, publishCourseLoading: false })
+			return { success: true, message: 'Course published successfully!' }
+		} catch (error) {
+			console.error(error)
+			return { success: false, message: 'Something went wrong.' }
+		}
+	},
 	setData: newData =>
 		set(state => ({
 			data: {
